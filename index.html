@@ -3,45 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Content Strategist — Organic Content & Search Visibility</title>
+    <title>Rank.in — Digital Content Strategist — Search Visibility & AI Optimization</title>
     
-    <!-- Primary SEO Meta Tags (No Personal Name Included) -->
-    <meta name="description" content="Specialized SEO and Generative Engine Optimization (GEO) strategies designed to rank websites on Google, ChatGPT, and Perplexity for high-intent organic leads.">
+    <!-- Primary SEO Meta Tags -->
+    <meta name="description" content="Specialized strategies designed to rank websites on Google, ChatGPT, and Perplexity for high-intent organic leads.">
     <meta name="keywords" content="SEO Specialist, GEO Specialist, On-Page SEO, Off-Page SEO, Backlink Strategy, AI Search Optimization, Generative Engine Optimization, Search Visibility">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.example.com/">
 
-    <!-- Open Graph / Facebook Meta Tags -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="SEO & GEO Strategy — Organic Content & Search Visibility">
-    <meta property="og:description" content="Drive sustainable organic leads and dominate search engine results with strategic On-Page, Off-Page, and AI Search Optimization.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200">
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SEO & GEO Strategy — Organic Content & Search Visibility">
-    <meta name="twitter:description" content="Position your domain where Google and modern AI assistants like ChatGPT recommend you first.">
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200">
-
-    <!-- JSON-LD Structured Data for Search Engines -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "name": "SEO & GEO Optimization Services",
-      "serviceType": "Search Engine Optimization & Generative Engine Optimization",
-      "description": "Strategic SEO, On-Page Optimization, Backlink & Off-Page Architecture, and Generative Engine Optimization for business growth.",
-      "provider": {
-        "@type": "ProfessionalService",
-        "name": "Organic Search & Lead Generation Agency"
-      }
-    }
-    </script>
-    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -63,13 +36,11 @@
                             bg: '#FAF8F4',
                             surface: '#FFFFFF',
                             border: '#DBD5C8',
-                            /* Deepened accent to #B2431C to achieve 5.15:1 contrast ratio (Passes WCAG AA 4.5:1) */
                             accent: '#B2431C',
                             accentHover: '#963412',
                             accentLight: 'rgba(178, 67, 28, 0.10)',
                             heading: '#141311',
                             body: '#2A2824',
-                            /* Darkened muted grey from #59554D to #48443C for 8.5:1 legibility */
                             muted: '#48443C',
                             subtle: '#F1ECE2'
                         }
@@ -84,7 +55,7 @@
             border-color: #DBD5C8;
         }
         
-        /* Premium Button Springs */
+        /* Premium Button Transitions */
         .btn-hover {
             transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, box-shadow 0.2s ease;
         }
@@ -96,7 +67,7 @@
             transform: translateY(0px) scale(0.98);
         }
 
-        /* Hero Ambient Light Breathing */
+        /* Hero Ambient Light */
         @keyframes heroGlow {
             0%, 100% { opacity: 0.45; transform: scale(1) translateY(0); }
             50% { opacity: 0.8; transform: scale(1.08) translateY(-10px); }
@@ -105,7 +76,7 @@
             animation: heroGlow 8s ease-in-out infinite;
         }
 
-        /* Modern Snappy Scroll Reveal with Blur Lens Effect */
+        /* Scroll Reveal Effect */
         .reveal-on-scroll {
             opacity: 0;
             transform: translateY(14px) scale(0.98);
@@ -122,12 +93,12 @@
             filter: blur(0px);
         }
 
-        /* Rapid Micro-Staggers */
+        /* Delays */
         .delay-1 { transition-delay: 0.04s; }
         .delay-2 { transition-delay: 0.08s; }
         .delay-3 { transition-delay: 0.12s; }
 
-        /* Interactive & Animated SVG Bars with Spring Physics */
+        /* Interactive SVG Chart Bars */
         .chart-svg rect.svg-bar {
             transform-origin: bottom;
             transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), fill 0.2s ease, opacity 0.2s ease;
@@ -141,7 +112,6 @@
             filter: drop-shadow(0 6px 14px rgba(178, 67, 28, 0.3));
         }
 
-        /* Bar initial hidden state */
         .chart-svg rect.svg-bar {
             transform: scaleY(0);
         }
@@ -155,7 +125,6 @@
             to { transform: scaleY(1); }
         }
 
-        /* Fast staggered delays for SVG bars */
         .chart-svg.animate-bars rect:nth-child(1) { animation-delay: 0.02s; }
         .chart-svg.animate-bars rect:nth-child(2) { animation-delay: 0.04s; }
         .chart-svg.animate-bars rect:nth-child(3) { animation-delay: 0.06s; }
@@ -166,54 +135,64 @@
         .chart-svg.animate-bars rect:nth-child(8) { animation-delay: 0.16s; }
         .chart-svg.animate-bars rect:nth-child(9) { animation-delay: 0.18s; }
 
-        /* Subtle pulsing strategy line glow */
-        @keyframes linePulse {
-            0%, 100% { opacity: 0.45; stroke-width: 1.5; }
-            50% { opacity: 1; stroke-width: 2.2; }
-        }
-
-        .strategy-line {
-            animation: linePulse 2.4s ease-in-out infinite;
-        }
-
-        /* Floating Badge Animation */
-        @keyframes floatBadge {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-4px); }
-        }
-
-        .pulse-badge {
-            animation: floatBadge 3.2s ease-in-out infinite;
-        }
-
-        /* Interactive Card Spotlight Effect */
         .interactive-card {
-            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, box-shadow 0.2s ease;
         }
         .interactive-card:hover {
-            border-color: rgba(200, 90, 50, 0.45);
-            box-shadow: 0 10px 28px -6px rgba(28, 26, 23, 0.08), 0 0 0 1px rgba(200, 90, 50, 0.15);
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+            border-color: #B2431C;
+            box-shadow: 0 12px 28px -6px rgba(200, 90, 50, 0.12);
         }
     </style>
 </head>
-<body class="bg-brand-bg text-brand-body font-sans antialiased selection:bg-brand-accent selection:text-white min-h-screen flex flex-col justify-between overflow-x-hidden relative">
+<body class="bg-brand-bg text-brand-body font-sans antialiased selection:bg-brand-accentLight selection:text-brand-accent flex flex-col min-h-screen">
 
-    <header class="w-full border-b editorial-border bg-brand-bg/90 backdrop-blur-md sticky top-0 z-50 transition-all">
-        <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="font-serif italic text-2xl font-medium tracking-tight text-brand-heading flex items-center gap-3 group">
-                <span>Matthias Schulte</span> 
-                <span class="w-1.5 h-1.5 rounded-full bg-brand-accent group-hover:scale-150 transition-transform"></span>
+    <header class="w-full bg-brand-bg/90 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+            
+            <!-- Concept 01 / Heavyweight Monolith SVG Logo -->
+            <a href="#" class="flex items-center group">
+                <svg viewBox="0 0 170 50" class="h-9 sm:h-11 md:h-12 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="38" class="font-serif" style="font-size: 38px; font-weight: 700; fill: #141311; letter-spacing: -0.5px;">Rank<tspan style="font-weight: 800; fill: #B2431C;">.</tspan>in</text>
+                </svg>
             </a>
 
             <div class="flex items-center gap-3">
-                <a href="#news" class="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:text-brand-accent transition-colors">
-                    <span>SEO News</span>
-                </a>
+                <!-- Dropdown Menu for SEO News -->
+                <div class="relative group">
+                    <a href="#news" id="seo-news-dropdown-btn" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:text-brand-accent transition-colors">
+                        <span>SEO News</span>
+                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180"></i>
+                    </a>
+                    
+                    <!-- Dropdown Options Box -->
+                    <div class="absolute right-0 sm:left-0 mt-1 w-56 bg-brand-surface border editorial-border rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2 space-y-1">
+                        <a href="#news" data-nav-filter="all" class="nav-filter-link flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                            <span>All News</span>
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-brand-muted"></i>
+                        </a>
+                        <a href="#news" data-nav-filter="on-page" class="nav-filter-link flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                            <span>On-Page SEO</span>
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-brand-muted"></i>
+                        </a>
+                        <a href="#news" data-nav-filter="off-page" class="nav-filter-link flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                            <span>Off-Page & Links</span>
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-brand-muted"></i>
+                        </a>
+                        <a href="#news" data-nav-filter="geo-ai" class="nav-filter-link flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                            <span>GEO & AI Search</span>
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-brand-muted"></i>
+                        </a>
+                        <a href="#news" data-nav-filter="google-updates" class="nav-filter-link flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                            <span>Google Updates</span>
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-brand-muted"></i>
+                        </a>
+                    </div>
+                </div>
                 
-                <!-- Redesigned High-End LinkedIn Pill Button -->
+                <!-- LinkedIn Pill Button -->
                 <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener noreferrer" class="btn-hover inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-brand-border bg-brand-surface text-brand-heading text-xs font-mono font-bold uppercase tracking-wider hover:border-brand-accent hover:text-brand-accent transition-colors shadow-sm" title="LinkedIn Profile">
-                    <span class="hidden sm:inline">LinkedIn</span>
+                    <span>LinkedIn</span>
                 </a>
 
                 <a href="#contact" class="btn-hover inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-heading text-brand-bg text-xs font-semibold uppercase tracking-wider hover:bg-brand-accent transition-colors shadow-sm">
@@ -225,10 +204,10 @@
     </header>
 
     <main class="flex-grow relative">
-        <!-- Ambient Hero Gradient Aura -->
+        <!-- Ambient Hero Gradient -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[450px] bg-gradient-to-b from-brand-accent/10 via-brand-accent/5 to-transparent rounded-full blur-3xl pointer-events-none hero-ambient-glow -z-10"></div>
 
-        <section class="max-w-5xl mx-auto px-6 pt-10 pb-16 md:pt-16 md:pb-20 border-b editorial-border">
+        <section class="max-w-5xl mx-auto px-6 pt-10 pb-16 md:pt-16 md:pb-20">
             <div class="flex flex-col gap-8">
                 
                 <!-- Status Badge -->
@@ -258,7 +237,7 @@
                     </h1>
 
                     <p class="reveal-on-scroll delay-2 text-base sm:text-lg text-brand-body max-w-2xl font-normal leading-relaxed">
-                        I position your brand where Google and modern AI search engines recommend you first, bringing a steady stream of organic leads directly to your business.
+                        I position your brand where <strong class="font-bold text-brand-heading">Google</strong> and <strong class="font-bold text-brand-heading">modern AI search engines</strong> recommend you first, bringing a steady stream of organic leads directly to your business.
                     </p>
 
                     <!-- CTAs -->
@@ -271,13 +250,13 @@
                         </a>
                     </div>
 
-                    <!-- Interactive Growth Chart Section -->
+                    <!-- Interactive Organic Traffic Visual -->
                     <div class="pt-8 w-full space-y-6 reveal-on-scroll">
                         
                         <div id="chart-card" class="p-6 sm:p-8 rounded-3xl bg-brand-surface border editorial-border shadow-sm space-y-6 relative overflow-hidden transition-all duration-300 interactive-card">
                             
                             <!-- Card Header -->
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-brand-border">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                                 <div class="space-y-1">
                                     <span class="text-xs font-mono font-bold uppercase tracking-wider text-brand-accent flex items-center gap-2">
                                         <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
@@ -288,28 +267,15 @@
                                     </h3>
                                 </div>
                                 
-                                <!-- Dynamic Hover Reading Badge -->
                                 <span id="chart-hover-indicator" class="self-start sm:self-auto px-3.5 py-1.5 rounded-full bg-brand-accentLight border border-brand-accent/20 text-brand-accent text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 shadow-sm">
                                     Target Growth Curve
                                 </span>
                             </div>
 
-                            <!-- Bar Chart Visual (SVG) -->
-                            <div class="w-full pt-2 pb-2 relative overflow-x-auto">
+                            <!-- Bar Chart SVG -->
+                            <div class="w-full pt-4 pb-4 relative overflow-x-auto">
                                 <svg class="w-full min-w-[500px] h-44 sm:h-52 overflow-visible chart-svg" viewBox="0 0 720 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- Baseline grid line -->
-                                    <line x1="10" y1="160" x2="710" y2="160" stroke="#DBD5C8" stroke-width="1.5" />
-
-                                    <!-- Vertical Split Divider -->
-                                    <line x1="250" y1="10" x2="250" y2="160" stroke="#B2431C" stroke-width="1.5" stroke-dasharray="4 4" class="strategy-line" />
-                                    
-                                    <!-- Split Divider Badge (centered at x=250 with ample room) -->
-                                    <g transform="translate(250, 22)" class="pulse-badge">
-                                        <rect x="-60" y="-12" width="120" height="24" rx="12" fill="#141311" />
-                                        <text x="0" y="3" font-family="Space Mono, monospace" font-size="8.5" font-weight="700" fill="#FAF8F4" text-anchor="middle" letter-spacing="0.5">STRATEGY DEPLOYED</text>
-                                    </g>
-
-                                    <!-- BEFORE BARS (Low Stagnant Baseline) -->
+                                    <!-- BEFORE BARS -->
                                     <g id="before-bars-group" opacity="0.75">
                                         <rect data-val="Baseline: Unoptimized Search" x="25" y="130" width="30" height="30" rx="8" fill="#787267" class="svg-bar" />
                                         <rect data-val="Baseline: Low Intent Traffic" x="68" y="122" width="30" height="38" rx="8" fill="#787267" class="svg-bar" />
@@ -318,7 +284,7 @@
                                         <rect data-val="Baseline: Pre-Strategy Level" x="197" y="120" width="30" height="40" rx="8" fill="#787267" class="svg-bar" />
                                     </g>
 
-                                    <!-- AFTER BARS (High-Energy Growth) -->
+                                    <!-- AFTER BARS -->
                                     <g id="after-bars-group">
                                         <rect data-val="Phase 1: Initial Technical Audit" x="275" y="70" width="34" height="90" rx="10" fill="#B2431C" opacity="0.9" class="svg-bar" />
                                         <rect data-val="Phase 2: Targeted Keyword Clustering" x="322" y="48" width="34" height="112" rx="10" fill="#B2431C" opacity="0.92" class="svg-bar" />
@@ -334,7 +300,7 @@
                             </div>
 
                             <!-- Legend Footer -->
-                            <div class="grid grid-cols-2 gap-4 pt-3 border-t border-brand-border text-xs">
+                            <div class="grid grid-cols-2 gap-4 pt-1 text-xs">
                                 <div class="flex items-center gap-2.5">
                                     <span class="w-3 h-3 rounded-md bg-[#787267] inline-block"></span>
                                     <div>
@@ -353,10 +319,8 @@
 
                         </div>
 
-                        <!-- 3 Metric Summary Cards with Enhanced Legibility & Typography -->
+                        <!-- 3 Metric Cards -->
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                            
-                            <!-- Metric 1 -->
                             <div class="reveal-on-scroll delay-1 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
                                 <div class="space-y-3">
                                     <span class="text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">01 / TRAFFIC TARGET</span>
@@ -367,34 +331,27 @@
                                 </div>
                             </div>
 
-                            <!-- Metric 2 -->
                             <div class="reveal-on-scroll delay-2 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
                                 <div class="space-y-3">
                                     <span class="text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">02 / INTENT</span>
                                     <h3 class="font-serif text-2xl sm:text-3xl font-normal text-brand-heading tracking-tight">High-Intent Leads</h3>
                                     <p class="text-sm sm:text-base text-brand-body font-normal leading-relaxed pt-1">
-                                        Turning passive site readers directly into actionable business inquiries.
+                                        Turning passive site readers into actionable business inquiries.
                                     </p>
                                 </div>
                             </div>
 
-                            <!-- Metric 3 -->
                             <div class="reveal-on-scroll delay-3 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
                                 <div class="space-y-3">
                                     <span class="text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">03 / AUTHORITY</span>
                                     <h3 class="font-serif text-2xl sm:text-3xl font-normal text-brand-heading tracking-tight">Top AI Citation</h3>
                                     <p class="text-sm sm:text-base text-brand-body font-normal leading-relaxed pt-1">
-                                        Positioned to be recommended first across search engines and AI assistants.
+                                        Positioned to be recommended across search engines and AI assistants.
                                     </p>
                                 </div>
                             </div>
-
                         </div>
 
-                        <!-- Legal Footnote -->
-                        <p class="text-xs font-mono text-brand-muted font-medium text-right italic pt-1">
-                            * Strategic framework illustrating optimization phases. Performance varies by industry and baseline authority.
-                        </p>
                     </div>
 
                 </div>
@@ -402,8 +359,7 @@
             </div>
         </section>
 
-        <!-- Content Benefits Section -->
-        <section id="why-content" class="max-w-5xl mx-auto px-6 py-16 md:py-20 border-b editorial-border">
+        <section id="why-content" class="max-w-5xl mx-auto px-6 py-16 md:py-20">
             <div class="space-y-12">
                 <div class="max-w-3xl space-y-4 reveal-on-scroll">
                     <span class="text-xs font-mono uppercase tracking-widest text-brand-accent font-bold block">
@@ -413,14 +369,12 @@
                         Why Tailored Content Drives Real Results
                     </h2>
                     <p class="text-base sm:text-lg text-brand-body font-normal leading-relaxed">
-                        Random articles don't build pipelines. I write and structure purpose-driven content aligned with your website's primary objectives and designed to solve your prospects' exact pain points.
+                        Most websites fail to convert. I combine <strong class="font-bold text-brand-heading">strategic content creation</strong> with <strong class="font-bold text-brand-heading">full-funnel search optimization</strong> - ensuring you get ranked on Google and cited by AI engines to drive qualified leads.
                     </p>
                 </div>
 
                 <!-- 5 Benefits Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    
-                    <!-- Benefit 1 -->
                     <div class="reveal-on-scroll delay-1 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border space-y-4 flex flex-col justify-between interactive-card">
                         <div>
                             <span class="text-xs font-mono text-brand-accent font-bold block mb-2">01 / RELEVANCE</span>
@@ -434,7 +388,6 @@
                         </div>
                     </div>
 
-                    <!-- Benefit 2 -->
                     <div class="reveal-on-scroll delay-2 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border space-y-4 flex flex-col justify-between interactive-card">
                         <div>
                             <span class="text-xs font-mono text-brand-accent font-bold block mb-2">02 / ENTRY POINT</span>
@@ -448,7 +401,6 @@
                         </div>
                     </div>
 
-                    <!-- Benefit 3 -->
                     <div class="reveal-on-scroll delay-3 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border space-y-4 flex flex-col justify-between interactive-card">
                         <div>
                             <span class="text-xs font-mono text-brand-accent font-bold block mb-2">03 / DISCOVERABILITY</span>
@@ -462,7 +414,6 @@
                         </div>
                     </div>
 
-                    <!-- Benefit 4 -->
                     <div class="reveal-on-scroll delay-1 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border space-y-4 flex flex-col justify-between interactive-card">
                         <div>
                             <span class="text-xs font-mono text-brand-accent font-bold block mb-2">04 / ADVOCACY</span>
@@ -476,28 +427,24 @@
                         </div>
                     </div>
 
-                    <!-- Benefit 5 -->
                     <div class="reveal-on-scroll delay-2 p-6 sm:p-7 rounded-3xl bg-brand-accentLight border border-brand-accent/30 space-y-4 flex flex-col justify-between md:col-span-2 lg:col-span-1 interactive-card">
                         <div>
                             <span class="text-xs font-mono text-brand-accent font-bold block mb-2">05 / CONVERSION</span>
                             <h3 class="font-serif text-xl sm:text-2xl font-medium text-brand-accent">Converts Visitors into Inquiries</h3>
                             <p class="text-sm sm:text-base text-brand-body font-medium leading-relaxed mt-2">
-                                Connects client needs to your offerings, seamlessly turning passive readers into qualified organic inbound leads.
+                                Matches your website with the things your potential customers are actually searching for, helping you attract the right visitors and turn organic search traffic into genuine enquiries and new business.
                             </p>
                         </div>
                         <div class="pt-4 border-t border-brand-accent/30 flex items-center text-xs font-mono text-brand-accent font-bold">
                             <span>Measurable Business Growth</span>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
 
-        <section id="news" class="max-w-5xl mx-auto px-6 py-16 md:py-20 border-b editorial-border">
+        <section id="news" class="max-w-5xl mx-auto px-6 py-16 md:py-20">
             <div class="space-y-10">
-                
-                <!-- Section Header & Category Filter Bar -->
                 <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal-on-scroll">
                     <div class="space-y-3 max-w-2xl">
                         <span class="text-xs font-mono uppercase tracking-widest text-brand-accent font-bold block">
@@ -511,7 +458,6 @@
                         </p>
                     </div>
 
-                    <!-- SEO Pillar Category Filters -->
                     <div class="flex flex-wrap items-center gap-2 self-start md:self-auto" id="news-filter-bar">
                         <button data-filter="all" class="news-filter-btn px-4 py-2 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-heading text-brand-bg transition-colors shadow-sm">
                             All News
@@ -576,10 +522,8 @@
                     </div>
                 </div>
 
-                <!-- Articles Grid across SEO Pillars -->
+                <!-- Articles Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="news-grid">
-                    
-                    <!-- Article 1: On-Page SEO -->
                     <div class="news-card reveal-on-scroll delay-1" data-category="on-page">
                         <div class="p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border shadow-sm interactive-card space-y-4 h-full flex flex-col justify-between">
                             <div class="space-y-3">
@@ -604,7 +548,6 @@
                         </div>
                     </div>
 
-                    <!-- Article 2: Off-Page & Backlinks -->
                     <div class="news-card reveal-on-scroll delay-2" data-category="off-page">
                         <div class="p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border shadow-sm interactive-card space-y-4 h-full flex flex-col justify-between">
                             <div class="space-y-3">
@@ -629,7 +572,6 @@
                         </div>
                     </div>
 
-                    <!-- Article 3: GEO & AI Search -->
                     <div class="news-card reveal-on-scroll delay-3" data-category="geo-ai">
                         <div class="p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border shadow-sm interactive-card space-y-4 h-full flex flex-col justify-between">
                             <div class="space-y-3">
@@ -653,16 +595,12 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </section>
 
-        <!-- Contact CTA Section -->
         <section id="contact" class="max-w-5xl mx-auto px-6 py-20 md:py-24">
             <div class="reveal-on-scroll bg-brand-heading text-brand-bg rounded-3xl p-8 sm:p-12 md:p-16 space-y-8 relative overflow-hidden shadow-xl">
-                
                 <span class="text-xs font-mono uppercase tracking-widest text-brand-accent font-bold block">
                     Direct Contact
                 </span>
@@ -682,16 +620,14 @@
                     </a>
                     
                     <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener noreferrer" class="btn-hover inline-flex items-center gap-3 px-7 py-3.5 rounded-full border border-brand-bg/30 text-brand-bg text-xs font-bold uppercase tracking-wider hover:bg-brand-bg hover:text-brand-heading transition-colors shadow-sm">
-                        <i data-lucide="linkedin" class="w-4 h-4"></i>
                         <span>LinkedIn Profile</span>
                     </a>
                 </div>
-
             </div>
         </section>
     </main>
 
-    <footer class="w-full border-t editorial-border py-6 text-xs font-mono text-brand-muted font-medium">
+    <footer class="w-full py-6 text-xs font-mono text-brand-muted font-medium">
         <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div>
                 © 2026 Matthias Schulte
@@ -702,7 +638,6 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize Lucide Icons
@@ -710,7 +645,7 @@
                 lucide.createIcons();
             }
 
-            // Snappy IntersectionObserver for modern scroll reveal
+            // Scroll reveal animation observer
             const observerOptions = {
                 root: null,
                 rootMargin: '0px 0px -40px 0px',
@@ -722,7 +657,6 @@
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
                         
-                        // Trigger SVG bar pop animation when chart container enters screen
                         const chartSvg = entry.target.querySelector('.chart-svg');
                         if (chartSvg) {
                             chartSvg.classList.add('animate-bars');
@@ -737,7 +671,7 @@
                 revealObserver.observe(el);
             });
 
-            // Interactive Chart Hover Feedback
+            // Interactive Chart Hover Reading
             const indicator = document.getElementById('chart-hover-indicator');
             const defaultText = 'Target Growth Curve';
             const bars = document.querySelectorAll('.svg-bar');
@@ -761,31 +695,49 @@
                 });
             });
 
-            // Interactive News Category Filtering Logic
+            // News Category Filtering
             const filterBtns = document.querySelectorAll('.news-filter-btn');
             const newsCards = document.querySelectorAll('.news-card');
 
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const targetCategory = btn.getAttribute('data-filter');
-
-                    // Style active button
-                    filterBtns.forEach(b => {
+            function applyFilter(targetCategory) {
+                filterBtns.forEach(b => {
+                    if (b.getAttribute('data-filter') === targetCategory) {
+                        b.classList.remove('bg-brand-surface', 'border', 'editorial-border', 'text-brand-body');
+                        b.classList.add('bg-brand-heading', 'text-brand-bg');
+                    } else {
                         b.classList.remove('bg-brand-heading', 'text-brand-bg');
                         b.classList.add('bg-brand-surface', 'border', 'editorial-border', 'text-brand-body');
-                    });
-                    btn.classList.remove('bg-brand-surface', 'border', 'editorial-border', 'text-brand-body');
-                    btn.classList.add('bg-brand-heading', 'text-brand-bg');
+                    }
+                });
 
-                    // Filter cards
-                    newsCards.forEach(card => {
-                        const cardCat = card.getAttribute('data-category');
-                        if (targetCategory === 'all' || cardCat === targetCategory) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
+                newsCards.forEach(card => {
+                    const cardCat = card.getAttribute('data-category');
+                    if (targetCategory === 'all' || cardCat === targetCategory) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.getAttribute('data-filter');
+                    applyFilter(category);
+                });
+            });
+
+            // Dropdown links trigger filter & scroll
+            const navFilterLinks = document.querySelectorAll('.nav-filter-link');
+            navFilterLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const filterValue = link.getAttribute('data-nav-filter');
+                    applyFilter(filterValue);
+                    
+                    const newsSection = document.getElementById('news');
+                    if (newsSection) {
+                        newsSection.scrollIntoView({ behavior: 'smooth' });
+                    }
                 });
             });
         });
