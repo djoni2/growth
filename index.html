@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rank.in — Digital Content Strategist — Search Visibility & AI Optimization</title>
+    <title>TakeMyLead — Digital Content Strategist — Search Visibility & AI Optimization</title>
     
     <!-- Primary SEO Meta Tags -->
     <meta name="description" content="Specialized strategies designed to rank websites on Google, ChatGPT, and Perplexity for high-intent organic leads.">
     <meta name="keywords" content="SEO Specialist, GEO Specialist, On-Page SEO, Off-Page SEO, Backlink Strategy, AI Search Optimization, Generative Engine Optimization, Search Visibility">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://www.example.com/">
+    <link rel="canonical" href="https://www.takemylead.com/">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,10 +51,24 @@
     </script>
 
     <style>
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         .editorial-border {
             border-color: #DBD5C8;
         }
         
+        /* Hide scrollbars for horizontal filter scrolling */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
         /* Premium Button Transitions */
         .btn-hover {
             transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, box-shadow 0.2s ease;
@@ -103,6 +117,7 @@
             transform-origin: bottom;
             transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), fill 0.2s ease, opacity 0.2s ease;
             cursor: pointer;
+            transform: scaleY(0);
         }
 
         .chart-svg rect.svg-bar:hover {
@@ -110,10 +125,6 @@
             fill: #141311 !important;
             opacity: 1 !important;
             filter: drop-shadow(0 6px 14px rgba(178, 67, 28, 0.3));
-        }
-
-        .chart-svg rect.svg-bar {
-            transform: scaleY(0);
         }
 
         .chart-svg.animate-bars rect.svg-bar {
@@ -145,137 +156,137 @@
         }
     </style>
 </head>
-<body class="bg-brand-bg text-brand-body font-sans antialiased selection:bg-brand-accentLight selection:text-brand-accent flex flex-col min-h-screen">
+<body class="bg-brand-bg text-brand-body font-sans antialiased selection:bg-brand-accentLight selection:text-brand-accent flex flex-col min-h-screen overflow-x-hidden w-full">
 
     <header class="w-full bg-brand-bg/90 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-2">
             
-            <!-- Concept 01 / Heavyweight Monolith SVG Logo -->
-            <a href="#" class="flex items-center group">
-                <svg viewBox="0 0 170 50" class="h-9 sm:h-11 md:h-12 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <text x="0" y="38" class="font-serif" style="font-size: 38px; font-weight: 700; fill: #141311; letter-spacing: -0.5px;">Rank<tspan style="font-weight: 800; fill: #B2431C;">.</tspan>in</text>
+            <!-- Logo: TakeMyLead -->
+            <a href="#" class="flex items-center group shrink-0">
+                <svg viewBox="0 0 240 50" class="h-8 sm:h-11 md:h-12 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="38" class="font-serif" style="font-size: 36px; font-weight: 700; fill: #141311; letter-spacing: -0.5px;">TakeMyLead<tspan style="font-weight: 800; fill: #B2431C;">.</tspan></text>
                 </svg>
             </a>
 
-            <div class="flex items-center gap-3">
-                <!-- Dropdown Menu for SEO News -->
+            <div class="flex items-center gap-1.5 sm:gap-3">
+                <!-- Menu Dropdown -->
                 <div class="relative group">
-                    <a href="#news" id="seo-news-dropdown-btn" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:text-brand-accent transition-colors">
-                        <span>SEO News</span>
-                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180"></i>
+                    <a href="#news" id="seo-news-dropdown-btn" class="inline-flex items-center gap-1 px-2.5 sm:px-4 py-2 rounded-full text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:text-brand-accent transition-colors">
+                        <span>News</span>
+                        <i data-lucide="chevron-down" class="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform duration-200 group-hover:rotate-180"></i>
                     </a>
                     
                     <!-- Dropdown Options Box -->
-                    <div class="absolute right-0 sm:left-0 mt-1 w-56 bg-brand-surface border editorial-border rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2 space-y-1">
-                        <a href="#news" data-nav-filter="all" class="nav-filter-link flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                    <div class="absolute right-0 sm:left-0 mt-1 w-48 sm:w-56 bg-brand-surface border editorial-border rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2 space-y-1">
+                        <a href="#news" data-nav-filter="all" class="nav-filter-link flex items-center justify-between px-3 py-2 rounded-xl text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
                             <span>All News</span>
-                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-brand-muted"></i>
+                            <i data-lucide="arrow-up-right" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-muted"></i>
                         </a>
-                        <a href="#news" data-nav-filter="on-page" class="nav-filter-link flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                        <a href="#news" data-nav-filter="on-page" class="nav-filter-link flex items-center justify-between px-3 py-2 rounded-xl text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
                             <span>On-Page SEO</span>
-                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-brand-muted"></i>
+                            <i data-lucide="arrow-up-right" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-muted"></i>
                         </a>
-                        <a href="#news" data-nav-filter="off-page" class="nav-filter-link flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                        <a href="#news" data-nav-filter="off-page" class="nav-filter-link flex items-center justify-between px-3 py-2 rounded-xl text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
                             <span>Off-Page & Links</span>
-                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-brand-muted"></i>
+                            <i data-lucide="arrow-up-right" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-muted"></i>
                         </a>
-                        <a href="#news" data-nav-filter="geo-ai" class="nav-filter-link flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                        <a href="#news" data-nav-filter="geo-ai" class="nav-filter-link flex items-center justify-between px-3 py-2 rounded-xl text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
                             <span>GEO & AI Search</span>
-                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-brand-muted"></i>
+                            <i data-lucide="arrow-up-right" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-muted"></i>
                         </a>
-                        <a href="#news" data-nav-filter="google-updates" class="nav-filter-link flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                        <a href="#news" data-nav-filter="google-updates" class="nav-filter-link flex items-center justify-between px-3 py-2 rounded-xl text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
                             <span>Google Updates</span>
-                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-brand-muted"></i>
+                            <i data-lucide="arrow-up-right" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-muted"></i>
                         </a>
                     </div>
                 </div>
                 
-                <!-- LinkedIn Pill Button -->
-                <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener noreferrer" class="btn-hover inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-brand-border bg-brand-surface text-brand-heading text-xs font-mono font-bold uppercase tracking-wider hover:border-brand-accent hover:text-brand-accent transition-colors shadow-sm" title="LinkedIn Profile">
-                    <span>LinkedIn</span>
+                <!-- LinkedIn Link -->
+                <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener noreferrer" class="btn-hover inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-full border border-brand-border bg-brand-surface text-brand-heading text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider hover:border-brand-accent hover:text-brand-accent transition-colors shadow-sm" title="LinkedIn Profile">
+                    <span class="hidden xs:inline">LinkedIn</span>
+                    <i data-lucide="linkedin" class="w-3.5 h-3.5 xs:hidden"></i>
                 </a>
 
-                <a href="#contact" class="btn-hover inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-heading text-brand-bg text-xs font-semibold uppercase tracking-wider hover:bg-brand-accent transition-colors shadow-sm">
-                    <span>Get in Touch</span>
-                    <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                <a href="#contact" class="btn-hover inline-flex items-center gap-1.5 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-brand-heading text-brand-bg text-[11px] sm:text-xs font-semibold uppercase tracking-wider hover:bg-brand-accent transition-colors shadow-sm shrink-0">
+                    <span>Contact</span>
+                    <i data-lucide="arrow-up-right" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i>
                 </a>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow relative">
+    <main class="flex-grow relative w-full overflow-x-hidden">
         <!-- Ambient Hero Gradient -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[450px] bg-gradient-to-b from-brand-accent/10 via-brand-accent/5 to-transparent rounded-full blur-3xl pointer-events-none hero-ambient-glow -z-10"></div>
 
-        <section class="max-w-5xl mx-auto px-6 pt-10 pb-16 md:pt-16 md:pb-20">
-            <div class="flex flex-col gap-8">
+        <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 pb-12 sm:pb-20">
+            <div class="flex flex-col gap-6 sm:gap-8">
                 
                 <!-- Status Badge -->
-                <div class="flex items-center gap-4 reveal-on-scroll">
-                    <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-brand-accent/40 p-1 bg-brand-surface flex-shrink-0 shadow-sm">
+                <div class="flex items-center gap-3.5 sm:gap-4 reveal-on-scroll">
+                    <div class="relative w-14 h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-brand-accent/40 p-1 bg-brand-surface flex-shrink-0 shadow-sm">
                         <img 
                             src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400" 
                             alt="Matthias Schulte" 
                             class="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-500"
                             onerror="this.onerror=null; this.src='https://placehold.co/400x400/E8E4DC/1C1A17?text=MS';"
                         />
-                        <span class="absolute bottom-1 right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full"></span>
+                        <span class="absolute bottom-1 right-1 w-3 h-3 sm:w-3.5 sm:h-3.5 bg-emerald-500 border-2 border-white rounded-full"></span>
                     </div>
                     <div class="space-y-1">
-                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-accentLight border border-brand-accent/20 text-brand-accent text-xs font-mono font-bold uppercase tracking-wider">
-                            <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span>
+                        <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-1 rounded-full bg-brand-accentLight border border-brand-accent/20 text-brand-accent text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider">
+                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-brand-accent animate-ping"></span>
                             Taking on new projects
                         </div>
-                        <p class="text-xs text-brand-muted font-mono font-semibold">Matthias Schulte — Digital Content Strategist</p>
+                        <p class="text-[11px] sm:text-xs text-brand-muted font-mono font-semibold">Matthias Schulte — Digital Content Strategist</p>
                     </div>
                 </div>
 
-                <!-- Main Punchy Headline -->
-                <div class="space-y-6 max-w-4xl">
-                    <h1 class="reveal-on-scroll delay-1 font-serif text-4xl sm:text-5xl md:text-6xl font-normal leading-[1.12] tracking-tight text-brand-heading">
+                <!-- Main Headline -->
+                <div class="space-y-5 sm:space-y-6 max-w-4xl">
+                    <h1 class="reveal-on-scroll delay-1 font-serif text-3xl sm:text-5xl md:text-6xl font-normal leading-[1.15] sm:leading-[1.12] tracking-tight text-brand-heading">
                         Shaping your <span class="italic text-brand-accent font-medium">website to lead</span> — not just sit there looking pretty.
                     </h1>
 
-                    <p class="reveal-on-scroll delay-2 text-base sm:text-lg text-brand-body max-w-2xl font-normal leading-relaxed">
+                    <p class="reveal-on-scroll delay-2 text-sm sm:text-lg text-brand-body max-w-2xl font-normal leading-relaxed">
                         I position your brand where <strong class="font-bold text-brand-heading">Google</strong> and <strong class="font-bold text-brand-heading">modern AI search engines</strong> recommend you first, bringing a steady stream of organic leads directly to your business.
                     </p>
 
                     <!-- CTAs -->
-                    <div class="reveal-on-scroll delay-3 pt-2 flex flex-wrap items-center gap-4">
-                        <a href="#contact" class="btn-hover px-7 py-3.5 rounded-full bg-brand-accent text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-heading transition-colors shadow-md">
+                    <div class="reveal-on-scroll delay-3 pt-1 sm:pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+                        <a href="#contact" class="btn-hover px-6 sm:px-7 py-3.5 rounded-full bg-brand-accent text-white text-xs font-bold uppercase tracking-wider text-center hover:bg-brand-heading transition-colors shadow-md">
                             Get Your Website Ranked
                         </a>
-                        <a href="#why-content" class="btn-hover px-7 py-3.5 rounded-full border border-brand-border bg-brand-surface text-brand-heading text-xs font-bold uppercase tracking-wider hover:bg-brand-subtle transition-colors shadow-sm">
+                        <a href="#why-content" class="btn-hover px-6 sm:px-7 py-3.5 rounded-full border border-brand-border bg-brand-surface text-brand-heading text-xs font-bold uppercase tracking-wider text-center hover:bg-brand-subtle transition-colors shadow-sm">
                             Why Content Matters
                         </a>
                     </div>
 
                     <!-- Interactive Organic Traffic Visual -->
-                    <div class="pt-8 w-full space-y-6 reveal-on-scroll">
+                    <div class="pt-6 sm:pt-8 w-full space-y-5 sm:space-y-6 reveal-on-scroll">
                         
-                        <div id="chart-card" class="p-6 sm:p-8 rounded-3xl bg-brand-surface border editorial-border shadow-sm space-y-6 relative overflow-hidden transition-all duration-300 interactive-card">
+                        <div id="chart-card" class="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border shadow-sm space-y-5 relative overflow-hidden transition-all duration-300 interactive-card">
                             
                             <!-- Card Header -->
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
                                 <div class="space-y-1">
-                                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-brand-accent flex items-center gap-2">
+                                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-accent flex items-center gap-1.5 sm:gap-2">
                                         <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
                                         ORGANIC TRAFFIC TRAJECTORY
                                     </span>
-                                    <h3 class="font-serif text-xl sm:text-2xl font-normal text-brand-heading">
+                                    <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">
                                         The Impact of Tailored SEO & GEO
                                     </h3>
                                 </div>
                                 
-                                <span id="chart-hover-indicator" class="self-start sm:self-auto px-3.5 py-1.5 rounded-full bg-brand-accentLight border border-brand-accent/20 text-brand-accent text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 shadow-sm">
+                                <span id="chart-hover-indicator" class="self-start sm:self-auto px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-brand-accentLight border border-brand-accent/20 text-brand-accent text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 shadow-sm">
                                     Target Growth Curve
                                 </span>
                             </div>
 
                             <!-- Bar Chart SVG -->
-                            <div class="w-full pt-4 pb-4 relative overflow-x-auto">
-                                <svg class="w-full min-w-[500px] h-44 sm:h-52 overflow-visible chart-svg" viewBox="0 0 720 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- BEFORE BARS -->
+                            <div class="w-full pt-2 pb-2">
+                                <svg class="w-full h-auto max-h-48 sm:max-h-56 chart-svg" viewBox="0 0 720 180" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g id="before-bars-group" opacity="0.75">
                                         <rect data-val="Baseline: Unoptimized Search" x="25" y="130" width="30" height="30" rx="8" fill="#787267" class="svg-bar" />
                                         <rect data-val="Baseline: Low Intent Traffic" x="68" y="122" width="30" height="38" rx="8" fill="#787267" class="svg-bar" />
@@ -284,32 +295,31 @@
                                         <rect data-val="Baseline: Pre-Strategy Level" x="197" y="120" width="30" height="40" rx="8" fill="#787267" class="svg-bar" />
                                     </g>
 
-                                    <!-- AFTER BARS -->
                                     <g id="after-bars-group">
-                                        <rect data-val="Phase 1: Initial Technical Audit" x="275" y="70" width="34" height="90" rx="10" fill="#B2431C" opacity="0.9" class="svg-bar" />
-                                        <rect data-val="Phase 2: Targeted Keyword Clustering" x="322" y="48" width="34" height="112" rx="10" fill="#B2431C" opacity="0.92" class="svg-bar" />
-                                        <rect data-val="Phase 3: Topical Authority Content" x="369" y="30" width="34" height="130" rx="10" fill="#B2431C" class="svg-bar" />
+                                        <rect data-val="Phase 1: Technical Audit" x="275" y="70" width="34" height="90" rx="10" fill="#B2431C" opacity="0.9" class="svg-bar" />
+                                        <rect data-val="Phase 2: Keyword Clustering" x="322" y="48" width="34" height="112" rx="10" fill="#B2431C" opacity="0.92" class="svg-bar" />
+                                        <rect data-val="Phase 3: Topical Authority" x="369" y="30" width="34" height="130" rx="10" fill="#B2431C" class="svg-bar" />
                                         <rect data-val="Phase 4: GEO & AI Search Citation" x="416" y="42" width="34" height="118" rx="10" fill="#B2431C" opacity="0.95" class="svg-bar" />
-                                        <rect data-val="Phase 5: High-Intent Lead Inflow" x="463" y="52" width="34" height="108" rx="10" fill="#B2431C" opacity="0.92" class="svg-bar" />
+                                        <rect data-val="Phase 5: High-Intent Inflow" x="463" y="52" width="34" height="108" rx="10" fill="#B2431C" opacity="0.92" class="svg-bar" />
                                         <rect data-val="Phase 6: Search Engine Dominance" x="510" y="25" width="34" height="135" rx="10" fill="#B2431C" class="svg-bar" />
-                                        <rect data-val="Phase 7: Sustained Organic Growth" x="557" y="28" width="34" height="132" rx="10" fill="#B2431C" class="svg-bar" />
+                                        <rect data-val="Phase 7: Sustained Growth" x="557" y="28" width="34" height="132" rx="10" fill="#B2431C" class="svg-bar" />
                                         <rect data-val="Phase 8: Compounding Authority" x="604" y="12" width="34" height="148" rx="10" fill="#B2431C" class="svg-bar" />
-                                        <rect data-val="Target Goal: Consistent Inbound Pipeline" x="651" y="5" width="34" height="155" rx="10" fill="#141311" class="svg-bar" />
+                                        <rect data-val="Target Goal: Inbound Pipeline" x="651" y="5" width="34" height="155" rx="10" fill="#141311" class="svg-bar" />
                                     </g>
                                 </svg>
                             </div>
 
                             <!-- Legend Footer -->
-                            <div class="grid grid-cols-2 gap-4 pt-1 text-xs">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-1 text-xs">
                                 <div class="flex items-center gap-2.5">
-                                    <span class="w-3 h-3 rounded-md bg-[#787267] inline-block"></span>
+                                    <span class="w-3 h-3 rounded-md bg-[#787267] inline-block shrink-0"></span>
                                     <div>
                                         <p class="font-mono font-bold text-brand-body uppercase text-[10px] tracking-wider">Baseline</p>
                                         <p class="text-brand-body font-semibold text-xs sm:text-sm">Stagnant site, low search intent</p>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-2.5">
-                                    <span class="w-3 h-3 rounded-md bg-brand-accent inline-block"></span>
+                                    <span class="w-3 h-3 rounded-md bg-brand-accent inline-block shrink-0"></span>
                                     <div>
                                         <p class="font-mono font-bold text-brand-accent uppercase text-[10px] tracking-wider">Optimized Strategy</p>
                                         <p class="text-brand-heading font-bold text-xs sm:text-sm">Continuous organic lead pipeline</p>
@@ -320,32 +330,32 @@
                         </div>
 
                         <!-- 3 Metric Cards -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                            <div class="reveal-on-scroll delay-1 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
-                                <div class="space-y-3">
-                                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">01 / TRAFFIC TARGET</span>
-                                    <h3 class="font-serif text-2xl sm:text-3xl font-normal text-brand-heading tracking-tight">Organic Growth</h3>
-                                    <p class="text-sm sm:text-base text-brand-body font-normal leading-relaxed pt-1">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+                            <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
+                                <div class="space-y-2 sm:space-y-3">
+                                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">01 / TRAFFIC TARGET</span>
+                                    <h3 class="font-serif text-xl sm:text-3xl font-normal text-brand-heading tracking-tight">Organic Growth</h3>
+                                    <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed">
                                         Increasing qualified potential clients searching for your exact solutions.
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="reveal-on-scroll delay-2 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
-                                <div class="space-y-3">
-                                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">02 / INTENT</span>
-                                    <h3 class="font-serif text-2xl sm:text-3xl font-normal text-brand-heading tracking-tight">High-Intent Leads</h3>
-                                    <p class="text-sm sm:text-base text-brand-body font-normal leading-relaxed pt-1">
+                            <div class="reveal-on-scroll delay-2 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
+                                <div class="space-y-2 sm:space-y-3">
+                                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">02 / INTENT</span>
+                                    <h3 class="font-serif text-xl sm:text-3xl font-normal text-brand-heading tracking-tight">High-Intent Leads</h3>
+                                    <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed">
                                         Turning passive site readers into actionable business inquiries.
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="reveal-on-scroll delay-3 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
-                                <div class="space-y-3">
-                                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">03 / AUTHORITY</span>
-                                    <h3 class="font-serif text-2xl sm:text-3xl font-normal text-brand-heading tracking-tight">Top AI Citation</h3>
-                                    <p class="text-sm sm:text-base text-brand-body font-normal leading-relaxed pt-1">
+                            <div class="reveal-on-scroll delay-3 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
+                                <div class="space-y-2 sm:space-y-3">
+                                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">03 / AUTHORITY</span>
+                                    <h3 class="font-serif text-xl sm:text-3xl font-normal text-brand-heading tracking-tight">Top AI Citation</h3>
+                                    <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed">
                                         Positioned to be recommended across search engines and AI assistants.
                                     </p>
                                 </div>
@@ -359,267 +369,138 @@
             </div>
         </section>
 
-        <section id="why-content" class="max-w-5xl mx-auto px-6 py-16 md:py-20">
-            <div class="space-y-12">
-                <div class="max-w-3xl space-y-4 reveal-on-scroll">
-                    <span class="text-xs font-mono uppercase tracking-widest text-brand-accent font-bold block">
+        <section id="why-content" class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+            <div class="space-y-8 sm:space-y-12">
+                <div class="max-w-3xl space-y-3 sm:space-y-4 reveal-on-scroll">
+                    <span class="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-brand-accent font-bold block">
                         Content Strategy That Converts
                     </span>
-                    <h2 class="font-serif text-3xl sm:text-4xl font-normal text-brand-heading">
+                    <h2 class="font-serif text-2xl sm:text-4xl font-normal text-brand-heading">
                         Why Tailored Content Drives Real Results
                     </h2>
-                    <p class="text-base sm:text-lg text-brand-body font-normal leading-relaxed">
+                    <p class="text-sm sm:text-lg text-brand-body font-normal leading-relaxed">
                         Most websites fail to convert. I combine <strong class="font-bold text-brand-heading">strategic content creation</strong> with <strong class="font-bold text-brand-heading">full-funnel search optimization</strong> - ensuring you get ranked on Google and cited by AI engines to drive qualified leads.
                     </p>
                 </div>
 
-                <!-- 5 Benefits Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="reveal-on-scroll delay-1 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border space-y-4 flex flex-col justify-between interactive-card">
+                <!-- 4 Benefits Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6">
+                    <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
                         <div>
-                            <span class="text-xs font-mono text-brand-accent font-bold block mb-2">01 / RELEVANCE</span>
-                            <h3 class="font-serif text-xl sm:text-2xl font-normal text-brand-heading">Establishes Site Relevance</h3>
-                            <p class="text-sm sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">01 / RELEVANCE</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Establishes Site Relevance</h3>
+                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
                                 Proves to search algorithms and LLMs that your domain is a definitive authority in your industry.
                             </p>
                         </div>
-                        <div class="pt-4 border-t border-brand-border flex items-center text-xs font-mono font-bold text-brand-accent">
+                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
                             <span>Topical Authority</span>
                         </div>
                     </div>
 
-                    <div class="reveal-on-scroll delay-2 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border space-y-4 flex flex-col justify-between interactive-card">
+                    <div class="reveal-on-scroll delay-2 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
                         <div>
-                            <span class="text-xs font-mono text-brand-accent font-bold block mb-2">02 / ENTRY POINT</span>
-                            <h3 class="font-serif text-xl sm:text-2xl font-normal text-brand-heading">The Front Door for Buyers</h3>
-                            <p class="text-sm sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">02 / ENTRY POINT</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">The Front Door for Buyers</h3>
+                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
                                 Serves as the primary landing surface for potential customers looking for solutions before knowing your brand.
                             </p>
                         </div>
-                        <div class="pt-4 border-t border-brand-border flex items-center text-xs font-mono font-bold text-brand-accent">
+                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
                             <span>Organic Traffic Entry</span>
                         </div>
                     </div>
 
-                    <div class="reveal-on-scroll delay-3 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border space-y-4 flex flex-col justify-between interactive-card">
+                    <div class="reveal-on-scroll delay-3 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
                         <div>
-                            <span class="text-xs font-mono text-brand-accent font-bold block mb-2">03 / DISCOVERABILITY</span>
-                            <h3 class="font-serif text-xl sm:text-2xl font-normal text-brand-heading">Makes You Findable Everywhere</h3>
-                            <p class="text-sm sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">03 / DISCOVERABILITY</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Makes You Findable Everywhere</h3>
+                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
                                 Matches exact queries people type into Google and modern AI assistants like ChatGPT and Perplexity.
                             </p>
                         </div>
-                        <div class="pt-4 border-t border-brand-border flex items-center text-xs font-mono font-bold text-brand-accent">
+                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
                             <span>High-Intent Search</span>
                         </div>
                     </div>
 
-                    <div class="reveal-on-scroll delay-1 p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border space-y-4 flex flex-col justify-between interactive-card">
+                    <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
                         <div>
-                            <span class="text-xs font-mono text-brand-accent font-bold block mb-2">04 / ADVOCACY</span>
-                            <h3 class="font-serif text-xl sm:text-2xl font-normal text-brand-heading">Earns Direct Recommendations</h3>
-                            <p class="text-sm sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">04 / ADVOCACY</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Earns Direct Recommendations</h3>
+                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
                                 Well-crafted content gets shared by users and cited directly by AI engines like ChatGPT, Perplexity, and Gemini.
                             </p>
                         </div>
-                        <div class="pt-4 border-t border-brand-border flex items-center text-xs font-mono font-bold text-brand-accent">
+                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
                             <span>LLM & User Referral</span>
-                        </div>
-                    </div>
-
-                    <div class="reveal-on-scroll delay-2 p-6 sm:p-7 rounded-3xl bg-brand-accentLight border border-brand-accent/30 space-y-4 flex flex-col justify-between md:col-span-2 lg:col-span-1 interactive-card">
-                        <div>
-                            <span class="text-xs font-mono text-brand-accent font-bold block mb-2">05 / CONVERSION</span>
-                            <h3 class="font-serif text-xl sm:text-2xl font-medium text-brand-accent">Converts Visitors into Inquiries</h3>
-                            <p class="text-sm sm:text-base text-brand-body font-medium leading-relaxed mt-2">
-                                Matches your website with the things your potential customers are actually searching for, helping you attract the right visitors and turn organic search traffic into genuine enquiries and new business.
-                            </p>
-                        </div>
-                        <div class="pt-4 border-t border-brand-accent/30 flex items-center text-xs font-mono text-brand-accent font-bold">
-                            <span>Measurable Business Growth</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="news" class="max-w-5xl mx-auto px-6 py-16 md:py-20">
-            <div class="space-y-10">
-                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal-on-scroll">
-                    <div class="space-y-3 max-w-2xl">
-                        <span class="text-xs font-mono uppercase tracking-widest text-brand-accent font-bold block">
+        <section id="news" class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+            <div class="space-y-8 sm:space-y-10">
+                <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-brand-border/60 reveal-on-scroll">
+                    <div class="space-y-3 max-w-xl">
+                        <span class="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-brand-accent font-bold block">
                             SEO & Search Visibility News
                         </span>
-                        <h2 class="font-serif text-3xl sm:text-4xl font-normal text-brand-heading">
+                        <h2 class="font-serif text-2xl sm:text-4xl font-normal text-brand-heading leading-tight">
                             Latest Intelligence on Search & Rankings
                         </h2>
-                        <p class="text-sm sm:text-base text-brand-body font-normal leading-relaxed">
+                        <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed">
                             Filter strategic analysis across Google algorithm shifts, On-Page structure, Off-Page backlink authority, and Generative Engine Optimization (GEO).
                         </p>
                     </div>
 
-                    <div class="flex flex-wrap items-center gap-2 self-start md:self-auto" id="news-filter-bar">
-                        <button data-filter="all" class="news-filter-btn px-4 py-2 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-heading text-brand-bg transition-colors shadow-sm">
+                    <!-- Filter Bar aligned cleanly on the right -->
+                    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar w-full lg:w-auto pb-1 lg:pb-0 -mx-4 px-4 lg:mx-0 lg:px-0 shrink-0" id="news-filter-bar">
+                        <button data-filter="all" class="news-filter-btn px-4 py-2.5 rounded-full text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider bg-brand-heading text-brand-bg whitespace-nowrap transition-colors shadow-sm shrink-0">
                             All News
                         </button>
-                        <button data-filter="on-page" class="news-filter-btn px-4 py-2 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-surface border editorial-border text-brand-body hover:bg-brand-subtle transition-colors shadow-sm">
+                        <button data-filter="on-page" class="news-filter-btn px-4 py-2.5 rounded-full text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider bg-brand-surface border editorial-border text-brand-body hover:bg-brand-subtle whitespace-nowrap transition-colors shadow-sm shrink-0">
                             On-Page SEO
                         </button>
-                        <button data-filter="off-page" class="news-filter-btn px-4 py-2 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-surface border editorial-border text-brand-body hover:bg-brand-subtle transition-colors shadow-sm">
+                        <button data-filter="off-page" class="news-filter-btn px-4 py-2.5 rounded-full text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider bg-brand-surface border editorial-border text-brand-body hover:bg-brand-subtle whitespace-nowrap transition-colors shadow-sm shrink-0">
                             Off-Page & Links
                         </button>
-                        <button data-filter="geo-ai" class="news-filter-btn px-4 py-2 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-surface border editorial-border text-brand-body hover:bg-brand-subtle transition-colors shadow-sm">
+                        <button data-filter="geo-ai" class="news-filter-btn px-4 py-2.5 rounded-full text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider bg-brand-surface border editorial-border text-brand-body hover:bg-brand-subtle whitespace-nowrap transition-colors shadow-sm shrink-0">
                             GEO & AI Search
                         </button>
-                        <button data-filter="google-updates" class="news-filter-btn px-4 py-2 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-surface border editorial-border text-brand-body hover:bg-brand-subtle transition-colors shadow-sm">
+                        <button data-filter="google-updates" class="news-filter-btn px-4 py-2.5 rounded-full text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider bg-brand-surface border editorial-border text-brand-body hover:bg-brand-subtle whitespace-nowrap transition-colors shadow-sm shrink-0">
                             Google Updates
                         </button>
                     </div>
                 </div>
 
-                <!-- Featured News Item -->
-                <div class="news-card reveal-on-scroll delay-1" data-category="google-updates">
-                    <div class="p-6 sm:p-8 md:p-10 rounded-3xl bg-brand-surface border editorial-border shadow-sm interactive-card grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                        <div class="lg:col-span-7 space-y-4">
-                            <div class="flex items-center gap-3 text-xs font-mono font-bold">
-                                <span class="px-3 py-1 rounded-full bg-brand-accentLight text-brand-accent uppercase tracking-wider">
-                                    Google Algorithm Shift
-                                </span>
-                                <span class="text-brand-muted">•</span>
-                                <span class="text-brand-muted">Sep 2026</span>
-                                <span class="text-brand-muted">•</span>
-                                <span class="text-brand-muted">5 min read</span>
-                            </div>
-
-                            <h3 class="font-serif text-2xl sm:text-3xl font-normal text-brand-heading leading-tight hover:text-brand-accent transition-colors cursor-pointer">
-                                Google Core Update Analysis: How Information Gain Replaces Repetitive Content
-                            </h3>
-
-                            <p class="text-sm sm:text-base text-brand-body leading-relaxed">
-                                Google's latest ranking systems prioritize original insights over recycled blog posts. Here is how we restructure content architectures to pass modern Quality Evaluator guidelines.
-                            </p>
-
-                            <div class="pt-2 flex items-center gap-4">
-                                <a href="#contact" class="btn-hover inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-brand-accent hover:text-brand-heading transition-colors">
-                                    <span>Read Optimization Breakdown</span>
-                                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="lg:col-span-5 relative rounded-2xl overflow-hidden bg-brand-subtle border editorial-border p-6 space-y-3">
-                            <div class="flex justify-between items-center text-xs font-mono text-brand-accent font-bold uppercase">
-                                <span>Key Takeaway</span>
-                                <i data-lucide="trending-up" class="w-4 h-4"></i>
-                            </div>
-                            <blockquote class="font-serif italic text-brand-heading text-lg leading-snug">
-                                "Pages offering net-new perspectives and structured schema outrank 10x content that merely rephrases existing articles."
-                            </blockquote>
-                            <div class="text-xs font-mono text-brand-muted pt-2 border-t border-brand-border">
-                                Core Ranking Signal: Information Gain & Intent Coverage
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Articles Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="news-grid">
-                    <div class="news-card reveal-on-scroll delay-1" data-category="on-page">
-                        <div class="p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border shadow-sm interactive-card space-y-4 h-full flex flex-col justify-between">
-                            <div class="space-y-3">
-                                <div class="flex items-center justify-between text-xs font-mono">
-                                    <span class="px-2.5 py-1 rounded-full bg-brand-subtle text-brand-heading font-bold uppercase text-[10px] tracking-wider border editorial-border">
-                                        On-Page SEO
-                                    </span>
-                                    <span class="text-brand-muted font-medium">Aug 2026</span>
-                                </div>
-                                <h4 class="font-serif text-xl font-normal text-brand-heading leading-snug hover:text-brand-accent transition-colors cursor-pointer">
-                                    Internal Link Clusters: Structuring Topical Authority
-                                </h4>
-                                <p class="text-xs sm:text-sm text-brand-body leading-relaxed">
-                                    How strategic pillar-cluster architecture helps search crawlers understand entity relationships and push targeted conversion pages to position #1.
-                                </p>
-                            </div>
-
-                            <div class="pt-4 border-t border-brand-border flex items-center justify-between text-xs font-mono font-bold text-brand-accent">
-                                <span>3 min read</span>
-                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="news-card reveal-on-scroll delay-2" data-category="off-page">
-                        <div class="p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border shadow-sm interactive-card space-y-4 h-full flex flex-col justify-between">
-                            <div class="space-y-3">
-                                <div class="flex items-center justify-between text-xs font-mono">
-                                    <span class="px-2.5 py-1 rounded-full bg-brand-subtle text-brand-heading font-bold uppercase text-[10px] tracking-wider border editorial-border">
-                                        Off-Page & Links
-                                    </span>
-                                    <span class="text-brand-muted font-medium">Aug 2026</span>
-                                </div>
-                                <h4 class="font-serif text-xl font-normal text-brand-heading leading-snug hover:text-brand-accent transition-colors cursor-pointer">
-                                    Entity Mentions vs. Traditional Backlinks in 2026
-                                </h4>
-                                <p class="text-xs sm:text-sm text-brand-body leading-relaxed">
-                                    Why brand co-citations across authoritative industry publications carry equal weight to direct follow links for modern search algorithms.
-                                </p>
-                            </div>
-
-                            <div class="pt-4 border-t border-brand-border flex items-center justify-between text-xs font-mono font-bold text-brand-accent">
-                                <span>5 min read</span>
-                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="news-card reveal-on-scroll delay-3" data-category="geo-ai">
-                        <div class="p-6 sm:p-7 rounded-3xl bg-brand-surface border editorial-border shadow-sm interactive-card space-y-4 h-full flex flex-col justify-between">
-                            <div class="space-y-3">
-                                <div class="flex items-center justify-between text-xs font-mono">
-                                    <span class="px-2.5 py-1 rounded-full bg-brand-accentLight text-brand-accent font-bold uppercase text-[10px] tracking-wider border border-brand-accent/20">
-                                        GEO & AI Search
-                                    </span>
-                                    <span class="text-brand-muted font-medium">Aug 2026</span>
-                                </div>
-                                <h4 class="font-serif text-xl font-normal text-brand-heading leading-snug hover:text-brand-accent transition-colors cursor-pointer">
-                                    How ChatGPT & Perplexity Select Sources to Cite
-                                </h4>
-                                <p class="text-xs sm:text-sm text-brand-body leading-relaxed">
-                                    Generative Engine Optimization requires structured data tables, clear quotes, and entity validation to get cited in LLM query outputs.
-                                </p>
-                            </div>
-
-                            <div class="pt-4 border-t border-brand-border flex items-center justify-between text-xs font-mono font-bold text-brand-accent">
-                                <span>4 min read</span>
-                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Clean Empty News Container -->
+                <div id="news-grid" class="w-full"></div>
             </div>
         </section>
 
-        <section id="contact" class="max-w-5xl mx-auto px-6 py-20 md:py-24">
-            <div class="reveal-on-scroll bg-brand-heading text-brand-bg rounded-3xl p-8 sm:p-12 md:p-16 space-y-8 relative overflow-hidden shadow-xl">
-                <span class="text-xs font-mono uppercase tracking-widest text-brand-accent font-bold block">
+        <section id="contact" class="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-24">
+            <div class="reveal-on-scroll bg-brand-heading text-brand-bg rounded-2xl sm:rounded-3xl p-6 sm:p-12 md:p-16 space-y-6 sm:space-y-8 relative overflow-hidden shadow-xl">
+                <span class="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-brand-accent font-bold block">
                     Direct Contact
                 </span>
 
-                <h2 class="font-serif text-3xl sm:text-5xl font-normal leading-[1.12]">
+                <h2 class="font-serif text-2xl sm:text-5xl font-normal leading-[1.15] sm:leading-[1.12]">
                     Ready to stop being invisible online?
                 </h2>
 
-                <p class="text-base sm:text-lg text-brand-subtle/90 max-w-xl font-normal leading-relaxed">
+                <p class="text-sm sm:text-lg text-brand-subtle/90 max-w-xl font-normal leading-relaxed">
                     Send me your website URL. I will personally review your current search visibility and send actionable recommendations.
                 </p>
 
-                <div class="pt-4 flex flex-wrap items-center gap-4 border-t border-brand-bg/15">
-                    <a href="mailto:hello@matthiassculte.com" class="btn-hover inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-brand-bg text-brand-heading text-xs font-bold uppercase tracking-wider hover:bg-brand-accent hover:text-white transition-colors shadow-md">
-                        <i data-lucide="mail" class="w-4 h-4"></i>
-                        <span>hello@matthiassculte.com</span>
+                <div class="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 border-t border-brand-bg/15">
+                    <a href="mailto:hello@matthiassculte.com" class="btn-hover inline-flex items-center justify-center gap-2.5 px-5 sm:px-7 py-3.5 rounded-full bg-brand-bg text-brand-heading text-[11px] sm:text-xs font-bold uppercase tracking-wider hover:bg-brand-accent hover:text-white transition-colors shadow-md text-center max-w-full">
+                        <i data-lucide="mail" class="w-4 h-4 shrink-0"></i>
+                        <span class="truncate">hello@matthiassculte.com</span>
                     </a>
                     
-                    <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener noreferrer" class="btn-hover inline-flex items-center gap-3 px-7 py-3.5 rounded-full border border-brand-bg/30 text-brand-bg text-xs font-bold uppercase tracking-wider hover:bg-brand-bg hover:text-brand-heading transition-colors shadow-sm">
+                    <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener noreferrer" class="btn-hover inline-flex items-center justify-center gap-2.5 px-5 sm:px-7 py-3.5 rounded-full border border-brand-bg/30 text-brand-bg text-[11px] sm:text-xs font-bold uppercase tracking-wider hover:bg-brand-bg hover:text-brand-heading transition-colors shadow-sm text-center">
                         <span>LinkedIn Profile</span>
                     </a>
                 </div>
@@ -627,10 +508,10 @@
         </section>
     </main>
 
-    <footer class="w-full py-6 text-xs font-mono text-brand-muted font-medium">
-        <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <footer class="w-full py-6 text-[11px] sm:text-xs font-mono text-brand-muted font-medium border-t border-brand-border/40">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2.5 text-center sm:text-left">
             <div>
-                © 2026 Matthias Schulte
+                © 2026 Matthias Schulte — TakeMyLead
             </div>
             <div>
                 Content Tailored for Leads & Search Dominance
@@ -671,7 +552,7 @@
                 revealObserver.observe(el);
             });
 
-            // Interactive Chart Hover Reading
+            // Interactive Chart Hover Logic
             const indicator = document.getElementById('chart-hover-indicator');
             const defaultText = 'Target Growth Curve';
             const bars = document.querySelectorAll('.svg-bar');
@@ -695,45 +576,24 @@
                 });
             });
 
-            // News Category Filtering
+            // Filter button highlight interaction
             const filterBtns = document.querySelectorAll('.news-filter-btn');
-            const newsCards = document.querySelectorAll('.news-card');
-
-            function applyFilter(targetCategory) {
-                filterBtns.forEach(b => {
-                    if (b.getAttribute('data-filter') === targetCategory) {
-                        b.classList.remove('bg-brand-surface', 'border', 'editorial-border', 'text-brand-body');
-                        b.classList.add('bg-brand-heading', 'text-brand-bg');
-                    } else {
-                        b.classList.remove('bg-brand-heading', 'text-brand-bg');
-                        b.classList.add('bg-brand-surface', 'border', 'editorial-border', 'text-brand-body');
-                    }
-                });
-
-                newsCards.forEach(card => {
-                    const cardCat = card.getAttribute('data-category');
-                    if (targetCategory === 'all' || cardCat === targetCategory) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            }
 
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const category = btn.getAttribute('data-filter');
-                    applyFilter(category);
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-brand-heading', 'text-brand-bg');
+                        b.classList.add('bg-brand-surface', 'border', 'editorial-border', 'text-brand-body');
+                    });
+                    btn.classList.remove('bg-brand-surface', 'border', 'editorial-border', 'text-brand-body');
+                    btn.classList.add('bg-brand-heading', 'text-brand-bg');
                 });
             });
 
-            // Dropdown links trigger filter & scroll
+            // Dropdown scroll helper
             const navFilterLinks = document.querySelectorAll('.nav-filter-link');
             navFilterLinks.forEach(link => {
                 link.addEventListener('click', () => {
-                    const filterValue = link.getAttribute('data-nav-filter');
-                    applyFilter(filterValue);
-                    
                     const newsSection = document.getElementById('news');
                     if (newsSection) {
                         newsSection.scrollIntoView({ behavior: 'smooth' });
