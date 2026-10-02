@@ -181,9 +181,70 @@
                 }
             }
         }
+
+        /* ---- Scroll-Driven Animations (progressive enhancement) ---- */
+        @keyframes sdaRise {
+            from { opacity: 0; transform: translateY(28px) scale(0.97); filter: blur(6px); }
+            to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0px); }
+        }
+        @keyframes sdaProgress {
+            from { transform: scaleX(0); }
+            to   { transform: scaleX(1); }
+        }
+        @keyframes sdaDrift {
+            from { transform: translateY(3rem) scale(0.9); opacity: 0.45; }
+            to   { transform: translateY(-3rem) scale(1.1); opacity: 1; }
+        }
+        @keyframes sdaFade {
+            from { opacity: 0.25; transform: translateY(0.75rem); }
+            to   { opacity: 1; transform: translateY(-0.75rem); }
+        }
+
+        #scroll-progress { transform: scaleX(0); transform-origin: 0 50%; }
+
+        @supports (animation-timeline: view()) {
+            @media (prefers-reduced-motion: no-preference) {
+                /* Hand the reveal over to a real scroll timeline; the
+                   IntersectionObserver fallback below stays harmless. */
+                .reveal-on-scroll {
+                    opacity: 1;
+                    transform: none;
+                    filter: none;
+                    transition: none;
+                    animation: sdaRise linear both;
+                    animation-timeline: view();
+                    animation-range: entry 5% cover 30%;
+                }
+                .reveal-on-scroll.delay-1 { animation-range: entry 5% cover 36%; }
+                .reveal-on-scroll.delay-2 { animation-range: entry 5% cover 42%; }
+                .reveal-on-scroll.delay-3 { animation-range: entry 5% cover 48%; }
+
+                /* Reading-progress bar in the header */
+                #scroll-progress {
+                    animation: sdaProgress linear both;
+                    animation-timeline: scroll(root block);
+                }
+
+                /* Ambient glows drift as their slab crosses the viewport */
+                .sda-drift {
+                    animation: sdaDrift linear both;
+                    animation-timeline: view();
+                    animation-range: cover 0% cover 100%;
+                }
+
+                /* The outlined word surfaces as you scroll into the breaker */
+                .sda-fade {
+                    animation: sdaFade linear both;
+                    animation-timeline: view();
+                    animation-range: entry 20% cover 60%;
+                }
+            }
+        }
     </style>
 </head>
 <body class="bg-brand-bg text-brand-body font-sans antialiased selection:bg-brand-accentLight selection:text-brand-accent flex flex-col min-h-screen overflow-x-hidden w-full">
+    <!-- Scroll progress indicator -->
+    <div id="scroll-progress" class="fixed top-0 left-0 right-0 h-[3px] bg-brand-accent z-[60] pointer-events-none" aria-hidden="true"></div>
 
     <!-- Toast Notification for Interactions -->
     <div id="toast-message" class="fixed bottom-6 right-6 z-50 bg-brand-heading text-white px-5 py-3 rounded-2xl shadow-2xl font-mono text-xs flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-300 translate-y-4">
@@ -245,9 +306,9 @@
                 </a>
 
                 <!-- LinkedIn Link -->
-                <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener noreferrer" class="btn-hover inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-full border border-brand-border bg-brand-surface text-brand-heading text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider hover:border-brand-accent hover:text-brand-accent transition-colors shadow-sm" title="LinkedIn Profile">
-                    <span class="hidden xs:inline">LinkedIn</span>
-                    <i data-lucide="linkedin" class="w-3.5 h-3.5"></i>
+                <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener noreferrer" class="btn-hover inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-full border border-brand-accent/30 bg-brand-accentLight text-brand-accent text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider hover:bg-brand-accent hover:text-white hover:border-brand-accent transition-colors shadow-sm" title="LinkedIn Profile" aria-label="LinkedIn Profile">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 shrink-0" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+                    <span class="hidden sm:inline">LinkedIn</span>
                 </a>
 
                 <a href="#contact" class="btn-hover inline-flex items-center gap-1.5 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-brand-heading text-brand-bg text-[11px] sm:text-xs font-semibold uppercase tracking-wider hover:bg-brand-accent transition-colors shadow-sm shrink-0">
@@ -419,8 +480,8 @@
             <div class="reveal-on-scroll relative overflow-hidden rounded-[1.75rem] sm:rounded-[2.5rem] bg-brand-heading px-6 sm:px-12 lg:px-16 py-12 sm:py-20 shadow-2xl">
 
                 <!-- Ambient accent glow -->
-                <div class="absolute -top-28 -right-24 w-[26rem] h-[26rem] bg-brand-accent/25 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="absolute -bottom-32 -left-28 w-[22rem] h-[22rem] bg-brand-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="sda-drift absolute -top-28 -right-24 w-[26rem] h-[26rem] bg-brand-accent/25 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="sda-drift absolute -bottom-32 -left-28 w-[22rem] h-[22rem] bg-brand-accent/10 rounded-full blur-3xl pointer-events-none"></div>
 
                 <div class="relative z-10 space-y-10 sm:space-y-16">
 
@@ -430,7 +491,7 @@
 
                     <!-- Oversized display type -->
                     <div class="font-serif tracking-tight leading-[0.9] select-none">
-                        <span class="display-outline block text-[13vw] lg:text-[9rem]">Invisible.</span>
+                        <span class="display-outline sda-fade block text-[13vw] lg:text-[9rem]">Invisible.</span>
 
                         <div class="flex items-center gap-3 sm:gap-5 my-4 sm:my-6">
                             <span class="h-px w-10 sm:w-20 bg-brand-accent shrink-0"></span>
@@ -438,7 +499,7 @@
                             <span class="h-px flex-1 bg-white/15"></span>
                         </div>
 
-                        <span class="block text-[13vw] lg:text-[9rem] italic font-medium text-brand-bg">Recommended.</span>
+                        <span class="block text-[13vw] lg:text-[9rem] font-medium text-brand-bg">Recommended.</span>
                     </div>
 
                     <!-- The two-part story -->
@@ -547,96 +608,96 @@
             </div>
         </section>
 
-        <section id="services" class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20 border-t editorial-border">
+        <section id="services" class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20 bg-brand-heading rounded-[1.75rem] sm:rounded-[2.5rem] my-10 border border-white/10 relative overflow-hidden shadow-2xl">
             <div class="space-y-8 sm:space-y-12">
                 <div class="max-w-3xl space-y-3 sm:space-y-4 reveal-on-scroll">
-                    <span class="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-brand-accent font-bold block">
+                    <span class="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-[#E8834F] font-bold block">
                         What I Actually Do
                     </span>
-                    <h2 class="font-serif text-2xl sm:text-4xl font-normal text-brand-heading">
+                    <h2 class="font-serif text-2xl sm:text-4xl font-normal text-brand-bg">
                         Core Optimization Services
                     </h2>
-                    <p class="text-sm sm:text-lg text-brand-body font-normal leading-relaxed">
-                        Six disciplines that move a site from invisible to recommended - covering <strong class="font-bold text-brand-heading">technical health</strong>, <strong class="font-bold text-brand-heading">content authority</strong>, and <strong class="font-bold text-brand-heading">conversion</strong>, for both Google and modern AI answer engines.
+                    <p class="text-sm sm:text-lg text-white/70 font-normal leading-relaxed">
+                        Six disciplines that move a site from invisible to recommended - covering <strong class="font-bold text-brand-bg">technical health</strong>, <strong class="font-bold text-brand-bg">content authority</strong>, and <strong class="font-bold text-brand-bg">conversion</strong>, for both Google and modern AI answer engines.
                     </p>
                 </div>
 
                 <!-- 6 Services Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                    <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                    <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
                         <div>
-                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">01 / DIAGNOSIS</span>
-                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Conduct a Holistic SEO &amp; GEO Audit</h3>
-                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                            <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">01 / DIAGNOSIS</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Conduct a Holistic SEO &amp; GEO Audit</h3>
+                            <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
                                 Analyze your site&rsquo;s technical health, content structure, and search visibility to build a clear, prioritized growth roadmap.
                             </p>
                         </div>
-                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
+                        <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
                             <span>Growth Roadmap</span>
                         </div>
                     </div>
 
-                    <div class="reveal-on-scroll delay-2 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                    <div class="reveal-on-scroll delay-2 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
                         <div>
-                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">02 / COPYWRITING</span>
-                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Craft High-Converting Search &amp; AI Copywriting</h3>
-                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                            <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">02 / COPYWRITING</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Craft High-Converting Search &amp; AI Copywriting</h3>
+                            <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
                                 Write clear, persuasive copy engineered to rank high on traditional search engines and trigger direct citations from AI assistants like ChatGPT and Perplexity.
                             </p>
                         </div>
-                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
+                        <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
                             <span>Rank &amp; Get Cited</span>
                         </div>
                     </div>
 
-                    <div class="reveal-on-scroll delay-3 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                    <div class="reveal-on-scroll delay-3 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
                         <div>
-                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">03 / STRUCTURED DATA</span>
-                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Optimize Structural Metadata &amp; Schema Markup</h3>
-                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                            <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">03 / STRUCTURED DATA</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Optimize Structural Metadata &amp; Schema Markup</h3>
+                            <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
                                 Configure meta titles, descriptions, and structured JSON-LD data so search engines and LLMs instantly understand your authority and services.
                             </p>
                         </div>
-                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
+                        <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
                             <span>JSON-LD &amp; Meta</span>
                         </div>
                     </div>
 
-                    <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                    <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
                         <div>
-                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">04 / TECHNICAL SEO</span>
-                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Fix Technical SEO, Image &amp; Crawl Errors</h3>
-                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                            <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">04 / TECHNICAL SEO</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Fix Technical SEO, Image &amp; Crawl Errors</h3>
+                            <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
                                 Identify and resolve broken links, indexation blocks, heavy uncompressed images, and site errors so search engine crawlers and AI bots can index your pages without friction.
                             </p>
                         </div>
-                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
+                        <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
                             <span>Crawl &amp; Index Health</span>
                         </div>
                     </div>
 
-                    <div class="reveal-on-scroll delay-2 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                    <div class="reveal-on-scroll delay-2 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
                         <div>
-                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">05 / AUTHORITY</span>
-                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Build Topic Clusters for Topical Authority</h3>
-                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                            <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">05 / AUTHORITY</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Build Topic Clusters for Topical Authority</h3>
+                            <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
                                 Structure your content into interconnected hub-and-spoke models that prove deep industry expertise to search algorithms and modern AI engines.
                             </p>
                         </div>
-                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
+                        <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
                             <span>Hub &amp; Spoke Model</span>
                         </div>
                     </div>
 
-                    <div class="reveal-on-scroll delay-3 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                    <div class="reveal-on-scroll delay-3 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
                         <div>
-                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">06 / CONVERSION</span>
-                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Refine On-Page Conversion Architecture</h3>
-                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                            <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">06 / CONVERSION</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Refine On-Page Conversion Architecture</h3>
+                            <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
                                 Strategically position high-converting calls to action, clear value propositions, and lead capture points to turn organic traffic into paying clients.
                             </p>
                         </div>
-                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
+                        <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
                             <span>Traffic To Clients</span>
                         </div>
                     </div>
