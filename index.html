@@ -165,6 +165,22 @@
         .article-card.hidden-article {
             display: none !important;
         }
+
+        /* Oversized outlined display type (visual breaker) */
+        .display-outline {
+            color: rgba(250, 248, 244, 0.22);
+        }
+        @supports (-webkit-text-stroke: 1px #FAF8F4) {
+            .display-outline {
+                color: transparent;
+                -webkit-text-stroke: 1px rgba(250, 248, 244, 0.5);
+            }
+            @media (min-width: 640px) {
+                .display-outline {
+                    -webkit-text-stroke-width: 2px;
+                }
+            }
+        }
     </style>
 </head>
 <body class="bg-brand-bg text-brand-body font-sans antialiased selection:bg-brand-accentLight selection:text-brand-accent flex flex-col min-h-screen overflow-x-hidden w-full">
@@ -398,7 +414,59 @@
             </div>
         </section>
 
-        <section id="why-content" class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20 border-t editorial-border">
+        <!-- Visual Breaker: Problem / Approach -->
+        <section id="the-shift" class="w-full max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+            <div class="reveal-on-scroll relative overflow-hidden rounded-[1.75rem] sm:rounded-[2.5rem] bg-brand-heading px-6 sm:px-12 lg:px-16 py-12 sm:py-20 shadow-2xl">
+
+                <!-- Ambient accent glow -->
+                <div class="absolute -top-28 -right-24 w-[26rem] h-[26rem] bg-brand-accent/25 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-32 -left-28 w-[22rem] h-[22rem] bg-brand-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 space-y-10 sm:space-y-16">
+
+                    <span class="text-[10px] sm:text-xs font-mono uppercase tracking-[0.3em] font-bold block text-[#E8834F]">
+                        The Shift
+                    </span>
+
+                    <!-- Oversized display type -->
+                    <div class="font-serif uppercase tracking-tight leading-[0.82] select-none">
+                        <span class="display-outline block text-[12.5vw] lg:text-[8.5rem]">Invisible</span>
+
+                        <div class="flex items-center gap-3 sm:gap-5 my-4 sm:my-6">
+                            <span class="h-px w-10 sm:w-20 bg-brand-accent shrink-0"></span>
+                            <span class="font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] font-bold text-[#E8834F]">Becomes</span>
+                            <span class="h-px flex-1 bg-white/15"></span>
+                        </div>
+
+                        <span class="block text-[10vw] lg:text-[7rem] font-semibold text-brand-bg">Recommended</span>
+                    </div>
+
+                    <!-- The two-part story -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
+                        <div class="space-y-3 border-t-2 border-white/20 pt-5 sm:pt-6">
+                            <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest font-bold block text-white/55">
+                                01 / Why Most Websites Struggle
+                            </span>
+                            <p class="text-sm sm:text-lg leading-relaxed text-white/75">
+                                They are invisible on search engines, missing from AI answers, and lack a clear strategy to convert traffic.
+                            </p>
+                        </div>
+
+                        <div class="space-y-3 border-t-2 border-brand-accent pt-5 sm:pt-6">
+                            <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest font-bold block text-[#E8834F]">
+                                02 / What I Do
+                            </span>
+                            <p class="text-sm sm:text-lg leading-relaxed text-brand-bg">
+                                I create content optimized for traditional SEO and AI search (GEO). I help you reach the right buyers, solve their specific problems, and turn casual traffic into reliable business leads.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="why-content" class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
             <div class="space-y-8 sm:space-y-12">
                 <div class="max-w-3xl space-y-4 sm:space-y-5 reveal-on-scroll">
                     <span class="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-brand-accent font-bold block">
@@ -407,20 +475,6 @@
                     <h2 class="font-serif text-2xl sm:text-4xl font-normal text-brand-heading">
                         Why Tailored Content Drives Real Results
                     </h2>
-                    
-                    <!-- Updated Why Content Matters Section Copy -->
-                    <div class="space-y-3.5 sm:space-y-4 text-sm sm:text-lg text-brand-body font-normal leading-relaxed pt-1">
-                        <div class="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-brand-surface border editorial-border shadow-xs">
-                            <p>
-                                <strong class="font-bold text-brand-heading">Why most websites struggle:</strong> They are invisible on search engines, missing from AI answers, and lack a clear strategy to convert traffic.
-                            </p>
-                        </div>
-                        <div class="p-4 sm:p-5 rounded-xl sm:rounded-2xl bg-brand-surface border editorial-border shadow-xs border-l-4 border-l-brand-accent">
-                            <p>
-                                <strong class="font-bold text-brand-heading">What I do:</strong> I create content optimized for traditional SEO and AI search (GEO). I help you reach the right buyers, solve their specific problems, and turn casual traffic into reliable business leads.
-                            </p>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- 5 Benefits Grid -->
