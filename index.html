@@ -36,6 +36,43 @@
     <meta name="twitter:image" content="https://takemylead.de/og-image.png">             <!-- HOST -->
     <meta name="twitter:image:alt" content="TakeMyLead — shaping websites to rank on Google and in AI answers.">
 
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "@id": "https://takemylead.de/#business",
+      "name": "TakeMyLead",
+      "url": "https://takemylead.de/",
+      "image": "https://takemylead.de/og-image.png",
+      "logo": "https://takemylead.de/apple-touch-icon.png",
+      "email": "takemylead.de@gmail.com",
+      "description": "SEO and content strategy that ranks your site on Google and gets it cited by ChatGPT and Perplexity, turning search traffic into high-intent leads.",
+      "areaServed": "Worldwide",
+      "availableLanguage": ["en", "de"],
+      "knowsAbout": [
+        "Search engine optimization",
+        "Generative engine optimization",
+        "Technical SEO",
+        "Structured data and schema markup",
+        "Content strategy",
+        "Digital PR and link building"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Core optimization services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO and GEO audit", "description": "Analyze technical health, content structure and search visibility to build a prioritized growth roadmap." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Search and AI copywriting", "description": "Write copy designed to perform well in search and increase the chance of being referenced by AI assistants." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Structured data and schema", "description": "Configure meta titles, descriptions and JSON-LD so search engines and AI models can read the site." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Technical SEO and crawl fixes", "description": "Find and resolve broken links, indexation blocks, heavy images and crawl errors." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Topic cluster strategy", "description": "Structure content into interconnected hub-and-spoke models that demonstrate subject expertise." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "On-page conversion architecture", "description": "Position calls to action, value propositions and lead capture so organic traffic converts." } }
+        ]
+      }
+    }
+    </script>
+
     <!-- Icons -->
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
@@ -46,39 +83,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..800;1,6..72,400..800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons (pinned: @latest lets an upstream release break the page) -->
+    <script src="https://unpkg.com/lucide@1.51.0/dist/umd/lucide.min.js" defer></script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        serif: ['"Newsreader"', 'serif'],
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        mono: ['"Space Mono"', 'monospace'],
-                    },
-                    colors: {
-                        brand: {
-                            bg: '#FAF8F4',
-                            surface: '#FFFFFF',
-                            border: '#DBD5C8',
-                            accent: '#B2431C',
-                            accentHover: '#963412',
-                            accentLight: 'rgba(178, 67, 28, 0.10)',
-                            heading: '#141311',
-                            body: '#2A2824',
-                            muted: '#635E54',
-                            subtle: '#F1ECE2'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Tailwind, built ahead of time from tailwind.src.css + tailwind.config.js.
+         Rebuild after adding utility classes to this file:
+           npx tailwindcss@3.4.17 -i tailwind.src.css -o styles.css --minify -->
+    <link rel="stylesheet" href="styles.css">
 
     <style>
         /* Mobile horizontal overflow containment */
@@ -487,7 +498,12 @@
                     </h1>
 
                     <p class="reveal-on-scroll delay-2 text-sm sm:text-lg text-brand-body max-w-2xl font-normal leading-relaxed">
-                        I position your brand where <strong class="font-bold text-brand-heading">Google</strong> and <strong class="font-bold text-brand-heading">modern AI search engines</strong> (ChatGPT & Perplexity) recommend you first, bringing a steady stream of organic leads directly to your business.
+                        I position your brand to be found on <strong class="font-bold text-brand-heading">Google</strong> and recommended by <strong class="font-bold text-brand-heading">modern AI search engines</strong> like ChatGPT and Perplexity — so the people already searching for what you do end up on your site.
+                    </p>
+
+                    <!-- 2. The plain-language version of the offer, before any jargon. -->
+                    <p class="reveal-on-scroll delay-2 text-sm sm:text-base text-brand-muted max-w-2xl font-normal leading-relaxed">
+                        In practice: I work out what your potential customers search for, write and optimize the pages that answer those searches, and build the authority that makes those pages visible.
                     </p>
 
                     <!-- Call To Action Buttons -->
@@ -511,10 +527,10 @@
                                 <div class="space-y-1">
                                     <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-accent flex items-center gap-1.5 sm:gap-2">
                                         <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
-                                        ORGANIC TRAFFIC TRAJECTORY
+                                        ORGANIC TRAFFIC OVER TIME
                                     </span>
                                     <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">
-                                        The Impact of Tailored SEO & GEO
+                                        The Impact of Tailored SEO & AI Search
                                     </h3>
                                 </div>
                                 
@@ -574,10 +590,10 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
                             <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
                                 <div class="space-y-2 sm:space-y-3">
-                                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">01 / TRAFFIC TARGET</span>
-                                    <h3 class="font-serif text-xl sm:text-3xl font-normal text-brand-heading tracking-tight">Organic Growth</h3>
+                                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">01 / RELEVANT TRAFFIC</span>
+                                    <h3 class="font-serif text-xl sm:text-3xl font-normal text-brand-heading tracking-tight">More Relevant Visitors</h3>
                                     <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed">
-                                        Increasing qualified potential clients searching for your exact solutions.
+                                        More of the people already searching for what you sell land on your pages.
                                     </p>
                                 </div>
                             </div>
@@ -594,8 +610,8 @@
 
                             <div class="reveal-on-scroll delay-3 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
                                 <div class="space-y-2 sm:space-y-3">
-                                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">03 / AUTHORITY</span>
-                                    <h3 class="font-serif text-xl sm:text-3xl font-normal text-brand-heading tracking-tight">Top AI Citation</h3>
+                                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">03 / AI VISIBILITY</span>
+                                    <h3 class="font-serif text-xl sm:text-3xl font-normal text-brand-heading tracking-tight">Appear in AI Answers</h3>
                                     <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed">
                                         Positioned to be recommended across search engines and AI assistants.
                                     </p>
@@ -681,7 +697,7 @@
                             <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">01 / RELEVANCE</span>
                             <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Establishes Site Relevance</h3>
                             <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
-                                Proves to search algorithms and LLMs that your domain is a definitive authority in your industry.
+                                Signals to search engines and AI models that your site is a credible, well-covered authority in your field.
                             </p>
                         </div>
                         <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
@@ -718,13 +734,13 @@
                     <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
                         <div>
                             <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">04 / ADVOCACY</span>
-                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Earns Direct Recommendations</h3>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Built to Be Referenced</h3>
                             <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
-                                Well-crafted content gets shared by users and cited directly by AI engines like ChatGPT, Perplexity, and Gemini.
+                                Content that is genuinely useful to people is also easier for search engines and AI systems like ChatGPT, Perplexity and Gemini to discover, understand and reference.
                             </p>
                         </div>
                         <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
-                            <span>LLM & User Referral</span>
+                            <span>AI & Organic Referrals</span>
                         </div>
                     </div>
                     
@@ -761,6 +777,10 @@
                     <p class="text-sm sm:text-lg text-white/70 font-normal leading-relaxed">
                         Six disciplines that move a site from invisible to recommended - covering <strong class="font-bold text-brand-bg">technical health</strong>, <strong class="font-bold text-brand-bg">content authority</strong>, and <strong class="font-bold text-brand-bg">conversion</strong>, for both Google and modern AI answer engines.
                     </p>
+                    <p class="text-sm sm:text-base text-white/60 font-normal leading-relaxed">
+                        <strong class="font-bold text-[#E8834F]">SEO</strong> is getting found on Google.
+                        <strong class="font-bold text-[#E8834F]">GEO</strong> &mdash; generative engine optimization &mdash; is getting discovered inside AI-generated answers.
+                    </p>
                 </div>
 
                 <!-- 6 Services Grid -->
@@ -783,18 +803,18 @@
                             <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">02 / COPYWRITING</span>
                             <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Craft High-Converting Search &amp; AI Copywriting</h3>
                             <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
-                                Write clear, persuasive copy engineered to rank high on traditional search engines and trigger direct citations from AI assistants like ChatGPT and Perplexity.
+                                Write clear, persuasive copy designed to perform well in search and increase your chances of being referenced by AI assistants like ChatGPT and Perplexity.
                             </p>
                         </div>
                         <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
-                            <span>Rank &amp; Get Cited</span>
+                            <span>Rank &amp; Get Referenced</span>
                         </div>
                     </div>
 
                     <div class="reveal-on-scroll delay-3 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
                         <div>
                             <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">03 / STRUCTURED DATA</span>
-                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Optimize Structural Metadata &amp; Schema Markup</h3>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Set Up Structured Data &amp; Schema</h3>
                             <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
                                 Configure meta titles, descriptions, and structured JSON-LD data so search engines and LLMs instantly understand your authority and services.
                             </p>
@@ -822,7 +842,7 @@
                             <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">05 / AUTHORITY</span>
                             <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Build Topic Clusters for Topical Authority</h3>
                             <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
-                                Structure your content into interconnected hub-and-spoke models that prove deep industry expertise to search algorithms and modern AI engines.
+                                Structure your content into interconnected hub-and-spoke models that demonstrate deep industry expertise to search algorithms and modern AI engines.
                             </p>
                         </div>
                         <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
@@ -1014,7 +1034,7 @@
                         <i data-lucide="mail" class="w-4 h-4"></i> takemylead.de@gmail.com
                     </a>
                     <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener noreferrer" class="btn-hover px-8 py-4 rounded-full border-2 border-brand-border bg-brand-surface text-brand-heading text-xs font-bold uppercase tracking-wider text-center hover:border-brand-heading transition-colors w-full sm:w-auto flex items-center justify-center gap-2">
-                        <i data-lucide="linkedin" class="w-4 h-4"></i> Connect on LinkedIn
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 shrink-0" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg> Connect on LinkedIn
                     </a>
                 </div>
             </div>
@@ -1044,10 +1064,11 @@
     </footer>
 
     <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-
         document.addEventListener('DOMContentLoaded', () => {
+
+            // Lucide is loaded with defer, so it is ready by this point but not
+            // at parse time - keep this call inside the handler.
+            lucide.createIcons();
             
             // --- Toast Notification Helper ---
             const toast = document.getElementById('toast-message');
