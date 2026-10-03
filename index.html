@@ -204,6 +204,11 @@
         .delay-2 { transition-delay: 0.10s; }
         .delay-3 { transition-delay: 0.15s; }
 
+        /* Nothing to hover on a touch screen, so the pill never earns its space there. */
+        @media (hover: none) {
+            #chart-hover-indicator { display: none; }
+        }
+
         /* Interactive SVG Chart Bars */
         .chart-svg rect.svg-bar {
             transform-origin: bottom;
@@ -540,9 +545,7 @@
                                     </h2>
                                 </div>
                                 
-                                <span id="chart-hover-indicator" class="self-start sm:self-auto px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-brand-accentLight border border-brand-accent/20 text-brand-accent text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 shadow-sm">
-                                    Hover bars to view phase details
-                                </span>
+                                <span id="chart-hover-indicator" aria-hidden="true" class="opacity-0 self-start sm:self-auto px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-brand-accentLight border border-brand-accent/20 text-brand-accent text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider transition-opacity duration-200 shadow-sm pointer-events-none"></span>
                             </div>
 
                             <!-- Bar Chart SVG -->
@@ -1130,20 +1133,20 @@
                 // Hover interactions for chart bars
                 const bars = document.querySelectorAll('.svg-bar');
                 const indicator = document.getElementById('chart-hover-indicator');
-                const defaultIndicatorText = "Hover bars to view phase details";
-                
+
                 bars.forEach(bar => {
                     bar.addEventListener('mouseenter', (e) => {
                         const val = e.target.getAttribute('data-val');
                         if (indicator && val) {
-                            indicator.innerText = val;
+                            indicator.textContent = val;
+                            indicator.classList.remove('opacity-0');
                         }
                     });
-                    
+
                     bar.addEventListener('mouseleave', () => {
-                        if (indicator) {
-                            indicator.innerText = defaultIndicatorText;
-                        }
+                        // The text stays put while it fades, so the pill does not
+                        // collapse mid-transition.
+                        if (indicator) indicator.classList.add('opacity-0');
                     });
                 });
             }
