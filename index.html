@@ -66,7 +66,7 @@
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Search and AI copywriting", "description": "Write copy designed to perform well in search and increase the chance of being referenced by AI assistants." } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Structured data and schema", "description": "Configure meta titles, descriptions and JSON-LD so search engines and AI models can read the site." } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Technical SEO and crawl fixes", "description": "Find and resolve broken links, indexation blocks, heavy images and crawl errors." } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Topic cluster strategy", "description": "Structure content into interconnected hub-and-spoke models that demonstrate subject expertise." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Topic cluster strategy", "description": "Group pages around one main guide per topic, with smaller pages linking back to it, to show subject expertise." } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "On-page conversion architecture", "description": "Position calls to action, value propositions and lead capture so organic traffic converts." } }
         ]
       }
@@ -476,34 +476,13 @@
         <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 pb-12 sm:pb-20">
             <div class="flex flex-col gap-6 sm:gap-8">
                 
-                <!-- Status Badge -->
-                <div class="flex items-center gap-3.5 sm:gap-4 reveal-on-scroll">
-                    <div class="relative w-14 h-14 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-brand-accent/40 p-1 bg-brand-surface flex-shrink-0 shadow-sm">
-                        <picture class="block w-full h-full">
-                            <source type="image/webp" srcset="portrait-160.webp 160w, portrait-320.webp 320w" sizes="(min-width: 640px) 72px, 48px">
-                            <img
-                                src="portrait-160.png"
-                                alt="Matthias Schulte"
-                                width="160"
-                                height="160"
-                                class="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-500"
-                                onerror="this.onerror=null; this.src='https://placehold.co/400x400/E8E4DC/1C1A17?text=MS';"
-                            />
-                        </picture>
-                        <span class="absolute bottom-1 right-1 w-3 h-3 sm:w-3.5 sm:h-3.5 bg-emerald-500 border-2 border-white rounded-full"></span>
-                    </div>
-                    <div class="space-y-1">
-                        <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-1 rounded-full bg-brand-accentLight border border-brand-accent/20 text-brand-accent text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider">
-                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-brand-accent animate-ping"></span>
-                            Taking on new projects
-                        </div>
-                        <p class="text-[11px] sm:text-xs text-brand-muted font-mono font-semibold">Matthias Schulte - Digital Content Strategist</p>
-                    </div>
-                </div>
-
-                <!-- Main Punchy Headline -->
+                <!-- Main Punchy Headline. The portrait is no longer a status
+                     badge: it sits beside the headline on wide screens and above
+                     it on narrow ones, so it anchors the hero rather than
+                     labelling a strapline that no longer exists. -->
                 <div class="space-y-5 sm:space-y-6">
-                  <div class="sda-exit space-y-5 sm:space-y-6">
+                  <div class="flex flex-col-reverse md:flex-row md:items-start md:justify-between gap-6 md:gap-10 lg:gap-14">
+                    <div class="sda-exit space-y-5 sm:space-y-6 flex-1 min-w-0">
                     <h1 class="reveal-on-scroll delay-1 font-serif text-3xl sm:text-5xl md:text-6xl font-normal leading-[1.15] sm:leading-[1.12] tracking-tight text-brand-heading max-w-4xl">
                         Shaping your <span class="italic text-brand-accent font-medium">website to rank</span>&nbsp;- not just sit there looking pretty.
                     </h1>
@@ -526,6 +505,24 @@
                         <a href="#why-content" class="btn-hover px-6 sm:px-7 py-3.5 rounded-full border border-brand-border bg-brand-surface text-brand-heading text-xs font-bold uppercase tracking-wider text-center hover:bg-brand-subtle transition-colors shadow-sm">
                             Why Content Matters
                         </a>
+                    </div>
+                    </div>
+
+                    <!-- Portrait -->
+                    <div class="reveal-on-scroll shrink-0 self-start md:pt-1">
+                        <div class="relative w-16 h-16 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full overflow-hidden border-2 border-brand-accent/40 p-1 bg-brand-surface shadow-sm">
+                            <picture class="block w-full h-full">
+                                <source type="image/webp" srcset="portrait-160.webp 160w, portrait-320.webp 320w" sizes="(min-width: 1024px) 144px, (min-width: 768px) 128px, 64px">
+                                <img
+                                    src="portrait-160.png"
+                                    alt="Matthias Schulte"
+                                    width="160"
+                                    height="160"
+                                    class="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-500"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/400x400/E8E4DC/1C1A17?text=MS';"
+                                />
+                            </picture>
+                        </div>
                     </div>
                   </div>
 
@@ -851,11 +848,11 @@
                             <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">05 / AUTHORITY</span>
                             <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Build Topic Clusters for Topical Authority</h3>
                             <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
-                                Structure your content into interconnected hub-and-spoke models that demonstrate deep industry expertise to search algorithms and modern AI engines.
+                                Group your pages around one main guide per topic, with the smaller pages linking back to it. That pattern shows search engines and AI tools that you really know your subject.
                             </p>
                         </div>
                         <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
-                            <span>Hub &amp; Spoke Model</span>
+                            <span>Main Page + Support Pages</span>
                         </div>
                     </div>
 
