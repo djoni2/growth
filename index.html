@@ -93,10 +93,21 @@
     <link rel="stylesheet" href="styles.css">
 
     <style>
-        /* Mobile horizontal overflow containment */
+        /* Mobile horizontal overflow containment.
+           Only the root element clips: overflow-x on <body> makes it a scroll
+           container of its own, and that silently kills position: sticky on
+           the header. Where overflow-x: clip is supported it is the better
+           tool - it clips without creating a scroll container at all. */
         html, body {
-            overflow-x: hidden;
             width: 100%;
+        }
+        html {
+            overflow-x: hidden;
+        }
+        @supports (overflow-x: clip) {
+            html {
+                overflow-x: clip;
+            }
         }
 
         /* Anchor jumps should clear the sticky header */
@@ -403,7 +414,7 @@
         }
     </style>
 </head>
-<body class="bg-brand-bg text-brand-body font-sans antialiased selection:bg-brand-accentLight selection:text-brand-accent flex flex-col min-h-screen overflow-x-hidden w-full">
+<body class="bg-brand-bg text-brand-body font-sans antialiased selection:bg-brand-accentLight selection:text-brand-accent flex flex-col min-h-screen w-full">
     <!-- Scroll progress indicator -->
     <div id="scroll-progress" class="fixed top-0 left-0 right-0 h-[3px] bg-brand-accent z-[60] pointer-events-none" aria-hidden="true"></div>
 
