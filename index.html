@@ -275,18 +275,24 @@
             line-height: 0.92;
         }
 
-        /* Oversized outlined display type (visual breaker) */
+        /* Oversized outlined display type (visual breaker).
+           Phones get a heavier stroke plus a whisper of fill. The hairline
+           reads as elegant restraint at ~180px of glyph on desktop, but the
+           phone fits the same word into a third of that, and 1px at half
+           opacity on a near-black field all but disappears there. */
         .display-outline {
-            color: rgba(250, 248, 244, 0.22);
+            color: rgba(250, 248, 244, 0.32);
         }
         @supports (-webkit-text-stroke: 1px #FAF8F4) {
             .display-outline {
                 color: transparent;
-                -webkit-text-stroke: 1px rgba(250, 248, 244, 0.5);
+                -webkit-text-fill-color: rgba(250, 248, 244, 0.1);
+                -webkit-text-stroke: 2px rgba(250, 248, 244, 0.85);
             }
             @media (min-width: 640px) {
                 .display-outline {
-                    -webkit-text-stroke-width: 2px;
+                    -webkit-text-fill-color: transparent;
+                    -webkit-text-stroke: 2px rgba(250, 248, 244, 0.5);
                 }
             }
         }
@@ -308,6 +314,12 @@
         @keyframes sdaDissolve {
             from { opacity: 1; filter: blur(0px); transform: translateY(0); }
             to   { opacity: 0.4; filter: blur(2px); transform: translateY(-0.9rem); }
+        }
+        /* ...but only part of the way on phones: 0.4 opacity and 2px of blur
+           over an outline this thin leaves nothing on screen at all. */
+        @keyframes sdaDissolveNarrow {
+            from { opacity: 1; filter: blur(0px); transform: translateY(0); }
+            to   { opacity: 0.8; filter: blur(0.5px); transform: translateY(-0.5rem); }
         }
         /* ...while the solid one resolves into focus. */
         @keyframes sdaSharpen {
@@ -361,6 +373,11 @@
                     animation: sdaDissolve linear both;
                     animation-timeline: view();
                     animation-range: entry 70% cover 62%;
+                }
+                @media (max-width: 639px) {
+                    .sda-dissolve {
+                        animation-name: sdaDissolveNarrow;
+                    }
                 }
                 .sda-sharpen {
                     animation: sdaSharpen linear both;
