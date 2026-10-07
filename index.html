@@ -476,23 +476,39 @@
         <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 pb-12 sm:pb-20">
             <div class="flex flex-col gap-6 sm:gap-8">
                 
-                <!-- Main Punchy Headline. The portrait is no longer a status
-                     badge: it sits beside the headline on wide screens and above
-                     it on narrow ones, so it anchors the hero rather than
-                     labelling a strapline that no longer exists. -->
+                <!-- Main Punchy Headline -->
                 <div class="space-y-5 sm:space-y-6">
-                  <div class="flex flex-col-reverse md:flex-row md:items-start md:justify-between gap-6 md:gap-10 lg:gap-14">
-                    <div class="sda-exit space-y-5 sm:space-y-6 flex-1 min-w-0">
-                    <h1 class="reveal-on-scroll delay-1 font-serif text-3xl sm:text-5xl md:text-6xl font-normal leading-[1.15] sm:leading-[1.12] tracking-tight text-brand-heading max-w-4xl">
-                        Shaping your <span class="italic text-brand-accent font-medium">website to rank</span>&nbsp;- not just sit there looking pretty.
-                    </h1>
+                    <div class="sda-exit space-y-5 sm:space-y-6">
 
-                    <p class="reveal-on-scroll delay-2 text-sm sm:text-lg text-brand-body max-w-2xl font-normal leading-relaxed">
+                    <!-- Headline row: the portrait reads as the headline's
+                         left-hand mark, so the two share a line. Everything
+                         below it runs the full width of the column. -->
+                    <div class="reveal-on-scroll delay-1 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 md:gap-8">
+                        <div class="relative shrink-0 w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-brand-accent/40 p-1 bg-brand-surface shadow-sm">
+                            <picture class="block w-full h-full">
+                                <source type="image/webp" srcset="portrait-160.webp 160w, portrait-320.webp 320w" sizes="(min-width: 768px) 128px, (min-width: 640px) 96px, 64px">
+                                <img
+                                    src="portrait-160.png"
+                                    alt="Matthias Schulte"
+                                    width="160"
+                                    height="160"
+                                    class="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-500"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/400x400/E8E4DC/1C1A17?text=MS';"
+                                />
+                            </picture>
+                        </div>
+
+                        <h1 class="flex-1 min-w-0 font-serif text-3xl sm:text-5xl md:text-6xl font-normal leading-[1.15] sm:leading-[1.12] tracking-tight text-brand-heading">
+                            Shaping your <span class="italic text-brand-accent font-medium">website to rank</span>&nbsp;- not just sit there looking pretty.
+                        </h1>
+                    </div>
+
+                    <p class="reveal-on-scroll delay-2 text-sm sm:text-lg text-brand-body font-normal leading-relaxed">
                         I position your brand to be found on <strong class="font-bold text-brand-heading">Google</strong> and recommended by <strong class="font-bold text-brand-heading">modern AI search engines</strong> like ChatGPT and Perplexity - so the people already searching for what you do end up on your site.
                     </p>
 
                     <!-- 2. The plain-language version of the offer, before any jargon. -->
-                    <p class="reveal-on-scroll delay-2 text-sm sm:text-base text-brand-muted max-w-2xl font-normal leading-relaxed">
+                    <p class="reveal-on-scroll delay-2 text-sm sm:text-base text-brand-muted font-normal leading-relaxed">
                         In practice: I work out what your potential customers search for, write and optimize the pages that answer those searches, and build the authority that makes those pages visible.
                     </p>
 
@@ -507,24 +523,6 @@
                         </a>
                     </div>
                     </div>
-
-                    <!-- Portrait -->
-                    <div class="reveal-on-scroll shrink-0 self-start md:pt-1">
-                        <div class="relative w-16 h-16 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full overflow-hidden border-2 border-brand-accent/40 p-1 bg-brand-surface shadow-sm">
-                            <picture class="block w-full h-full">
-                                <source type="image/webp" srcset="portrait-160.webp 160w, portrait-320.webp 320w" sizes="(min-width: 1024px) 144px, (min-width: 768px) 128px, 64px">
-                                <img
-                                    src="portrait-160.png"
-                                    alt="Matthias Schulte"
-                                    width="160"
-                                    height="160"
-                                    class="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-500"
-                                    onerror="this.onerror=null; this.src='https://placehold.co/400x400/E8E4DC/1C1A17?text=MS';"
-                                />
-                            </picture>
-                        </div>
-                    </div>
-                  </div>
 
                     <div class="pt-6 sm:pt-8 w-full space-y-5 sm:space-y-6 reveal-on-scroll">
                         
