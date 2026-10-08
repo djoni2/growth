@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TakeMyLead - stop being invisible online</title>
+
+<!-- This is an alternate design treatment of the main page. It carries the
+     same copy, so it must not compete with "/" in search results: noindex,
+     and canonical back to the real page. -->
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://www.takemylead.de/">
+<meta name="description" content="Pretty websites don't pay the bills - traffic that converts does. I optimize your site to answer questions, outrank competitors, and turn clicks into sales.">
+<meta name="theme-color" content="#1a1512">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;900&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* takemylead - alternate treatment.
+   Palette and type lifted from latent-spaces.github.io/brag: one warm hue
+   drives everything, an orange hero bookends a near-black body, and the only
+   two faces are Geist and Geist Mono. */
+
+:root {
+  --hue: 35;
+
+  --hero-bg: oklch(64% 0.22 var(--hue));
+  --hero-ink: oklch(16% 0.06 var(--hue));
+  --hero-ink-soft: oklch(28% 0.06 var(--hue));
+  --hero-tint: oklch(96% 0.02 var(--hue));
+
+  --dark-bg: oklch(14% 0.03 var(--hue));
+  --dark-bg-elev: oklch(18% 0.04 var(--hue));
+  --dark-ink: oklch(96% 0.02 var(--hue));
+  --dark-ink-soft: oklch(72% 0.04 var(--hue));
+  --dark-rule: oklch(26% 0.03 var(--hue));
+  --dark-accent: oklch(72% 0.22 var(--hue));
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --max-page: 1480px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body {
+  font-family: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-feature-settings: "ss01", "ss03", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.4;
+  background: var(--dark-bg);
+  color: var(--dark-ink);
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button { font: inherit; cursor: pointer; }
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 12px;
+  background: var(--hero-ink);
+  color: var(--hero-tint);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 13px;
+  z-index: 100;
+}
+.skip-link:focus { top: 12px; }
+
+/* === Hero === */
+.hero {
+  min-height: 100svh;
+  background: var(--hero-bg);
+  color: var(--hero-ink);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(20px, 3vw, 40px);
+  gap: clamp(36px, 5vw, 72px);
+  position: relative;
+  overflow: hidden;
+}
+
+.topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 13px;
+  letter-spacing: -0.005em;
+  z-index: 2;
+}
+.topbar .mark { font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
+.topbar nav { display: flex; gap: 22px; flex-wrap: wrap; }
+.topbar nav a {
+  color: var(--hero-ink);
+  text-decoration: none;
+  opacity: 0.72;
+  transition: opacity 180ms var(--ease-out);
+}
+.topbar nav a:hover, .topbar nav a:focus-visible { opacity: 1; }
+.topbar nav a:focus-visible { outline: 2px solid var(--hero-ink); outline-offset: 4px; border-radius: 3px; }
+
+.hero-main {
+  align-self: center;
+  max-width: var(--max-page);
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(200px, 20vw, 290px);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+}
+.hero-body { min-width: 0; }
+.hero-eyebrow {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hero-ink-soft);
+  margin: 0 0 clamp(18px, 2vw, 28px);
+}
+.hero-headline {
+  font-size: clamp(50px, 10.5vw, 160px);
+  line-height: 0.86;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  margin: 0;
+  text-transform: lowercase;
+}
+.hero-headline .emph {
+  font-style: italic;
+  background: var(--hero-ink);
+  color: var(--hero-bg);
+  padding: 0 0.06em;
+}
+.hero-sub {
+  margin: clamp(26px, 3vw, 44px) 0 0;
+  max-width: 42ch;
+  font-size: clamp(18px, 1.9vw, 27px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+  color: var(--hero-ink-soft);
+}
+.hero-sub strong { color: var(--hero-ink); font-weight: 600; }
+
+/* Portrait tile - the brag hero's video slot, holding a face instead */
+.hero-portrait {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  margin: 0;
+  border-radius: var(--radius-md);
+  background: var(--hero-ink);
+  color: var(--hero-tint);
+  transform: rotate(2.5deg);
+  box-shadow: 0 30px 80px -20px oklch(20% 0.08 var(--hue) / 0.45);
+  overflow: hidden;
+  justify-self: end;
+}
+.hero-portrait img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 420ms var(--ease-out);
+}
+.hero-portrait:hover img { filter: grayscale(0); }
+.hero-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0, transparent 3px,
+    oklch(100% 0 0 / 0.04) 3px, oklch(100% 0 0 / 0.04) 4px
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+.hero-portrait figcaption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 3;
+  padding: 10px 12px;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hero-tint);
+  background: linear-gradient(to top, oklch(15% 0.05 var(--hue) / 0.88), transparent);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hero-foot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+  z-index: 2;
+}
+.contact-block {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  background: var(--hero-ink);
+  color: var(--hero-tint);
+  padding: 18px 92px 18px 22px;
+  border-radius: var(--radius-md);
+  font-size: clamp(13px, 1.15vw, 16px);
+  line-height: 1.7;
+  display: inline-grid;
+  gap: 4px;
+  margin: 0;
+  position: relative;
+  max-width: 100%;
+  grid-template-columns: minmax(0, 1fr);
+}
+/* The <code> scrolls, not the <pre> - so the copy button stays on the frame. */
+.contact-block code { display: block; min-width: 0; overflow-x: auto; }
+.contact-block .prompt { color: oklch(72% 0.18 var(--hue)); }
+.contact-block .copy {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: oklch(28% 0.06 var(--hue));
+  color: var(--hero-tint);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  transition: opacity 180ms var(--ease-out), background 180ms var(--ease-out);
+}
+.contact-block .copy:hover, .contact-block .copy:focus-visible {
+  opacity: 1; background: oklch(38% 0.08 var(--hue)); outline: none;
+}
+.contact-block .copy[data-state="copied"] { background: oklch(58% 0.18 145); color: oklch(15% 0.05 145); }
+
+.contact-stack { display: grid; gap: 8px; justify-items: start; min-width: 0; max-width: 100%; }
+.contact-label {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hero-ink-soft);
+}
+
+.hero-meta {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 12px;
+  text-align: right;
+  letter-spacing: -0.005em;
+  color: var(--hero-ink-soft);
+  max-width: 34ch;
+  justify-self: end;
+  line-height: 1.5;
+  margin: 0;
+}
+.hero-meta .dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  background: var(--hero-ink);
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: 1px;
+  animation: pulse 2.4s infinite ease-in-out;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* === Dark sections === */
+.band {
+  background: var(--dark-bg);
+  color: var(--dark-ink);
+  padding: clamp(60px, 8vw, 120px) clamp(20px, 3vw, 40px);
+  position: relative;
+}
+.band::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--dark-rule), transparent);
+}
+.band-inner { max-width: var(--max-page); margin: 0 auto; }
+
+.band-head {
+  max-width: var(--max-page);
+  margin: 0 auto clamp(40px, 5vw, 64px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: end;
+}
+.eyebrow {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-accent);
+  margin: 0 0 16px;
+}
+.band-title {
+  font-size: clamp(38px, 5.6vw, 84px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  margin: 0;
+  max-width: 16ch;
+  text-transform: lowercase;
+}
+.band-title em { font-style: italic; color: var(--dark-accent); }
+.band-note {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--dark-ink-soft);
+  max-width: 34ch;
+  text-align: right;
+  margin: 0;
+}
+
+/* The oversized invisible -> recommended statement */
+.shift-statement {
+  font-size: clamp(44px, 9vw, 150px);
+  line-height: 0.86;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  text-transform: lowercase;
+  margin: 0 0 clamp(40px, 5vw, 72px);
+}
+.shift-statement .strike {
+  color: var(--dark-ink-soft);
+  text-decoration: line-through;
+  text-decoration-thickness: 0.055em;
+}
+.shift-statement .becomes {
+  display: block;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: clamp(12px, 1.1vw, 15px);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dark-ink-soft);
+  margin: 0.34em 0;
+}
+.shift-statement .won {
+  font-style: italic;
+  background: var(--dark-accent);
+  color: var(--dark-bg);
+  padding: 0 0.06em;
+}
+
+/* Two-column prose pair */
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 48px);
+  border-top: 1px solid var(--dark-rule);
+  padding-top: clamp(24px, 3vw, 40px);
+}
+.pair h3 {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-accent);
+  margin: 0 0 14px;
+  font-weight: 500;
+}
+.pair p {
+  margin: 0;
+  font-size: clamp(16px, 1.35vw, 20px);
+  line-height: 1.45;
+  color: var(--dark-ink-soft);
+  max-width: 48ch;
+}
+
+/* Chart */
+.chart-wrap {
+  margin-top: clamp(48px, 6vw, 88px);
+  background: var(--dark-bg-elev);
+  border: 1px solid var(--dark-rule);
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 2.6vw, 34px);
+}
+.chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.chart-head p { margin: 0; }
+.chart-kicker {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-ink-soft);
+}
+.chart-title {
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+  margin-top: 6px;
+}
+.chart-readout {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dark-bg);
+  background: var(--dark-accent);
+  border-radius: 999px;
+  padding: 5px 12px;
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out);
+  min-height: 23px;
+}
+.chart-readout.is-on { opacity: 1; }
+.chart-svg { width: 100%; height: auto; display: block; }
+.chart-svg .svg-bar {
+  transform: scaleY(0);
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+.chart-svg.animate-bars .svg-bar {
+  transform: scaleY(1);
+  transition: transform 900ms var(--ease-out), opacity 180ms var(--ease-out), filter 180ms var(--ease-out);
+}
+.chart-svg.animate-bars .svg-bar:hover { opacity: 1; filter: brightness(1.22); }
+.chart-legend {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--dark-ink-soft);
+}
+.chart-legend span::before {
+  content: "";
+  display: inline-block;
+  width: 9px; height: 9px;
+  border-radius: 2px;
+  margin-right: 7px;
+}
+.chart-legend .is-base::before { background: oklch(48% 0.02 var(--hue)); }
+.chart-legend .is-opt::before { background: var(--dark-accent); }
+
+/* Card grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 1.6vw, 24px);
+}
+.item {
+  background: var(--dark-bg-elev);
+  border: 1px solid var(--dark-rule);
+  border-radius: var(--radius-md);
+  padding: clamp(20px, 2.2vw, 30px);
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  transition: transform 320ms var(--ease-out), border-color 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
+}
+.item:hover, .item:focus-within {
+  border-color: var(--dark-accent);
+  transform: translateY(-3px);
+  box-shadow: 0 24px 60px -24px oklch(15% 0.04 var(--hue) / 0.8);
+}
+.item-no {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-accent);
+}
+.item h3 {
+  margin: 0;
+  font-size: clamp(19px, 1.7vw, 24px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  text-transform: lowercase;
+}
+.item p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--dark-ink-soft);
+}
+.item .tag {
+  justify-self: start;
+  margin-top: 4px;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-ink-soft);
+  border: 1px solid var(--dark-rule);
+  border-radius: 999px;
+  padding: 5px 11px;
+}
+
+/* Definition strip - SEO against GEO */
+.defs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  margin-bottom: clamp(32px, 4vw, 52px);
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--dark-ink-soft);
+}
+.defs p { margin: 0; border-left: 2px solid var(--dark-accent); padding-left: 14px; }
+.defs b { color: var(--dark-ink); font-weight: 700; }
+
+/* === Outro === */
+.outro {
+  background: var(--hero-bg);
+  color: var(--hero-ink);
+  padding: clamp(80px, 12vw, 180px) clamp(20px, 3vw, 40px) clamp(40px, 5vw, 60px);
+  display: grid;
+  gap: clamp(40px, 5vw, 64px);
+}
+.outro-inner {
+  max-width: var(--max-page);
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  gap: clamp(40px, 5vw, 64px);
+}
+.outro-headline {
+  font-size: clamp(48px, 11vw, 180px);
+  line-height: 0.86;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  margin: 0;
+  text-transform: lowercase;
+  max-width: 13ch;
+}
+.outro-headline em {
+  font-style: italic;
+  background: var(--hero-ink);
+  color: var(--hero-bg);
+  padding: 0 0.06em;
+}
+.outro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+.outro-meta {
+  font-size: clamp(17px, 1.4vw, 21px);
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  max-width: 38ch;
+  margin: 0;
+}
+.outro-actions { display: grid; gap: 14px; justify-items: end; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: var(--hero-ink);
+  color: var(--hero-tint);
+  padding: 15px 22px;
+  border-radius: var(--radius-md);
+  transition: transform 220ms var(--ease-out), background 220ms var(--ease-out);
+  white-space: nowrap;
+}
+.btn:hover, .btn:focus-visible { background: oklch(24% 0.07 var(--hue)); transform: translateY(-2px); outline: none; }
+.btn:focus-visible { box-shadow: 0 0 0 3px var(--hero-ink); }
+.btn.is-ghost {
+  background: transparent;
+  color: var(--hero-ink);
+  border: 2px solid var(--hero-ink);
+  padding: 13px 20px;
+}
+.btn.is-ghost:hover, .btn.is-ghost:focus-visible { background: oklch(16% 0.06 var(--hue) / 0.12); }
+
+.colophon {
+  max-width: var(--max-page);
+  margin: 0 auto;
+  width: 100%;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: -0.005em;
+  color: var(--hero-ink-soft);
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-top: 1px solid oklch(28% 0.08 var(--hue) / 0.4);
+  padding-top: 20px;
+}
+.colophon nav { display: flex; gap: 20px; flex-wrap: wrap; }
+.colophon a { text-decoration: none; opacity: 0.8; }
+.colophon a:hover { opacity: 1; }
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out); }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* === Responsive === */
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .hero-main { grid-template-columns: 1fr; gap: clamp(28px, 6vw, 48px); }
+  .hero-portrait { width: clamp(170px, 46vw, 230px); justify-self: start; transform: none; }
+  .band-head { grid-template-columns: 1fr; gap: 18px; }
+  .band-note { text-align: left; max-width: 52ch; }
+}
+@media (max-width: 720px) {
+  .topbar { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .hero-foot { grid-template-columns: 1fr; }
+  .hero-meta { text-align: left; justify-self: start; }
+  .outro-grid { grid-template-columns: 1fr; }
+  .outro-actions { justify-items: start; }
+  .pair, .defs { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  /* The copy button would sit on top of the address on a narrow block, so it
+     moves above the line instead. */
+  .contact-block { padding: 44px 22px 18px; }
+  .contact-block .copy { left: 10px; right: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; }
+  .chart-svg .svg-bar { transform: scaleY(1); }
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">skip to content</a>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="topbar">
+    <a class="mark" href="#top">takemylead</a>
+    <nav>
+      <a href="#shift">strategy</a>
+      <a href="#content">content</a>
+      <a href="#services">services</a>
+      <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener">linkedin</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+
+  <div class="hero-main">
+    <div class="hero-body">
+      <p class="hero-eyebrow">seo &middot; geo &middot; search visibility</p>
+      <h1 class="hero-headline">
+        you built a site.<br>
+        now get <span class="emph">found.</span>
+      </h1>
+      <p class="hero-sub">
+        <strong>Shaping your website to rank - not just sit there looking pretty.</strong>
+        I position your brand to be found on Google and recommended by modern AI
+        search engines like ChatGPT and Perplexity, so the people already
+        searching for what you do end up on your site.
+      </p>
+    </div>
+
+    <figure class="hero-portrait">
+      <img src="portrait-320.webp" width="320" height="400" alt="Matthias Schulte"
+           onerror="this.onerror=null; this.src='portrait-160.png';">
+      <figcaption><span>matthias schulte</span><span>de</span></figcaption>
+    </figure>
+  </div>
+
+  <div class="hero-foot">
+    <div class="contact-stack">
+      <span class="contact-label">start here</span>
+      <pre class="contact-block"><code><span class="prompt">$</span> mail takemylead.de@gmail.com</code><button class="copy" type="button" data-copy="takemylead.de@gmail.com">copy</button></pre>
+      <span class="contact-label">one mail. one audit. a roadmap you can act on.</span>
+    </div>
+    <p class="hero-meta">
+      <span class="dot"></span>taking on new projects &mdash; audits, content
+      architecture and technical fixes for Google and AI answer engines.
+    </p>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ THE SHIFT ============ -->
+  <section class="band" id="shift">
+    <div class="band-inner">
+      <p class="eyebrow reveal">the shift</p>
+      <h2 class="shift-statement reveal">
+        <span class="strike">invisible.</span>
+        <span class="becomes">becomes</span>
+        <span class="won">recommended.</span>
+      </h2>
+
+      <div class="pair reveal">
+        <div>
+          <h3>01 / why most websites struggle</h3>
+          <p>They are invisible on search engines, missing from AI answers, and lack a clear strategy to convert traffic.</p>
+        </div>
+        <div>
+          <h3>02 / what i do</h3>
+          <p>I create content optimized for traditional SEO and AI search (GEO). I help you reach the right buyers, solve their specific problems, and turn casual traffic into reliable business leads.</p>
+        </div>
+      </div>
+
+      <!-- Illustrative, not measured: the shape a tailored search strategy
+           gives organic traffic over time. -->
+      <div class="chart-wrap reveal">
+        <div class="chart-head">
+          <div>
+            <p class="chart-kicker">organic traffic over time</p>
+            <p class="chart-title">the impact of tailored seo &amp; ai search</p>
+          </div>
+          <p class="chart-readout" id="chart-readout" aria-live="polite"></p>
+        </div>
+
+        <svg class="chart-svg" viewBox="0 0 700 180" role="img"
+             aria-label="Bar chart: a flat baseline of stagnant traffic, then a rising curve once a tailored SEO and GEO strategy is applied.">
+          <rect data-val="Baseline: unoptimized search"  x="25"  y="130" width="30" height="30"  rx="8"  fill="oklch(48% 0.02 35)" class="svg-bar" />
+          <rect data-val="Baseline: low intent traffic"  x="68"  y="122" width="30" height="38"  rx="8"  fill="oklch(48% 0.02 35)" class="svg-bar" />
+          <rect data-val="Baseline: stagnant visibility" x="111" y="134" width="30" height="26"  rx="8"  fill="oklch(48% 0.02 35)" class="svg-bar" />
+          <rect data-val="Baseline: unindexed content"   x="154" y="126" width="30" height="34"  rx="8"  fill="oklch(48% 0.02 35)" class="svg-bar" />
+          <rect data-val="Baseline: pre-strategy level"  x="197" y="120" width="30" height="40"  rx="8"  fill="oklch(48% 0.02 35)" class="svg-bar" />
+
+          <line x1="251" y1="8" x2="251" y2="172" stroke="oklch(26% 0.03 35)" stroke-width="1" stroke-dasharray="4 5" />
+
+          <rect data-val="Phase 1: technical audit"             x="275" y="70" width="34" height="90"  rx="10" fill="oklch(72% 0.22 35)" opacity="0.72" class="svg-bar" />
+          <rect data-val="Phase 2: keyword clustering"          x="322" y="48" width="34" height="112" rx="10" fill="oklch(72% 0.22 35)" opacity="0.8"  class="svg-bar" />
+          <rect data-val="Phase 3: topical authority"           x="369" y="30" width="34" height="130" rx="10" fill="oklch(72% 0.22 35)" opacity="0.88" class="svg-bar" />
+          <rect data-val="Phase 4: geo &amp; ai search citation"    x="416" y="42" width="34" height="118" rx="10" fill="oklch(72% 0.22 35)" opacity="0.84" class="svg-bar" />
+          <rect data-val="Phase 5: high-intent inflow"          x="463" y="52" width="34" height="108" rx="10" fill="oklch(72% 0.22 35)" opacity="0.8"  class="svg-bar" />
+          <rect data-val="Phase 6: search engine dominance"     x="510" y="25" width="34" height="135" rx="10" fill="oklch(72% 0.22 35)" opacity="0.92" class="svg-bar" />
+          <rect data-val="Phase 7: sustained growth"            x="557" y="28" width="34" height="132" rx="10" fill="oklch(72% 0.22 35)" opacity="0.96" class="svg-bar" />
+          <rect data-val="Phase 8: compounding authority"       x="604" y="12" width="34" height="148" rx="10" fill="oklch(72% 0.22 35)" class="svg-bar" />
+          <rect data-val="Target: inbound pipeline"             x="651" y="5"  width="34" height="155" rx="10" fill="oklch(96% 0.02 35)" class="svg-bar" />
+
+          <line x1="0" y1="172" x2="700" y2="172" stroke="oklch(26% 0.03 35)" stroke-width="1" />
+        </svg>
+
+        <div class="chart-legend">
+          <span class="is-base">baseline &mdash; stagnant site, low search intent</span>
+          <span class="is-opt">optimized strategy &mdash; continuous organic lead pipeline</span>
+        </div>
+      </div>
+
+      <div class="grid reveal" style="margin-top: clamp(28px, 3vw, 44px);">
+        <article class="item">
+          <span class="item-no">01 / relevant traffic</span>
+          <h3>more relevant visitors</h3>
+          <p>More of the people already searching for what you sell land on your pages.</p>
+        </article>
+        <article class="item">
+          <span class="item-no">02 / intent</span>
+          <h3>high-intent leads</h3>
+          <p>Turning passive site readers into actionable business inquiries.</p>
+        </article>
+        <article class="item">
+          <span class="item-no">03 / ai visibility</span>
+          <h3>appear in ai answers</h3>
+          <p>Positioned to be recommended across search engines and AI assistants.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY CONTENT ============ -->
+  <section class="band" id="content">
+    <div class="band-head">
+      <div>
+        <p class="eyebrow">content strategy that converts</p>
+        <h2 class="band-title">why tailored content drives <em>real</em> results</h2>
+      </div>
+      <p class="band-note">
+        five reasons one well-built page out-earns a season of ads &mdash; and
+        keeps earning after the budget stops.
+      </p>
+    </div>
+
+    <div class="band-inner">
+      <div class="grid reveal">
+        <article class="item">
+          <span class="item-no">01 / relevance</span>
+          <h3>establishes site relevance</h3>
+          <p>Signals to search engines and AI models that your site is a credible, well-covered authority in your field.</p>
+          <span class="tag">topical authority</span>
+        </article>
+        <article class="item">
+          <span class="item-no">02 / entry point</span>
+          <h3>the front door for buyers</h3>
+          <p>Serves as the primary landing surface for potential customers looking for solutions before knowing your brand.</p>
+          <span class="tag">organic traffic entry</span>
+        </article>
+        <article class="item">
+          <span class="item-no">03 / discoverability</span>
+          <h3>makes you findable everywhere</h3>
+          <p>Matches exact queries people type into Google and modern AI assistants like ChatGPT and Perplexity.</p>
+          <span class="tag">high-intent search</span>
+        </article>
+        <article class="item">
+          <span class="item-no">04 / advocacy</span>
+          <h3>built to be referenced</h3>
+          <p>Content that is genuinely useful to people is also easier for search engines and AI systems like ChatGPT, Perplexity and Gemini to discover, understand and reference.</p>
+          <span class="tag">ai &amp; organic referrals</span>
+        </article>
+        <article class="item">
+          <span class="item-no">05 / long-term asset</span>
+          <h3>compounds over time</h3>
+          <p>Unlike paid ads that stop generating leads the second you stop paying, strategic organic content builds domain authority that compounds over months and years.</p>
+          <span class="tag">sustainable roi</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="band" id="services">
+    <div class="band-head">
+      <div>
+        <p class="eyebrow">what i actually do</p>
+        <h2 class="band-title">core <em>optimization</em> services</h2>
+      </div>
+      <p class="band-note">
+        six disciplines that move a site from invisible to recommended &mdash;
+        technical health, content authority and conversion, for both Google and
+        modern AI answer engines.
+      </p>
+    </div>
+
+    <div class="band-inner">
+      <div class="defs reveal">
+        <p><b>SEO</b> is getting found on Google.</p>
+        <p><b>GEO</b> &mdash; generative engine optimization &mdash; is getting discovered inside AI-generated answers.</p>
+      </div>
+
+      <div class="grid reveal">
+        <article class="item">
+          <span class="item-no">01 / diagnosis</span>
+          <h3>holistic seo &amp; geo audit</h3>
+          <p>Analyze your site's technical health, content structure, and search visibility to build a clear, prioritized growth roadmap.</p>
+          <span class="tag">growth roadmap</span>
+        </article>
+        <article class="item">
+          <span class="item-no">02 / copywriting</span>
+          <h3>high-converting search &amp; ai copy</h3>
+          <p>Write clear, persuasive copy designed to perform well in search and increase your chances of being referenced by AI assistants like ChatGPT and Perplexity.</p>
+          <span class="tag">rank &amp; get referenced</span>
+        </article>
+        <article class="item">
+          <span class="item-no">03 / structured data</span>
+          <h3>structured data &amp; schema</h3>
+          <p>Configure meta titles, descriptions, and structured JSON-LD data so search engines and LLMs instantly understand your authority and services.</p>
+          <span class="tag">json-ld &amp; meta</span>
+        </article>
+        <article class="item">
+          <span class="item-no">04 / technical seo</span>
+          <h3>technical, image &amp; crawl fixes</h3>
+          <p>Identify and resolve broken links, indexation blocks, heavy uncompressed images, and site errors so search engine crawlers and AI bots can index your pages without friction.</p>
+          <span class="tag">crawl &amp; index health</span>
+        </article>
+        <article class="item">
+          <span class="item-no">05 / authority</span>
+          <h3>topic clusters for authority</h3>
+          <p>Group your pages around one main guide per topic, with the smaller pages linking back to it. That pattern shows search engines and AI tools that you really know your subject.</p>
+          <span class="tag">main page + support pages</span>
+        </article>
+        <article class="item">
+          <span class="item-no">06 / conversion</span>
+          <h3>on-page conversion architecture</h3>
+          <p>Strategically position high-converting calls to action, clear value propositions, and lead capture points to turn organic traffic into paying clients.</p>
+          <span class="tag">traffic to clients</span>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ OUTRO ============ -->
+<footer class="outro" id="contact">
+  <div class="outro-inner">
+    <h2 class="outro-headline">stop being <em>invisible.</em></h2>
+    <div class="outro-grid">
+      <p class="outro-meta">
+        Ready to turn search traffic into a reliable pipeline? Let's audit your
+        current digital footprint and map out a precise content architecture
+        that scales your organic reach across Google and AI search platforms.
+      </p>
+      <div class="outro-actions">
+        <a class="btn" href="mailto:takemylead.de@gmail.com">send an e-mail</a>
+        <a class="btn is-ghost" href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener">connect on linkedin</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="colophon">
+    <span>&copy; <span id="year">2026</span> matthias schulte &mdash; takemylead</span>
+    <nav>
+      <a href="#shift">strategy</a>
+      <a href="#content">content</a>
+      <a href="#services">services</a>
+      <a href="index.html">original design</a>
+    </nav>
+    <span>search visibility &amp; generative engine optimization</span>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Copy the contact address out of the terminal-style block.
+  document.querySelectorAll('.copy').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy);
+      } catch {
+        // The Clipboard API needs a secure context and permission; where it is
+        // unavailable, select the line so the visitor can copy it by hand.
+        const range = document.createRange();
+        range.selectNodeContents(btn.parentElement.querySelector('code'));
+        const sel = getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        return;
+      }
+      btn.textContent = 'copied';
+      btn.dataset.state = 'copied';
+      setTimeout(() => { btn.textContent = 'copy'; delete btn.dataset.state; }, 1800);
+    });
+  });
+
+  // Reveal on scroll
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Chart: grow the bars once they are on screen, read one out on hover.
+  const chart = document.querySelector('.chart-svg');
+  const readout = document.getElementById('chart-readout');
+  if (chart) {
+    const bars = chart.querySelectorAll('.svg-bar');
+    // Stagger left to right so the curve reads as growth, not as a jump.
+    bars.forEach((bar, i) => { bar.style.transitionDelay = (i * 55) + 'ms'; });
+
+    new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('animate-bars');
+        obs.unobserve(entry.target);
+      });
+    }, { threshold: 0.3 }).observe(chart);
+
+    bars.forEach(bar => {
+      bar.addEventListener('mouseenter', () => {
+        readout.textContent = bar.getAttribute('data-val');
+        readout.classList.add('is-on');
+      });
+      // The text stays put while it fades, so the pill does not collapse.
+      bar.addEventListener('mouseleave', () => readout.classList.remove('is-on'));
+    });
+  }
+});
+</script>
+</body>
+</html>
