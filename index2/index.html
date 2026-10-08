@@ -53,7 +53,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 body {
   font-family: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
   font-feature-settings: "ss01", "ss03", "cv11";
@@ -82,20 +82,35 @@ button { font: inherit; cursor: pointer; }
 }
 .skip-link:focus { top: 12px; }
 
-/* === Hero === */
-.hero {
-  min-height: 100svh;
-  background: var(--hero-bg);
+/* 1px tall, not 0: a zero-area target is unreliable to observe, and the
+   negative margin keeps it out of the layout. */
+#scroll-sentinel { height: 1px; margin-bottom: -1px; }
+
+/* === Sticky header ===
+   It lives outside .hero - the hero clips its own overflow, and an ancestor
+   that clips kills position: sticky. Over the orange hero it is transparent
+   and dark-inked; past the fold it turns into a black bar. */
+.topbar-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   color: var(--hero-ink);
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  padding: clamp(20px, 3vw, 40px);
-  gap: clamp(36px, 5vw, 72px);
-  position: relative;
-  overflow: hidden;
+  padding: clamp(14px, 1.5vw, 20px) clamp(20px, 3vw, 40px);
+  transition: background-color 320ms var(--ease-out),
+              color 320ms var(--ease-out),
+              box-shadow 320ms var(--ease-out);
+}
+.topbar-wrap.is-stuck {
+  background: var(--dark-bg);
+  color: var(--dark-ink);
+  box-shadow: 0 10px 30px -22px oklch(0% 0 0 / 0.9);
 }
 
 .topbar {
+  /* Same column as .hero-main, so the mark and nav line up with the headline
+     instead of hugging the viewport edges. */
+  max-width: var(--max-page);
+  margin: 0 auto;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -103,18 +118,31 @@ button { font: inherit; cursor: pointer; }
   font-family: "Geist Mono", ui-monospace, monospace;
   font-size: 13px;
   letter-spacing: -0.005em;
-  z-index: 2;
 }
 .topbar .mark { font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
 .topbar nav { display: flex; gap: 22px; flex-wrap: wrap; }
 .topbar nav a {
-  color: var(--hero-ink);
+  color: inherit;
   text-decoration: none;
   opacity: 0.72;
   transition: opacity 180ms var(--ease-out);
 }
 .topbar nav a:hover, .topbar nav a:focus-visible { opacity: 1; }
-.topbar nav a:focus-visible { outline: 2px solid var(--hero-ink); outline-offset: 4px; border-radius: 3px; }
+.topbar nav a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: 3px; }
+
+/* === Hero === */
+.hero {
+  /* The header sits above in normal flow, so the hero takes the rest. */
+  min-height: calc(100svh - 56px);
+  background: var(--hero-bg);
+  color: var(--hero-ink);
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: clamp(24px, 3vw, 48px) clamp(20px, 3vw, 40px) clamp(20px, 3vw, 40px);
+  gap: clamp(36px, 5vw, 72px);
+  position: relative;
+  overflow: hidden;
+}
 
 .hero-main {
   align-self: center;
@@ -734,7 +762,8 @@ button { font: inherit; cursor: pointer; }
   .band-note { text-align: left; max-width: 52ch; }
 }
 @media (max-width: 720px) {
-  .topbar { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .topbar { gap: 14px; font-size: 12px; }
+  .topbar nav { gap: 14px; justify-content: flex-end; }
   .hero-foot { grid-template-columns: 1fr; }
   .hero-meta { text-align: left; justify-self: start; }
   .outro-grid { grid-template-columns: 1fr; }
@@ -764,8 +793,11 @@ button { font: inherit; cursor: pointer; }
 
 <a class="skip-link" href="#main">skip to content</a>
 
-<!-- ============ HERO ============ -->
-<header class="hero" id="top">
+<!-- Watched by the header: once this scrolls out of view, the bar goes black. -->
+<div id="scroll-sentinel" aria-hidden="true"></div>
+
+<!-- ============ HEADER ============ -->
+<div class="topbar-wrap" id="site-header">
   <div class="topbar">
     <a class="mark" href="#top">takemylead</a>
     <nav>
@@ -776,7 +808,9 @@ button { font: inherit; cursor: pointer; }
       <a href="#contact">contact</a>
     </nav>
   </div>
+</div>
 
+<header class="hero" id="top">
   <div class="hero-main">
     <div class="hero-body">
       <p class="hero-eyebrow">seo &middot; geo &middot; search visibility</p>
@@ -1040,6 +1074,17 @@ button { font: inherit; cursor: pointer; }
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Sticky header: transparent over the orange hero, black bar once the page
+  // starts moving. A sentinel at the very top beats a scroll listener here -
+  // no work on every frame, and it reports its own state on load.
+  const header = document.getElementById('site-header');
+  const sentinel = document.getElementById('scroll-sentinel');
+  if (header && sentinel) {
+    new IntersectionObserver(([entry]) => {
+      header.classList.toggle('is-stuck', !entry.isIntersecting);
+    }).observe(sentinel);
+  }
 
   // Copy the contact address out of the terminal-style block.
   document.querySelectorAll('.copy').forEach(btn => {
