@@ -1,1154 +1,1298 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TakeMyLead - stop being invisible online</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TakeMyLead - previous design</title>
 
-<!-- This is an alternate design treatment of the main page. It carries the
-     same copy, so it must not compete with "/" in search results: noindex,
-     and canonical back to the real page. -->
-<meta name="robots" content="noindex, follow">
-<link rel="canonical" href="https://www.takemylead.de/">
-<meta name="description" content="Pretty websites don't pay the bills - traffic that converts does. I optimize your site to answer questions, outrank competitors, and turn clicks into sales.">
-<meta name="theme-color" content="#f0601f">
+    <!-- This is the earlier treatment of the home page, kept at /index2 for
+         reference. It carries the same copy as "/", so it must not compete
+         with it in search: noindex, canonical back to the real page. -->
+    <meta name="description" content="Pretty websites don't pay the bills - traffic that converts does. I optimize your site to answer questions, outrank competitors, and turn clicks into sales.">
+    <meta name="robots" content="noindex, follow">
+    <meta name="theme-color" content="#FAF8F4">
 
-<link rel="icon" href="../favicon.svg" type="image/svg+xml">
-<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <!-- The four tags marked HOST carry the absolute site URL; change all of
+         them together if the site ever moves, since crawlers will not resolve
+         a relative og:image. -->
+    <link rel="canonical" href="https://www.takemylead.de/">                                  <!-- HOST -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;900&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="TakeMyLead">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://www.takemylead.de/">                             <!-- HOST -->
+    <meta property="og:title" content="Stop Being Invisible Online | TakeMyLead">
+    <meta property="og:description" content="Pretty websites don't pay the bills - traffic that converts does. I optimize your site to answer questions, outrank competitors, and turn clicks into sales.">
+    <meta property="og:image" content="https://www.takemylead.de/og-image.png">              <!-- HOST -->
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="TakeMyLead - stop being invisible online.">
 
-<style>
-/* takemylead - alternate treatment.
-   Palette and type lifted from latent-spaces.github.io/brag: one warm hue
-   drives everything, an orange hero bookends a near-black body, and the only
-   two faces are Geist and Geist Mono. */
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Stop Being Invisible Online | TakeMyLead">
+    <meta name="twitter:description" content="Pretty websites don't pay the bills - traffic that converts does. I optimize your site to answer questions, outrank competitors, and turn clicks into sales.">
+    <meta name="twitter:image" content="https://www.takemylead.de/og-image.png">             <!-- HOST -->
+    <meta name="twitter:image:alt" content="TakeMyLead - stop being invisible online.">
 
-:root {
-  --hue: 35;
+    <!-- Icons -->
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 
-  --hero-bg: oklch(64% 0.22 var(--hue));
-  --hero-ink: oklch(16% 0.06 var(--hue));
-  --hero-ink-soft: oklch(28% 0.06 var(--hue));
-  --hero-tint: oklch(96% 0.02 var(--hue));
+    <!-- Fonts are self-hosted; the @font-face rules live in styles.css.
+         Preload the body face (the LCP element is body copy) and the serif
+         the headline uses - the rest load off the critical path. -->
+    <link rel="preload" as="font" type="font/woff2" href="../fonts/plusjakartasans-latin.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="../fonts/newsreader-latin-roman.woff2" crossorigin>
+    
+    <!-- Lucide Icons (pinned: @latest lets an upstream release break the page) -->
+    <script src="https://unpkg.com/lucide@1.51.0/dist/umd/lucide.min.js" defer></script>
 
-  --dark-bg: oklch(14% 0.03 var(--hue));
-  --dark-bg-elev: oklch(18% 0.04 var(--hue));
-  --dark-ink: oklch(96% 0.02 var(--hue));
-  --dark-ink-soft: oklch(72% 0.04 var(--hue));
-  --dark-rule: oklch(26% 0.03 var(--hue));
-  --dark-accent: oklch(72% 0.22 var(--hue));
+    <!-- Tailwind, built ahead of time from tailwind.src.css + tailwind.config.js.
+         Rebuild after adding utility classes to this file:
+           npx tailwindcss@3.4.17 -i tailwind.src.css -o styles.css --minify -->
+    <link rel="stylesheet" href="../styles.css">
 
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
+    <style>
+        /* Mobile horizontal overflow containment.
+           Only the root element clips: overflow-x on <body> makes it a scroll
+           container of its own, and that silently kills position: sticky on
+           the header. Where overflow-x: clip is supported it is the better
+           tool - it clips without creating a scroll container at all. */
+        html, body {
+            width: 100%;
+        }
+        html {
+            overflow-x: hidden;
+        }
+        @supports (overflow-x: clip) {
+            html {
+                overflow-x: clip;
+            }
+        }
 
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        /* Anchor jumps should clear the sticky header */
+        html {
+            scroll-padding-top: 5.5rem;
+        }
 
-  --max-page: 1480px;
-}
+        /* Sticky header condenses once the page starts moving */
+        header {
+            transition: box-shadow 0.35s ease, background-color 0.35s ease;
+        }
+        .header-bar {
+            transition: padding-top 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                        padding-bottom 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .header-logo {
+            transform-origin: left center;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        html.is-scrolled header {
+            box-shadow: 0 12px 32px -22px rgba(20, 19, 17, 0.65);
+        }
+        html.is-scrolled .header-bar {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        html.is-scrolled .header-logo {
+            transform: scale(0.88);
+        }
 
-*, *::before, *::after { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 88px; }
-body {
-  font-family: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  font-feature-settings: "ss01", "ss03", "cv11";
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  line-height: 1.4;
-  background: var(--dark-bg);
-  color: var(--dark-ink);
-}
-img { display: block; max-width: 100%; height: auto; }
-a { color: inherit; }
-button { font: inherit; cursor: pointer; }
+        /* Scrollspy: the nav marks the section you are reading */
+        header a.nav-active {
+            color: #B2431C;
+        }
+        header a.nav-active::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 0.15rem;
+            width: 1.1rem;
+            height: 2px;
+            border-radius: 2px;
+            background: #B2431C;
+            transform: translateX(-50%);
+        }
 
-.skip-link {
-  position: absolute;
-  top: -100px;
-  left: 12px;
-  background: var(--hero-ink);
-  color: var(--hero-tint);
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  text-decoration: none;
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 13px;
-  z-index: 100;
-}
-.skip-link:focus { top: 12px; }
+        /* Back to top */
+        #back-to-top {
+            transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+        }
 
-/* 1px tall, not 0: a zero-area target is unreliable to observe, and the
-   negative margin keeps it out of the layout. */
-#scroll-sentinel { height: 1px; margin-bottom: -1px; }
+        .editorial-border {
+            border-color: #DBD5C8;
+        }
+        
+        /* Hide scrollbars for clean horizontal filter scrolling on mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
 
-/* === Sticky header ===
-   It lives outside .hero - the hero clips its own overflow, and an ancestor
-   that clips kills position: sticky. The text stays white throughout; only
-   the bar behind it changes, from transparent over the hero to black once
-   the page moves. */
-.topbar-wrap {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  color: var(--hero-tint);
-  padding: clamp(14px, 1.5vw, 20px) clamp(20px, 3vw, 40px);
-  transition: background-color 320ms var(--ease-out),
-              box-shadow 320ms var(--ease-out);
-}
-.topbar-wrap.is-stuck {
-  background: var(--dark-bg);
-  box-shadow: 0 10px 30px -22px oklch(0% 0 0 / 0.9);
-}
+        /* Premium Button Transitions */
+        .btn-hover {
+            transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .btn-hover:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 20px -4px rgba(178, 67, 28, 0.22);
+        }
+        .btn-hover:active {
+            transform: translateY(0px) scale(0.98);
+        }
 
-.topbar {
-  /* Same column as .hero-main, so the mark and nav line up with the headline
-     instead of hugging the viewport edges. */
-  max-width: var(--max-page);
-  margin: 0 auto;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 24px;
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 13px;
-  letter-spacing: -0.005em;
-}
-.topbar .mark { font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
-.topbar nav { display: flex; gap: 22px; flex-wrap: wrap; }
-.topbar nav a {
-  color: inherit;
-  text-decoration: none;
-  /* White on the orange hero is the weaker of the two states, so the links
-     sit closer to full strength than they would on black alone. */
-  opacity: 0.86;
-  transition: opacity 180ms var(--ease-out);
-}
-.topbar nav a:hover, .topbar nav a:focus-visible { opacity: 1; }
-.topbar nav a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: 3px; }
+        /* Hero Ambient Light Animation */
+        @keyframes heroGlow {
+            0%, 100% { opacity: 0.45; transform: scale(1) translateY(0); }
+            50% { opacity: 0.8; transform: scale(1.08) translateY(-10px); }
+        }
+        .hero-ambient-glow {
+            animation: heroGlow 8s ease-in-out infinite;
+        }
 
-/* === Hero === */
-.hero {
-  /* The header sits above in normal flow, so the hero takes the rest. */
-  min-height: calc(100svh - 56px);
-  background: var(--hero-bg);
-  color: var(--hero-ink);
-  display: grid;
-  grid-template-rows: 1fr auto;
-  padding: clamp(24px, 3vw, 48px) clamp(20px, 3vw, 40px) clamp(20px, 3vw, 40px);
-  gap: clamp(36px, 5vw, 72px);
-  position: relative;
-  overflow: hidden;
-}
+        /* Scroll Reveal Effect */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(14px) scale(0.98);
+            filter: blur(5px);
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                        filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform, filter;
+        }
 
-.hero-main {
-  align-self: center;
-  max-width: var(--max-page);
-  margin: 0 auto;
-  width: 100%;
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(200px, 20vw, 290px);
-  gap: clamp(24px, 4vw, 64px);
-  align-items: center;
-}
-.hero-body { min-width: 0; }
-.hero-eyebrow {
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--hero-ink-soft);
-  margin: 0 0 clamp(18px, 2vw, 28px);
-}
-.hero-headline {
-  font-size: clamp(50px, 10.5vw, 160px);
-  line-height: 0.86;
-  letter-spacing: -0.04em;
-  font-weight: 900;
-  margin: 0;
-  text-transform: lowercase;
-}
-.hero-headline .emph {
-  font-style: italic;
-  background: var(--hero-ink);
-  color: var(--hero-bg);
-  padding: 0 0.06em;
-}
-.hero-sub {
-  margin: clamp(26px, 3vw, 44px) 0 0;
-  max-width: 42ch;
-  font-size: clamp(18px, 1.9vw, 27px);
-  line-height: 1.2;
-  letter-spacing: -0.015em;
-  font-weight: 500;
-  color: var(--hero-ink-soft);
-}
-.hero-sub strong { color: var(--hero-ink); font-weight: 600; }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+        }
 
-/* Portrait tile - the brag hero's video slot, holding a face instead */
-.hero-portrait {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  width: 100%;
-  margin: 0;
-  border-radius: var(--radius-md);
-  background: var(--hero-ink);
-  color: var(--hero-tint);
-  transform: rotate(2.5deg);
-  box-shadow: 0 30px 80px -20px oklch(20% 0.08 var(--hue) / 0.45);
-  overflow: hidden;
-  justify-self: end;
-}
-.hero-portrait img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(1) contrast(1.05);
-  transition: filter 420ms var(--ease-out);
-}
-.hero-portrait:hover img { filter: grayscale(0); }
-.hero-portrait::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0, transparent 3px,
-    oklch(100% 0 0 / 0.04) 3px, oklch(100% 0 0 / 0.04) 4px
-  );
-  pointer-events: none;
-  z-index: 2;
-}
-.hero-portrait figcaption {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  z-index: 3;
-  padding: 10px 12px;
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--hero-tint);
-  background: linear-gradient(to top, oklch(15% 0.05 var(--hue) / 0.88), transparent);
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
+        /* Reveal Delays */
+        .delay-1 { transition-delay: 0.05s; }
+        .delay-2 { transition-delay: 0.10s; }
+        .delay-3 { transition-delay: 0.15s; }
 
-.hero-foot {
-  /* Shares the column with .hero-main and the topbar, so "start here" lines
-     up under the headline rather than against the viewport edge. */
-  max-width: var(--max-page);
-  margin: 0 auto;
-  width: 100%;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 24px;
-  align-items: end;
-  z-index: 2;
-}
-.contact-block {
-  font-family: "Geist Mono", ui-monospace, monospace;
-  background: var(--hero-ink);
-  color: var(--hero-tint);
-  padding: 18px 92px 18px 22px;
-  border-radius: var(--radius-md);
-  font-size: clamp(13px, 1.15vw, 16px);
-  line-height: 1.7;
-  display: inline-grid;
-  gap: 4px;
-  margin: 0;
-  position: relative;
-  max-width: 100%;
-  grid-template-columns: minmax(0, 1fr);
-}
-/* The <code> scrolls, not the <pre> - so the copy button stays on the frame. */
-.contact-block code { display: block; min-width: 0; overflow-x: auto; }
-.contact-block .prompt { color: oklch(72% 0.18 var(--hue)); }
-.contact-block .copy {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: oklch(28% 0.06 var(--hue));
-  color: var(--hero-tint);
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: 6px 10px;
-  font-family: inherit;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  opacity: 0.85;
-  transition: opacity 180ms var(--ease-out), background 180ms var(--ease-out);
-}
-.contact-block .copy:hover, .contact-block .copy:focus-visible {
-  opacity: 1; background: oklch(38% 0.08 var(--hue)); outline: none;
-}
-.contact-block .copy[data-state="copied"] { background: oklch(58% 0.18 145); color: oklch(15% 0.05 145); }
+        /* Nothing to hover on a touch screen, so the pill never earns its space there. */
+        @media (hover: none) {
+            #chart-hover-indicator { display: none; }
+        }
 
-.contact-stack { display: grid; gap: 8px; justify-items: start; min-width: 0; max-width: 100%; }
-.contact-label {
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--hero-ink-soft);
-}
+        /* Interactive SVG Chart Bars */
+        .chart-svg rect.svg-bar {
+            transform-origin: bottom;
+            transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), fill 0.2s ease, opacity 0.2s ease;
+            cursor: pointer;
+        }
 
-.hero-meta {
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 12px;
-  text-align: right;
-  letter-spacing: -0.005em;
-  color: var(--hero-ink-soft);
-  max-width: 34ch;
-  justify-self: end;
-  line-height: 1.5;
-  margin: 0;
-}
-.hero-meta .dot {
-  display: inline-block;
-  width: 7px; height: 7px;
-  background: var(--hero-ink);
-  border-radius: 50%;
-  margin-right: 6px;
-  vertical-align: 1px;
-  animation: pulse 2.4s infinite ease-in-out;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 0.35; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.15); }
-}
+        .chart-svg rect.svg-bar:hover {
+            transform: scaleY(1.12);
+            fill: #141311 !important;
+            opacity: 1 !important;
+            filter: drop-shadow(0 6px 14px rgba(178, 67, 28, 0.3));
+        }
 
-/* === Bands ===
-   Every band reads its colours from the same five locals, so a band flips
-   between the dark canvas and the paper canvas by re-pointing them - nothing
-   downstream needs to know which one it is sitting on. */
-.band {
-  --bg: var(--dark-bg);
-  --elev: var(--dark-bg-elev);
-  --ink: var(--dark-ink);
-  --ink-soft: var(--dark-ink-soft);
-  --rule: var(--dark-rule);
-  --accent: var(--dark-accent);        /* safe for small text on this canvas */
-  --accent-loud: var(--dark-accent);   /* fills and display type */
-  --knock-bg: var(--dark-accent);      /* highlight box */
-  --knock-ink: var(--dark-bg);
-  --bar-base: oklch(48% 0.02 var(--hue));
+        .chart-svg rect.svg-bar {
+            transform: scaleY(0);
+        }
 
-  background: var(--bg);
-  color: var(--ink);
-  padding: clamp(60px, 8vw, 120px) clamp(20px, 3vw, 40px);
-  position: relative;
-}
-/* Paper: the bright band that breaks up the dark run. The accent darkens
-   here - the hero orange on cream is far too pale to read at 12px. */
-.band.is-paper {
-  --bg: var(--hero-tint);
-  --elev: oklch(99% 0.008 var(--hue));
-  --ink: var(--hero-ink);
-  --ink-soft: var(--hero-ink-soft);
-  --rule: oklch(88% 0.035 var(--hue));
-  --accent: oklch(52% 0.19 var(--hue));
-  --accent-loud: var(--hero-bg);
-  --knock-bg: var(--hero-ink);
-  --knock-ink: var(--hero-bg);
-  --bar-base: oklch(82% 0.025 var(--hue));
-}
-.band.is-paper ::selection { background: var(--hero-bg); color: var(--hero-ink); }
-/* The dark canvas can carry a near-black shadow; paper cannot. */
-.band.is-paper .item:hover,
-.band.is-paper .item:focus-within { box-shadow: 0 22px 50px -32px oklch(40% 0.1 var(--hue) / 0.5); }
-.band::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--rule), transparent);
-}
-.band.is-paper::before { display: none; }
-.band-inner { max-width: var(--max-page); margin: 0 auto; }
+        .chart-svg.animate-bars rect.svg-bar {
+            animation: barSpring 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+        }
 
-.band-head {
-  max-width: var(--max-page);
-  margin: 0 auto clamp(40px, 5vw, 64px);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 32px;
-  align-items: end;
-}
-.eyebrow {
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin: 0 0 16px;
-}
-.band-title {
-  font-size: clamp(38px, 5.6vw, 84px);
-  line-height: 0.95;
-  letter-spacing: -0.03em;
-  font-weight: 700;
-  margin: 0;
-  max-width: 16ch;
-  text-transform: lowercase;
-}
-.band-title em { font-style: italic; color: var(--accent); }
-.band-note {
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--ink-soft);
-  max-width: 34ch;
-  text-align: right;
-  margin: 0;
-}
+        @keyframes barSpring {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
 
-/* The oversized invisible -> recommended statement */
-.shift-statement {
-  font-size: clamp(44px, 9vw, 150px);
-  line-height: 0.86;
-  letter-spacing: -0.04em;
-  font-weight: 900;
-  text-transform: lowercase;
-  margin: 0 0 clamp(40px, 5vw, 72px);
-}
-.shift-statement .strike {
-  color: var(--ink-soft);
-  text-decoration: line-through;
-  text-decoration-thickness: 0.055em;
-}
-.shift-statement .becomes {
-  display: block;
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: clamp(12px, 1.1vw, 15px);
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin: 0.34em 0;
-}
-.shift-statement .won {
-  font-style: italic;
-  background: var(--knock-bg);
-  color: var(--knock-ink);
-  padding: 0 0.06em;
-}
+        .chart-svg.animate-bars rect:nth-child(1) { animation-delay: 0.02s; }
+        .chart-svg.animate-bars rect:nth-child(2) { animation-delay: 0.04s; }
+        .chart-svg.animate-bars rect:nth-child(3) { animation-delay: 0.06s; }
+        .chart-svg.animate-bars rect:nth-child(4) { animation-delay: 0.08s; }
+        .chart-svg.animate-bars rect:nth-child(5) { animation-delay: 0.10s; }
+        .chart-svg.animate-bars rect:nth-child(6) { animation-delay: 0.12s; }
+        .chart-svg.animate-bars rect:nth-child(7) { animation-delay: 0.14s; }
+        .chart-svg.animate-bars rect:nth-child(8) { animation-delay: 0.16s; }
+        .chart-svg.animate-bars rect:nth-child(9) { animation-delay: 0.18s; }
 
-/* Two-column prose pair */
-.pair {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(24px, 3vw, 48px);
-  border-top: 1px solid var(--rule);
-  padding-top: clamp(24px, 3vw, 40px);
-}
-.pair h3 {
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin: 0 0 14px;
-  font-weight: 500;
-}
-.pair p {
-  margin: 0;
-  font-size: clamp(16px, 1.35vw, 20px);
-  line-height: 1.45;
-  color: var(--ink-soft);
-  max-width: 48ch;
-}
+        .interactive-card {
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .interactive-card:hover {
+            transform: translateY(-4px);
+            border-color: #B2431C;
+            box-shadow: 0 12px 28px -6px rgba(178, 67, 28, 0.12);
+        }
 
-/* The query a buyer actually types - brag's tilted prompt, repurposed */
-.query {
-  margin: clamp(32px, 4vw, 52px) 0 0;
-  display: grid;
-  justify-items: start;
-  gap: 12px;
-}
-.query-lead {
-  font-size: clamp(16px, 1.5vw, 21px);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--ink-soft);
-  margin: 0;
-}
-.query-line {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55em;
-  max-width: 100%;
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: clamp(16px, 1.9vw, 27px);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  background: var(--hero-ink);
-  color: var(--hero-tint);
-  padding: 0.62em 0.9em;
-  border-radius: var(--radius-md);
-  transform: rotate(-1deg);
-  box-shadow: 0 18px 40px -22px oklch(20% 0.08 var(--hue) / 0.7);
-  margin: 0;
-}
-.query-line .prompt { color: oklch(72% 0.18 var(--hue)); }
-.query-caret {
-  display: inline-block;
-  width: 0.55em;
-  height: 1.05em;
-  margin-left: -0.3em;
-  background: var(--hero-bg);
-  animation: blink 1.1s steps(1, end) infinite;
-}
-@keyframes blink { 50% { opacity: 0; } }
+        /* Article Filtering Transitions */
+        .article-card {
+            transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+        }
+        .article-card.hidden-article {
+            display: none !important;
+        }
 
-/* Chart */
-.chart-wrap {
-  margin-top: clamp(48px, 6vw, 88px);
-  background: var(--elev);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius-lg);
-  padding: clamp(20px, 2.6vw, 34px);
-}
-.chart-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 22px;
-}
-.chart-head p { margin: 0; }
-.chart-kicker {
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-.chart-title {
-  font-size: clamp(18px, 1.8vw, 24px);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  text-transform: lowercase;
-  margin-top: 6px;
-}
-.chart-readout {
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--knock-ink);
-  background: var(--knock-bg);
-  border-radius: 999px;
-  padding: 5px 12px;
-  opacity: 0;
-  transition: opacity 200ms var(--ease-out);
-  min-height: 23px;
-}
-.chart-readout.is-on { opacity: 1; }
-.chart-svg { width: 100%; height: auto; display: block; }
-.chart-svg .svg-bar {
-  transform: scaleY(0);
-  transform-box: fill-box;
-  transform-origin: bottom;
-}
-.chart-svg.animate-bars .svg-bar {
-  transform: scaleY(1);
-  transition: transform 900ms var(--ease-out), opacity 180ms var(--ease-out), filter 180ms var(--ease-out);
-}
-.chart-svg.animate-bars .svg-bar:hover { opacity: 1; filter: brightness(1.22); }
-/* Bar fills come from the band, so the chart re-colours itself on paper. */
-.bar-base { fill: var(--bar-base); }
-.bar-opt { fill: var(--accent-loud); }
-.bar-top { fill: var(--ink); }
-.chart-rule { stroke: var(--rule); }
-.chart-legend {
-  display: flex;
-  gap: 26px;
-  flex-wrap: wrap;
-  margin-top: 18px;
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-.chart-legend span::before {
-  content: "";
-  display: inline-block;
-  width: 9px; height: 9px;
-  border-radius: 2px;
-  margin-right: 7px;
-}
-.chart-legend .is-base::before { background: var(--bar-base); }
-.chart-legend .is-opt::before { background: var(--accent-loud); }
+        /* Oversized display type that always fills its column.
+           The clamp() below is a never-overflow floor; fitDisplayType()
+           in the footer script grows each word to the exact column width. */
+        .display-line {
+            display: block;
+            width: max-content;
+            max-width: 100%;
+            white-space: nowrap;
+            font-size: clamp(2.5rem, 11.5vw, 6.5rem);
+            line-height: 0.92;
+        }
 
-/* Card grid */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(16px, 1.6vw, 24px);
-}
-.item {
-  background: var(--elev);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius-md);
-  padding: clamp(20px, 2.2vw, 30px);
-  display: grid;
-  gap: 12px;
-  align-content: start;
-  transition: transform 320ms var(--ease-out), border-color 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
-}
-.item:hover, .item:focus-within {
-  border-color: var(--accent);
-  transform: translateY(-3px);
-  box-shadow: 0 24px 60px -24px oklch(15% 0.04 var(--hue) / 0.8);
-}
-.item-no {
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.item h3 {
-  margin: 0;
-  font-size: clamp(19px, 1.7vw, 24px);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  font-weight: 600;
-  text-transform: lowercase;
-}
-.item p {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--ink-soft);
-}
-.item .tag {
-  justify-self: start;
-  margin-top: 4px;
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  padding: 5px 11px;
-}
+        /* Oversized outlined display type (visual breaker).
+           Phones get a heavier stroke plus a whisper of fill. The hairline
+           reads as elegant restraint at ~180px of glyph on desktop, but the
+           phone fits the same word into a third of that, and 1px at half
+           opacity on a near-black field all but disappears there. */
+        .display-outline {
+            color: rgba(250, 248, 244, 0.32);
+        }
+        @supports (-webkit-text-stroke: 1px #FAF8F4) {
+            .display-outline {
+                color: transparent;
+                -webkit-text-fill-color: rgba(250, 248, 244, 0.1);
+                -webkit-text-stroke: 2px rgba(250, 248, 244, 0.85);
+            }
+            @media (min-width: 640px) {
+                .display-outline {
+                    -webkit-text-fill-color: transparent;
+                    -webkit-text-stroke: 2px rgba(250, 248, 244, 0.5);
+                }
+            }
+        }
 
-/* Definition strip - SEO against GEO */
-.defs {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(16px, 2vw, 28px);
-  margin-bottom: clamp(32px, 4vw, 52px);
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--ink-soft);
-}
-.defs p { margin: 0; border-left: 2px solid var(--accent); padding-left: 14px; }
-.defs b { color: var(--ink); font-weight: 700; }
+        /* ---- Scroll-Driven Animations (progressive enhancement) ---- */
+        @keyframes sdaRise {
+            from { opacity: 0; transform: translateY(28px) scale(0.97); filter: blur(6px); }
+            to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0px); }
+        }
+        @keyframes sdaProgress {
+            from { transform: scaleX(0); }
+            to   { transform: scaleX(1); }
+        }
+        @keyframes sdaDrift {
+            from { transform: translateY(3rem) scale(0.9); opacity: 0.45; }
+            to   { transform: translateY(-3rem) scale(1.1); opacity: 1; }
+        }
+        /* The outlined word literally fades out of sight... */
+        @keyframes sdaDissolve {
+            from { opacity: 1; filter: blur(0px); transform: translateY(0); }
+            to   { opacity: 0.4; filter: blur(2px); transform: translateY(-0.9rem); }
+        }
+        /* ...but only part of the way on phones: 0.4 opacity and 2px of blur
+           over an outline this thin leaves nothing on screen at all. */
+        @keyframes sdaDissolveNarrow {
+            from { opacity: 1; filter: blur(0px); transform: translateY(0); }
+            to   { opacity: 0.8; filter: blur(0.5px); transform: translateY(-0.5rem); }
+        }
+        /* ...while the solid one resolves into focus. */
+        @keyframes sdaSharpen {
+            from { opacity: 0.15; filter: blur(14px); transform: translateY(1.75rem); }
+            to   { opacity: 1; filter: blur(0px); transform: translateY(0); }
+        }
+        @keyframes sdaRule {
+            from { transform: scaleX(0); opacity: 0; }
+            to   { transform: scaleX(1); opacity: 1; }
+        }
+        @keyframes sdaExit {
+            from { opacity: 1; transform: translateY(0) scale(1); filter: blur(0px); }
+            to   { opacity: 0.12; transform: translateY(-2.25rem) scale(0.975); filter: blur(3px); }
+        }
 
-/* === Outro === */
-.outro {
-  background: var(--hero-bg);
-  color: var(--hero-ink);
-  padding: clamp(80px, 12vw, 180px) clamp(20px, 3vw, 40px) clamp(40px, 5vw, 60px);
-  display: grid;
-  gap: clamp(40px, 5vw, 64px);
-}
-.outro-inner {
-  max-width: var(--max-page);
-  margin: 0 auto;
-  width: 100%;
-  display: grid;
-  gap: clamp(40px, 5vw, 64px);
-}
-.outro-headline {
-  font-size: clamp(48px, 11vw, 180px);
-  line-height: 0.86;
-  letter-spacing: -0.04em;
-  font-weight: 900;
-  margin: 0;
-  text-transform: lowercase;
-  max-width: 13ch;
-}
-.outro-headline em {
-  font-style: italic;
-  background: var(--hero-ink);
-  color: var(--hero-bg);
-  padding: 0 0.06em;
-}
-.outro-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
-  gap: clamp(24px, 4vw, 56px);
-  align-items: start;
-}
-.outro-meta {
-  font-size: clamp(17px, 1.4vw, 21px);
-  line-height: 1.35;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  max-width: 38ch;
-  margin: 0;
-}
-.outro-actions { display: grid; gap: 14px; justify-items: end; }
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: var(--hero-ink);
-  color: var(--hero-tint);
-  padding: 15px 22px;
-  border-radius: var(--radius-md);
-  transition: transform 220ms var(--ease-out), background 220ms var(--ease-out);
-  white-space: nowrap;
-}
-.btn:hover, .btn:focus-visible { background: oklch(24% 0.07 var(--hue)); transform: translateY(-2px); outline: none; }
-.btn:focus-visible { box-shadow: 0 0 0 3px var(--hero-ink); }
-.btn.is-ghost {
-  background: transparent;
-  color: var(--hero-ink);
-  border: 2px solid var(--hero-ink);
-  padding: 13px 20px;
-}
-.btn.is-ghost:hover, .btn.is-ghost:focus-visible { background: oklch(16% 0.06 var(--hue) / 0.12); }
+        #scroll-progress { transform: scaleX(0); transform-origin: 0 50%; }
 
-.colophon {
-  max-width: var(--max-page);
-  margin: 0 auto;
-  width: 100%;
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: 12px;
-  letter-spacing: -0.005em;
-  color: var(--hero-ink-soft);
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
-  border-top: 1px solid oklch(28% 0.08 var(--hue) / 0.4);
-  padding-top: 20px;
-}
-.colophon nav { display: flex; gap: 20px; flex-wrap: wrap; }
-.colophon a { text-decoration: none; opacity: 0.8; }
-.colophon a:hover { opacity: 1; }
+        @supports (animation-timeline: view()) {
+            @media (prefers-reduced-motion: no-preference) {
+                /* Hand the reveal over to a real scroll timeline; the
+                   IntersectionObserver fallback below stays harmless. */
+                .reveal-on-scroll {
+                    opacity: 1;
+                    transform: none;
+                    filter: none;
+                    transition: none;
+                    animation: sdaRise linear both;
+                    animation-timeline: view();
+                    animation-range: entry 5% entry 85%;
+                }
+                .reveal-on-scroll.delay-1 { animation-range: entry 10% entry 90%; }
+                .reveal-on-scroll.delay-2 { animation-range: entry 15% entry 95%; }
+                .reveal-on-scroll.delay-3 { animation-range: entry 20% entry 100%; }
 
-/* Reveal */
-.reveal { opacity: 0; transform: translateY(14px); transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out); }
-.reveal.is-visible { opacity: 1; transform: none; }
+                /* Reading-progress bar in the header */
+                #scroll-progress {
+                    animation: sdaProgress linear both;
+                    animation-timeline: scroll(root block);
+                }
 
-/* === Responsive === */
-@media (max-width: 1024px) {
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 900px) {
-  .hero-main { grid-template-columns: 1fr; gap: clamp(28px, 6vw, 48px); }
-  .hero-portrait { width: clamp(170px, 46vw, 230px); justify-self: start; transform: none; }
-  .band-head { grid-template-columns: 1fr; gap: 18px; }
-  .band-note { text-align: left; max-width: 52ch; }
-}
-@media (max-width: 720px) {
-  .topbar { gap: 14px; font-size: 12px; }
-  .topbar nav { gap: 14px; justify-content: flex-end; }
-  .hero-foot { grid-template-columns: 1fr; }
-  .hero-meta { text-align: left; justify-self: start; }
-  .outro-grid { grid-template-columns: 1fr; }
-  .outro-actions { justify-items: start; }
-  .pair, .defs { grid-template-columns: 1fr; }
-}
-@media (max-width: 560px) {
-  .grid { grid-template-columns: minmax(0, 1fr); }
-  /* The copy button would sit on top of the address on a narrow block, so it
-     moves above the line instead. */
-  .contact-block { padding: 44px 22px 18px; }
-  .contact-block .copy { left: 10px; right: auto; }
-}
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; }
-  .chart-svg .svg-bar { transform: scaleY(1); }
-}
-</style>
+                /* Ambient glows drift as their slab crosses the viewport */
+                .sda-drift {
+                    animation: sdaDrift linear both;
+                    animation-timeline: view();
+                    animation-range: cover 0% cover 100%;
+                }
+
+                /* The breaker tells its own story as you scroll through it:
+                   "Invisible." dissolves, "Recommended." comes into focus. */
+                .sda-dissolve {
+                    animation: sdaDissolve linear both;
+                    animation-timeline: view();
+                    animation-range: entry 70% cover 62%;
+                }
+                @media (max-width: 639px) {
+                    .sda-dissolve {
+                        animation-name: sdaDissolveNarrow;
+                    }
+                }
+                .sda-sharpen {
+                    animation: sdaSharpen linear both;
+                    animation-timeline: view();
+                    animation-range: entry 15% entry 85%;
+                }
+
+                /* Hairlines draw themselves in from the left */
+                .sda-rule {
+                    transform-origin: 0 50%;
+                    animation: sdaRule linear both;
+                    animation-timeline: view();
+                    animation-range: entry 25% entry 75%;
+                }
+
+                /* The hero headline drifts away as the reader moves past it */
+                .sda-exit {
+                    animation: sdaExit linear both;
+                    animation-timeline: view();
+                    animation-range: exit 15% exit 95%;
+                }
+            }
+        }
+    </style>
 </head>
-<body>
+<body class="bg-brand-bg text-brand-body font-sans antialiased selection:bg-brand-accentLight selection:text-brand-accent flex flex-col min-h-screen w-full">
+    <!-- Scroll progress indicator -->
+    <div id="scroll-progress" class="fixed top-0 left-0 right-0 h-[3px] bg-brand-accent z-[60] pointer-events-none" aria-hidden="true"></div>
 
-<a class="skip-link" href="#main">skip to content</a>
-
-<!-- Watched by the header: once this scrolls out of view, the bar goes black. -->
-<div id="scroll-sentinel" aria-hidden="true"></div>
-
-<!-- ============ HEADER ============ -->
-<div class="topbar-wrap" id="site-header">
-  <div class="topbar">
-    <a class="mark" href="#top">takemylead</a>
-    <nav>
-      <a href="#shift">strategy</a>
-      <a href="#content">content</a>
-      <a href="#services">services</a>
-      <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener">linkedin</a>
-      <a href="#contact">contact</a>
-    </nav>
-  </div>
-</div>
-
-<header class="hero" id="top">
-  <div class="hero-main">
-    <div class="hero-body">
-      <p class="hero-eyebrow">seo &middot; geo &middot; search visibility</p>
-      <h1 class="hero-headline">
-        you built a site.<br>
-        now get <span class="emph">found.</span>
-      </h1>
-      <p class="hero-sub">
-        <strong>A pretty site does not pay the bills.</strong>
-        I get you ranking on Google and named by ChatGPT and Perplexity - so the
-        people already searching for what you do end up on your site.
-      </p>
+    <!-- Toast Notification for Interactions -->
+    <div id="toast-message" class="fixed bottom-20 right-6 z-50 bg-brand-heading text-white px-5 py-3 rounded-2xl shadow-2xl font-mono text-xs flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-300 translate-y-4">
+        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+        <span id="toast-text">Action completed</span>
     </div>
 
-    <figure class="hero-portrait">
-      <img src="../portrait-320.webp" width="320" height="400" alt="Matthias Schulte"
-           onerror="this.onerror=null; this.src='../portrait-160.png';">
-      <figcaption><span>matthias schulte</span><span>de</span></figcaption>
-    </figure>
-  </div>
+    <!-- Back to top (appears once the reader is a screen deep) -->
+    <button id="back-to-top" type="button" aria-label="Back to top"
+            class="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full bg-brand-heading text-brand-bg shadow-xl border border-white/10 flex items-center justify-center opacity-0 translate-y-3 pointer-events-none hover:bg-brand-accent">
+        <i data-lucide="arrow-up" class="w-4 h-4"></i>
+    </button>
 
-  <div class="hero-foot">
-    <div class="contact-stack">
-      <span class="contact-label">start here</span>
-      <pre class="contact-block"><code><span class="prompt">$</span> mail takemylead.de@gmail.com</code><button class="copy" type="button" data-copy="takemylead.de@gmail.com">copy</button></pre>
-      <span class="contact-label">one mail. one audit. a plan you can act on.</span>
-    </div>
-    <p class="hero-meta">
-      <span class="dot"></span>taking on new projects &mdash; audits, content
-      and technical fixes.
-    </p>
-  </div>
-</header>
+    <header class="w-full bg-brand-bg/90 backdrop-blur-md sticky top-0 z-50 border-b editorial-border">
+        <div class="header-bar max-w-5xl mx-auto px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-2">
+            
+            <!-- TakeMyLead wordmark -->
+            <a href="#" class="header-logo flex items-center group shrink-0">
+                <span class="font-serif font-bold leading-none tracking-tight text-[23px] sm:text-[32px] md:text-[40px] text-brand-heading">TakeMy<span class="text-brand-accent">Lead</span></span>
+            </a>
 
-<main id="main">
+            <div class="flex items-center gap-1.5 sm:gap-3">
+                <!-- Navigation links -->
+                <a href="#why-content" data-spy="#why-content" class="relative hidden md:inline-flex items-center gap-1 px-3 py-2 rounded-full text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:text-brand-accent transition-colors">
+                    Strategy
+                </a>
 
-  <!-- ============ THE SHIFT (paper) ============ -->
-  <section class="band is-paper" id="shift">
-    <div class="band-inner">
-      <p class="eyebrow reveal">the shift</p>
-      <h2 class="shift-statement reveal">
-        <span class="strike">invisible.</span>
-        <span class="becomes">becomes</span>
-        <span class="won">recommended.</span>
-      </h2>
+                <!-- DISABLED: News dropdown in the header nav. Kept for later - uncomment to restore.
+                == Dropdown Menu for SEO News ==
+                <div class="relative group">
+                    <a href="#news" id="seo-news-dropdown-btn" data-spy="#news" class="relative inline-flex items-center gap-1 px-2.5 sm:px-4 py-2 rounded-full text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:text-brand-accent transition-colors">
+                        <span>News</span>
+                        <i data-lucide="chevron-down" class="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform duration-200 group-hover:rotate-180"></i>
+                    </a>
+                    
+                    == Dropdown Options Box ==
+                    <div class="absolute right-0 sm:left-0 mt-1 w-52 sm:w-60 bg-brand-surface border editorial-border rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-2 space-y-1">
+                        <a href="#news" data-nav-filter="all" class="nav-filter-link flex items-center justify-between px-3 py-2 rounded-xl text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                            <span>All News</span>
+                            <i data-lucide="arrow-up-right" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-muted"></i>
+                        </a>
+                        <a href="#news" data-nav-filter="on-page" class="nav-filter-link flex items-center justify-between px-3 py-2 rounded-xl text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                            <span>On-Page SEO</span>
+                            <i data-lucide="arrow-up-right" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-muted"></i>
+                        </a>
+                        <a href="#news" data-nav-filter="off-page" class="nav-filter-link flex items-center justify-between px-3 py-2 rounded-xl text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                            <span>Off-Page & Links</span>
+                            <i data-lucide="arrow-up-right" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-muted"></i>
+                        </a>
+                        <a href="#news" data-nav-filter="geo-ai" class="nav-filter-link flex items-center justify-between px-3 py-2 rounded-xl text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                            <span>GEO & AI Search</span>
+                            <i data-lucide="arrow-up-right" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-muted"></i>
+                        </a>
+                        <a href="#news" data-nav-filter="google-updates" class="nav-filter-link flex items-center justify-between px-3 py-2 rounded-xl text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:bg-brand-subtle hover:text-brand-accent transition-colors">
+                            <span>Google Updates</span>
+                            <i data-lucide="arrow-up-right" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-muted"></i>
+                        </a>
+                    </div>
+                </div>
+                -->
+                
+                <!-- Services Link -->
+                <a href="#services" data-spy="#services" class="relative hidden sm:inline-flex items-center px-2.5 sm:px-4 py-2 rounded-full text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-body hover:text-brand-accent transition-colors">
+                    <span>Services</span>
+                </a>
 
-      <div class="query reveal">
-        <p class="query-lead">Your next client is already searching:</p>
-        <p class="query-line"><span class="prompt">&gt;</span> who can fix my site's seo<span class="query-caret"></span></p>
-      </div>
+                <!-- LinkedIn Link -->
+                <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener noreferrer" class="btn-hover inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-full border border-brand-accent/30 bg-brand-accentLight text-brand-accent text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider hover:bg-brand-accent hover:text-white hover:border-brand-accent transition-colors shadow-sm" title="LinkedIn Profile" aria-label="LinkedIn Profile">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 shrink-0" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+                    <span class="hidden sm:inline">LinkedIn</span>
+                </a>
 
-      <div class="pair reveal">
-        <div>
-          <h3>01 / the problem</h3>
-          <p>Invisible on Google. Missing from AI answers. No plan to turn visits into leads.</p>
+                <a href="#contact" class="btn-hover inline-flex items-center gap-1.5 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-brand-heading text-brand-bg text-[11px] sm:text-xs font-semibold uppercase tracking-wider hover:bg-brand-accent transition-colors shadow-sm shrink-0">
+                    <span>Contact</span>
+                    <i data-lucide="arrow-up-right" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i>
+                </a>
+            </div>
         </div>
-        <div>
-          <h3>02 / the fix</h3>
-          <p>Content built for search and for AI. The right buyers find you - and they convert.</p>
-        </div>
-      </div>
+    </header>
 
-      <!-- Illustrative, not measured: the shape a tailored search strategy
-           gives organic traffic over time. -->
-      <div class="chart-wrap reveal">
-        <div class="chart-head">
-          <div>
-            <p class="chart-kicker">organic traffic over time &mdash; illustrative</p>
-            <p class="chart-title">before and after a real strategy</p>
+    <main class="flex-grow relative w-full overflow-x-hidden">
+        <!-- Ambient Hero Gradient -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[450px] bg-gradient-to-b from-brand-accent/10 via-brand-accent/5 to-transparent rounded-full blur-3xl pointer-events-none hero-ambient-glow -z-10"></div>
+
+        <section class="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 pb-12 sm:pb-20">
+            <div class="flex flex-col gap-6 sm:gap-8">
+                
+                <!-- Main Punchy Headline -->
+                <div class="space-y-5 sm:space-y-6">
+                    <div class="sda-exit space-y-5 sm:space-y-6">
+
+                    <!-- Headline row: the portrait reads as the headline's
+                         left-hand mark, so the two share a line. Everything
+                         below it runs the full width of the column. -->
+                    <div class="reveal-on-scroll delay-1 flex items-center gap-3.5 sm:gap-6 md:gap-8">
+                        <div class="relative shrink-0 w-14 h-14 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-brand-accent/40 p-1 bg-brand-surface shadow-sm">
+                            <picture class="block w-full h-full">
+                                <source type="image/webp" srcset="portrait-160.webp 160w, portrait-320.webp 320w" sizes="(min-width: 768px) 128px, (min-width: 640px) 96px, 56px">
+                                <img
+                                    src="../portrait-160.png"
+                                    alt="Matthias Schulte"
+                                    width="160"
+                                    height="160"
+                                    class="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-500"
+                                    onerror="this.onerror=null; this.src='https://placehold.co/400x400/E8E4DC/1C1A17?text=MS';"
+                                />
+                            </picture>
+                        </div>
+
+                        <h1 class="flex-1 min-w-0 font-serif text-3xl sm:text-5xl md:text-6xl font-normal leading-[1.15] sm:leading-[1.12] tracking-tight text-brand-heading">
+                            Shaping your <span class="italic text-brand-accent font-medium">website to rank</span>&nbsp;- not just sit there looking pretty.
+                        </h1>
+                    </div>
+
+                    <p class="reveal-on-scroll delay-2 text-sm sm:text-lg text-brand-body font-normal leading-relaxed">
+                        I position your brand to be found on <strong class="font-bold text-brand-heading">Google</strong> and recommended by <strong class="font-bold text-brand-heading">modern AI search engines</strong> like ChatGPT and Perplexity - so the people already searching for what you do end up on your site.
+                    </p>
+
+                    <!-- 2. The plain-language version of the offer, before any jargon. -->
+                    <p class="reveal-on-scroll delay-2 text-sm sm:text-base text-brand-muted font-normal leading-relaxed">
+                        In practice: I work out what your potential customers search for, write and optimize the pages that answer those searches, and build the authority that makes those pages visible.
+                    </p>
+
+                    <!-- Call To Action Buttons -->
+                    <div class="reveal-on-scroll delay-3 pt-1 sm:pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+                        <a href="#contact" class="btn-hover px-6 sm:px-7 py-3.5 rounded-full bg-brand-accent text-white text-xs font-bold uppercase tracking-wider text-center hover:bg-brand-heading transition-colors shadow-md flex items-center justify-center gap-2">
+                            <span>Get Your Website Ranked</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#why-content" class="btn-hover px-6 sm:px-7 py-3.5 rounded-full border border-brand-border bg-brand-surface text-brand-heading text-xs font-bold uppercase tracking-wider text-center hover:bg-brand-subtle transition-colors shadow-sm">
+                            Why Content Matters
+                        </a>
+                    </div>
+                    </div>
+
+                    <div class="pt-6 sm:pt-8 w-full space-y-5 sm:space-y-6 reveal-on-scroll">
+                        
+                        <div id="chart-card" class="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border shadow-sm space-y-5 relative overflow-hidden transition-all duration-300 interactive-card">
+                            
+                            <!-- Card Header -->
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
+                                <div class="space-y-1">
+                                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-accent flex items-center gap-1.5 sm:gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+                                        ORGANIC TRAFFIC OVER TIME
+                                    </span>
+                                    <h2 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">
+                                        The Impact of Tailored SEO & AI Search
+                                    </h2>
+                                </div>
+                                
+                                <span id="chart-hover-indicator" aria-hidden="true" class="opacity-0 self-start sm:self-auto px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-brand-accentLight border border-brand-accent/20 text-brand-accent text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider transition-opacity duration-200 shadow-sm pointer-events-none"></span>
+                            </div>
+
+                            <!-- Bar Chart SVG -->
+                            <div class="w-full pt-2 pb-2">
+                                <svg class="w-full h-auto max-h-48 sm:max-h-56 chart-svg" viewBox="0 0 720 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- BEFORE BARS -->
+                                    <g id="before-bars-group" opacity="0.75">
+                                        <rect data-val="Baseline: Unoptimized Search" x="25" y="130" width="30" height="30" rx="8" fill="#787267" class="svg-bar" />
+                                        <rect data-val="Baseline: Low Intent Traffic" x="68" y="122" width="30" height="38" rx="8" fill="#787267" class="svg-bar" />
+                                        <rect data-val="Baseline: Stagnant Visibility" x="111" y="134" width="30" height="26" rx="8" fill="#787267" class="svg-bar" />
+                                        <rect data-val="Baseline: Unindexed Content" x="154" y="126" width="30" height="34" rx="8" fill="#787267" class="svg-bar" />
+                                        <rect data-val="Baseline: Pre-Strategy Level" x="197" y="120" width="30" height="40" rx="8" fill="#787267" class="svg-bar" />
+                                    </g>
+
+                                    <!-- AFTER BARS -->
+                                    <g id="after-bars-group">
+                                        <rect data-val="Phase 1: Technical Audit" x="275" y="70" width="34" height="90" rx="10" fill="#B2431C" opacity="0.9" class="svg-bar" />
+                                        <rect data-val="Phase 2: Keyword Clustering" x="322" y="48" width="34" height="112" rx="10" fill="#B2431C" opacity="0.92" class="svg-bar" />
+                                        <rect data-val="Phase 3: Topical Authority" x="369" y="30" width="34" height="130" rx="10" fill="#B2431C" class="svg-bar" />
+                                        <rect data-val="Phase 4: GEO & AI Search Citation" x="416" y="42" width="34" height="118" rx="10" fill="#B2431C" opacity="0.95" class="svg-bar" />
+                                        <rect data-val="Phase 5: High-Intent Inflow" x="463" y="52" width="34" height="108" rx="10" fill="#B2431C" opacity="0.92" class="svg-bar" />
+                                        <rect data-val="Phase 6: Search Engine Dominance" x="510" y="25" width="34" height="135" rx="10" fill="#B2431C" class="svg-bar" />
+                                        <rect data-val="Phase 7: Sustained Growth" x="557" y="28" width="34" height="132" rx="10" fill="#B2431C" class="svg-bar" />
+                                        <rect data-val="Phase 8: Compounding Authority" x="604" y="12" width="34" height="148" rx="10" fill="#B2431C" class="svg-bar" />
+                                        <rect data-val="Target Goal: Inbound Pipeline" x="651" y="5" width="34" height="155" rx="10" fill="#141311" class="svg-bar" />
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <!-- Legend Footer -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-1 text-xs">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-3 h-3 rounded-md bg-[#787267] inline-block shrink-0"></span>
+                                    <div>
+                                        <p class="font-mono font-bold text-brand-body uppercase text-[10px] tracking-wider">Baseline</p>
+                                        <p class="text-brand-body font-semibold text-xs sm:text-sm">Stagnant site, low search intent</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-3 h-3 rounded-md bg-brand-accent inline-block shrink-0"></span>
+                                    <div>
+                                        <p class="font-mono font-bold text-brand-accent uppercase text-[10px] tracking-wider">Optimized Strategy</p>
+                                        <p class="text-brand-heading font-bold text-xs sm:text-sm">Continuous organic lead pipeline</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- 3 Stat Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+                            <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
+                                <div class="space-y-2 sm:space-y-3">
+                                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">01 / RELEVANT TRAFFIC</span>
+                                    <h3 class="font-serif text-xl sm:text-3xl font-normal text-brand-heading tracking-tight">More Relevant Visitors</h3>
+                                    <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed">
+                                        More of the people already searching for what you sell land on your pages.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="reveal-on-scroll delay-2 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
+                                <div class="space-y-2 sm:space-y-3">
+                                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">02 / INTENT</span>
+                                    <h3 class="font-serif text-xl sm:text-3xl font-normal text-brand-heading tracking-tight">High-Intent Leads</h3>
+                                    <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed">
+                                        Turning passive site readers into actionable business inquiries.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="reveal-on-scroll delay-3 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border shadow-sm flex flex-col justify-between interactive-card">
+                                <div class="space-y-2 sm:space-y-3">
+                                    <span class="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider text-brand-accent block">03 / AI VISIBILITY</span>
+                                    <h3 class="font-serif text-xl sm:text-3xl font-normal text-brand-heading tracking-tight">Appear in AI Answers</h3>
+                                    <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed">
+                                        Positioned to be recommended across search engines and AI assistants.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Visual Breaker: Problem / Approach -->
+        <section id="the-shift" class="w-full max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+            <div class="reveal-on-scroll relative overflow-hidden rounded-[1.75rem] sm:rounded-[2.5rem] bg-brand-heading px-6 sm:px-12 lg:px-16 py-12 sm:py-20 shadow-2xl">
+
+                <!-- Ambient accent glow -->
+                <div class="sda-drift absolute -top-28 -right-24 w-[26rem] h-[26rem] bg-brand-accent/25 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="sda-drift absolute -bottom-32 -left-28 w-[22rem] h-[22rem] bg-brand-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 space-y-10 sm:space-y-16">
+
+                    <span class="text-[10px] sm:text-xs font-mono uppercase tracking-[0.3em] font-bold block text-[#E8834F]">
+                        The Shift
+                    </span>
+
+                    <!-- Oversized display type: each word is auto-fitted to the
+                         exact column width, so nothing is ever clipped. -->
+                    <div id="shift-display" class="font-serif tracking-tight select-none">
+                        <span data-fit-text class="display-line display-outline sda-dissolve">Invisible.</span>
+
+                        <div class="flex items-center gap-3 sm:gap-5 my-4 sm:my-6">
+                            <span class="sda-rule h-px w-10 sm:w-20 bg-brand-accent shrink-0"></span>
+                            <span class="font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] font-bold text-[#E8834F]">Becomes</span>
+                            <span class="sda-rule h-px flex-1 bg-white/15"></span>
+                        </div>
+
+                        <span data-fit-text class="display-line sda-sharpen font-medium text-brand-bg">Recommended.</span>
+                    </div>
+
+                    <!-- The two-part story -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
+                        <div class="space-y-3 border-t-2 border-white/20 pt-5 sm:pt-6">
+                            <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest font-bold block text-white/55">
+                                01 / Why Most Websites Struggle
+                            </span>
+                            <p class="text-sm sm:text-lg leading-relaxed text-white/75">
+                                They are invisible on search engines, missing from AI answers, and lack a clear strategy to convert traffic.
+                            </p>
+                        </div>
+
+                        <div class="space-y-3 border-t-2 border-brand-accent pt-5 sm:pt-6">
+                            <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest font-bold block text-[#E8834F]">
+                                02 / What I Do
+                            </span>
+                            <p class="text-sm sm:text-lg leading-relaxed text-brand-bg">
+                                I create content optimized for traditional SEO and AI search (GEO). I help you reach the right buyers, solve their specific problems, and turn casual traffic into reliable business leads.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="why-content" class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+            <div class="space-y-8 sm:space-y-12">
+                <div class="max-w-3xl space-y-4 sm:space-y-5 reveal-on-scroll">
+                    <span class="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-brand-accent font-bold block">
+                        Content Strategy That Converts
+                    </span>
+                    <h2 class="font-serif text-2xl sm:text-4xl font-normal text-brand-heading">
+                        Why Tailored Content Drives Real Results
+                    </h2>
+                </div>
+
+                <!-- 5 Benefits Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                    <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                        <div>
+                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">01 / RELEVANCE</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Establishes Site Relevance</h3>
+                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                                Signals to search engines and AI models that your site is a credible, well-covered authority in your field.
+                            </p>
+                        </div>
+                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
+                            <span>Topical Authority</span>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll delay-2 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                        <div>
+                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">02 / ENTRY POINT</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">The Front Door for Buyers</h3>
+                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                                Serves as the primary landing surface for potential customers looking for solutions before knowing your brand.
+                            </p>
+                        </div>
+                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
+                            <span>Organic Traffic Entry</span>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll delay-3 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                        <div>
+                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">03 / DISCOVERABILITY</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Makes You Findable Everywhere</h3>
+                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                                Matches exact queries people type into Google and modern AI assistants like ChatGPT and Perplexity.
+                            </p>
+                        </div>
+                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
+                            <span>High-Intent Search</span>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                        <div>
+                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">04 / ADVOCACY</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Built to Be Referenced</h3>
+                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2">
+                                Content that is genuinely useful to people is also easier for search engines and AI systems like ChatGPT, Perplexity and Gemini to discover, understand and reference.
+                            </p>
+                        </div>
+                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
+                            <span>AI & Organic Referrals</span>
+                        </div>
+                    </div>
+                    
+                    <div class="reveal-on-scroll delay-2 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-brand-surface border editorial-border space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card lg:col-span-2">
+                        <div>
+                            <span class="text-[10px] sm:text-xs font-mono text-brand-accent font-bold block mb-1.5">05 / LONG-TERM ASSET</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-heading">Compounds Over Time</h3>
+                            <p class="text-xs sm:text-base text-brand-body font-normal leading-relaxed mt-2 max-w-2xl">
+                                Unlike paid ads that stop generating leads the second you stop paying, strategic organic content builds domain authority that compounds over months and years.
+                            </p>
+                        </div>
+                        <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center text-[11px] sm:text-xs font-mono font-bold text-brand-accent">
+                            <span>Sustainable ROI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="w-full max-w-5xl mx-auto px-4 sm:px-6 my-10">
+          <div class="relative overflow-hidden rounded-[1.75rem] sm:rounded-[2.5rem] bg-brand-heading px-6 sm:px-10 lg:px-12 py-12 sm:py-20 border border-white/10 shadow-2xl">
+            <!-- Ambient accent glow -->
+            <div class="sda-drift absolute -top-32 -left-24 w-[24rem] h-[24rem] bg-brand-accent/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="sda-drift absolute -bottom-36 -right-28 w-[22rem] h-[22rem] bg-brand-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 space-y-8 sm:space-y-12">
+                <div class="max-w-3xl space-y-3 sm:space-y-4 reveal-on-scroll">
+                    <span class="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-[#E8834F] font-bold block">
+                        What I Actually Do
+                    </span>
+                    <h2 class="font-serif text-2xl sm:text-4xl font-normal text-brand-bg">
+                        Core Optimization Services
+                    </h2>
+                    <p class="text-sm sm:text-lg text-white/70 font-normal leading-relaxed">
+                        Six disciplines that move a site from invisible to recommended - covering <strong class="font-bold text-brand-bg">technical health</strong>, <strong class="font-bold text-brand-bg">content authority</strong>, and <strong class="font-bold text-brand-bg">conversion</strong>, for both Google and modern AI answer engines.
+                    </p>
+                    <p class="text-sm sm:text-base text-white/60 font-normal leading-relaxed">
+                        <strong class="font-bold text-[#E8834F]">SEO</strong> is getting found on Google.
+                        <strong class="font-bold text-[#E8834F]">GEO</strong> - generative engine optimization - is getting discovered inside AI-generated answers.
+                    </p>
+                </div>
+
+                <!-- 6 Services Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                    <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                        <div>
+                            <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">01 / DIAGNOSIS</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Conduct a Holistic SEO &amp; GEO Audit</h3>
+                            <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
+                                Analyze your site&rsquo;s technical health, content structure, and search visibility to build a clear, prioritized growth roadmap.
+                            </p>
+                        </div>
+                        <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
+                            <span>Growth Roadmap</span>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll delay-2 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                        <div>
+                            <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">02 / COPYWRITING</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Craft High-Converting Search &amp; AI Copywriting</h3>
+                            <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
+                                Write clear, persuasive copy designed to perform well in search and increase your chances of being referenced by AI assistants like ChatGPT and Perplexity.
+                            </p>
+                        </div>
+                        <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
+                            <span>Rank &amp; Get Referenced</span>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll delay-3 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                        <div>
+                            <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">03 / STRUCTURED DATA</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Set Up Structured Data &amp; Schema</h3>
+                            <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
+                                Configure meta titles, descriptions, and structured JSON-LD data so search engines and LLMs instantly understand your authority and services.
+                            </p>
+                        </div>
+                        <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
+                            <span>JSON-LD &amp; Meta</span>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll delay-1 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                        <div>
+                            <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">04 / TECHNICAL SEO</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Fix Technical SEO, Image &amp; Crawl Errors</h3>
+                            <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
+                                Identify and resolve broken links, indexation blocks, heavy uncompressed images, and site errors so search engine crawlers and AI bots can index your pages without friction.
+                            </p>
+                        </div>
+                        <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
+                            <span>Crawl &amp; Index Health</span>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll delay-2 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                        <div>
+                            <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">05 / AUTHORITY</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Build Topic Clusters for Topical Authority</h3>
+                            <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
+                                Group your pages around one main guide per topic, with the smaller pages linking back to it. That pattern shows search engines and AI tools that you really know your subject.
+                            </p>
+                        </div>
+                        <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
+                            <span>Main Page + Support Pages</span>
+                        </div>
+                    </div>
+
+                    <div class="reveal-on-scroll delay-3 p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 space-y-3 sm:space-y-4 flex flex-col justify-between interactive-card">
+                        <div>
+                            <span class="text-[10px] sm:text-xs font-mono text-[#E8834F] font-bold block mb-1.5">06 / CONVERSION</span>
+                            <h3 class="font-serif text-lg sm:text-2xl font-normal text-brand-bg">Refine On-Page Conversion Architecture</h3>
+                            <p class="text-xs sm:text-base text-white/70 font-normal leading-relaxed mt-2">
+                                Strategically position high-converting calls to action, clear value propositions, and lead capture points to turn organic traffic into paying clients.
+                            </p>
+                        </div>
+                        <div class="pt-3 sm:pt-4 border-t border-white/15 flex items-center text-[11px] sm:text-xs font-mono font-bold text-[#E8834F]">
+                            <span>Traffic To Clients</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
           </div>
-          <p class="chart-readout" id="chart-readout" aria-live="polite"></p>
+        </section>
+
+        <!-- DISABLED: Latest Search Intelligence article grid. Kept for later - uncomment to restore.
+        <section id="news" class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20 bg-brand-subtle rounded-[2.5rem] my-10 border border-brand-border/60 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-brand-accent/5 rounded-full blur-3xl pointer-events-none -z-10 translate-x-1/3 -translate-y-1/3"></div>
+            
+            <div class="space-y-8 sm:space-y-12 z-10 relative">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 reveal-on-scroll">
+                    <div class="space-y-2">
+                        <span class="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-brand-accent font-bold block">
+                            Insights & Updates
+                        </span>
+                        <h2 class="font-serif text-2xl sm:text-4xl font-normal text-brand-heading">
+                            Latest Search Intelligence
+                        </h2>
+                    </div>
+
+                    == Category Filter Buttons ==
+                    <div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
+                        <button data-category="all" class="news-filter-btn px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-heading text-white transition-colors">
+                            All News
+                        </button>
+                        <button data-category="on-page" class="news-filter-btn px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-surface border border-brand-border text-brand-body hover:border-brand-accent hover:text-brand-accent transition-colors">
+                            On-Page
+                        </button>
+                        <button data-category="off-page" class="news-filter-btn px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-surface border border-brand-border text-brand-body hover:border-brand-accent hover:text-brand-accent transition-colors">
+                            Off-Page
+                        </button>
+                        <button data-category="geo-ai" class="news-filter-btn px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-surface border border-brand-border text-brand-body hover:border-brand-accent hover:text-brand-accent transition-colors">
+                            GEO & AI Search
+                        </button>
+                        <button data-category="google-updates" class="news-filter-btn px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-surface border border-brand-border text-brand-body hover:border-brand-accent hover:text-brand-accent transition-colors">
+                            Google Updates
+                        </button>
+                    </div>
+                </div>
+
+                == Filterable News Articles Grid ==
+                <div id="articles-container" class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+                    
+                    == Article 1 ==
+                    <a href="#" data-category="geo-ai" class="article-card group reveal-on-scroll delay-1 bg-brand-surface rounded-2xl overflow-hidden border editorial-border shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full interactive-card">
+                        <div class="aspect-[16/10] bg-brand-muted relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1616469829581-73993eb86b02?auto=format&fit=crop&q=80&w=800" alt="Generative Engine Optimization" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 left-3 bg-brand-surface/90 backdrop-blur-sm px-2.5 py-1 rounded-md text-[9px] font-mono font-bold uppercase text-brand-heading border border-brand-border">
+                                GEO & AI Search
+                            </div>
+                        </div>
+                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
+                            <p class="text-[11px] text-brand-muted font-mono mb-2">Oct 24, 2026</p>
+                            <h3 class="font-serif text-lg sm:text-xl text-brand-heading leading-snug mb-3 group-hover:text-brand-accent transition-colors">How to Optimize for Perplexity and ChatGPT in 2027</h3>
+                            <p class="text-sm text-brand-body leading-relaxed line-clamp-3 mb-4 flex-grow">Traditional SEO isn't dead, but the funnel has shifted. Learn the frameworks needed to be cited directly by LLMs before users ever click a traditional blue link.</p>
+                            <div class="flex items-center gap-1.5 text-xs font-mono font-bold text-brand-accent uppercase mt-auto">
+                                Read Article <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    == Article 2 ==
+                    <a href="#" data-category="on-page" class="article-card group reveal-on-scroll delay-2 bg-brand-surface rounded-2xl overflow-hidden border editorial-border shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full interactive-card">
+                        <div class="aspect-[16/10] bg-brand-muted relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" alt="Data Analytics" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 left-3 bg-brand-surface/90 backdrop-blur-sm px-2.5 py-1 rounded-md text-[9px] font-mono font-bold uppercase text-brand-heading border border-brand-border">
+                                On-Page SEO
+                            </div>
+                        </div>
+                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
+                            <p class="text-[11px] text-brand-muted font-mono mb-2">Sep 18, 2026</p>
+                            <h3 class="font-serif text-lg sm:text-xl text-brand-heading leading-snug mb-3 group-hover:text-brand-accent transition-colors">Semantic HTML: The Unsung Hero of Topical Authority</h3>
+                            <p class="text-sm text-brand-body leading-relaxed line-clamp-3 mb-4 flex-grow">Stop keyword stuffing and start structuring data. Why the way your site is coded matters just as much as the content on the page.</p>
+                            <div class="flex items-center gap-1.5 text-xs font-mono font-bold text-brand-accent uppercase mt-auto">
+                                Read Article <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    == Article 3 ==
+                    <a href="#" data-category="on-page" class="article-card group reveal-on-scroll delay-3 bg-brand-surface rounded-2xl overflow-hidden border editorial-border shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full interactive-card">
+                        <div class="aspect-[16/10] bg-brand-muted relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1432821596592-e2c18b78144f?auto=format&fit=crop&q=80&w=800" alt="Content Creation" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 left-3 bg-brand-surface/90 backdrop-blur-sm px-2.5 py-1 rounded-md text-[9px] font-mono font-bold uppercase text-brand-heading border border-brand-border">
+                                On-Page SEO
+                            </div>
+                        </div>
+                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
+                            <p class="text-[11px] text-brand-muted font-mono mb-2">Aug 05, 2026</p>
+                            <h3 class="font-serif text-lg sm:text-xl text-brand-heading leading-snug mb-3 group-hover:text-brand-accent transition-colors">Writing for Humans While Satisfying Search Algorithms</h3>
+                            <p class="text-sm text-brand-body leading-relaxed line-clamp-3 mb-4 flex-grow">The exact editorial guidelines I use to produce rankable, readable content that drives actual B2B conversions instead of vanity metrics.</p>
+                            <div class="flex items-center gap-1.5 text-xs font-mono font-bold text-brand-accent uppercase mt-auto">
+                                Read Article <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    == Article 4 ==
+                    <a href="#" data-category="off-page" class="article-card group reveal-on-scroll delay-1 bg-brand-surface rounded-2xl overflow-hidden border editorial-border shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full interactive-card">
+                        <div class="aspect-[16/10] bg-brand-muted relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800" alt="Digital PR" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 left-3 bg-brand-surface/90 backdrop-blur-sm px-2.5 py-1 rounded-md text-[9px] font-mono font-bold uppercase text-brand-heading border border-brand-border">
+                                Off-Page & Links
+                            </div>
+                        </div>
+                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
+                            <p class="text-[11px] text-brand-muted font-mono mb-2">Jul 20, 2026</p>
+                            <h3 class="font-serif text-lg sm:text-xl text-brand-heading leading-snug mb-3 group-hover:text-brand-accent transition-colors">Digital PR Over Cheap Backlinks: What Works Now</h3>
+                            <p class="text-sm text-brand-body leading-relaxed line-clamp-3 mb-4 flex-grow">How earning tier-1 editorial mentions builds bulletproof domain trust that withstands every core algorithm update.</p>
+                            <div class="flex items-center gap-1.5 text-xs font-mono font-bold text-brand-accent uppercase mt-auto">
+                                Read Article <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    == Article 5 ==
+                    <a href="#" data-category="google-updates" class="article-card group reveal-on-scroll delay-2 bg-brand-surface rounded-2xl overflow-hidden border editorial-border shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full interactive-card">
+                        <div class="aspect-[16/10] bg-brand-muted relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80&w=800" alt="Search Quality Updates" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 left-3 bg-brand-surface/90 backdrop-blur-sm px-2.5 py-1 rounded-md text-[9px] font-mono font-bold uppercase text-brand-heading border border-brand-border">
+                                Google Updates
+                            </div>
+                        </div>
+                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
+                            <p class="text-[11px] text-brand-muted font-mono mb-2">Jun 11, 2026</p>
+                            <h3 class="font-serif text-lg sm:text-xl text-brand-heading leading-snug mb-3 group-hover:text-brand-accent transition-colors">Decoding Google's Helpful Content System</h3>
+                            <p class="text-sm text-brand-body leading-relaxed line-clamp-3 mb-4 flex-grow">Why thin AI summaries get penalized while first-hand experience (E-E-A-T) continues to dominate search results.</p>
+                            <div class="flex items-center gap-1.5 text-xs font-mono font-bold text-brand-accent uppercase mt-auto">
+                                Read Article <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    == Article 6 ==
+                    <a href="#" data-category="geo-ai" class="article-card group reveal-on-scroll delay-3 bg-brand-surface rounded-2xl overflow-hidden border editorial-border shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full interactive-card">
+                        <div class="aspect-[16/10] bg-brand-muted relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800" alt="AI Search Engines" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 left-3 bg-brand-surface/90 backdrop-blur-sm px-2.5 py-1 rounded-md text-[9px] font-mono font-bold uppercase text-brand-heading border border-brand-border">
+                                GEO & AI Search
+                            </div>
+                        </div>
+                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
+                            <p class="text-[11px] text-brand-muted font-mono mb-2">May 02, 2026</p>
+                            <h3 class="font-serif text-lg sm:text-xl text-brand-heading leading-snug mb-3 group-hover:text-brand-accent transition-colors">The Generative Search Experience Playbook</h3>
+                            <p class="text-sm text-brand-body leading-relaxed line-clamp-3 mb-4 flex-grow">A practical breakdown of how conversational AI models synthesize web data to recommend products and services.</p>
+                            <div class="flex items-center gap-1.5 text-xs font-mono font-bold text-brand-accent uppercase mt-auto">
+                                Read Article <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+        </section>
+        -->
+
+        <section id="contact" class="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center">
+            <div class="max-w-2xl mx-auto space-y-6 sm:space-y-8 reveal-on-scroll">
+                <span class="text-2xl sm:text-3xl block text-brand-accent">👋</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-normal text-brand-heading leading-tight">
+                    Ready to turn search traffic into a reliable pipeline?
+                </h2>
+                <p class="text-sm sm:text-lg text-brand-body font-normal leading-relaxed">
+                    Let's audit your current digital footprint and map out a precise content architecture that scales your organic reach across Google and AI search platforms.
+                </p>
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="mailto:takemylead.de@gmail.com" id="email-cta-btn" class="btn-hover px-8 py-4 rounded-full bg-brand-heading text-white text-xs font-bold uppercase tracking-wider text-center hover:bg-brand-accent transition-colors shadow-lg w-full sm:w-auto flex items-center justify-center gap-2">
+                        <i data-lucide="mail" class="w-4 h-4"></i> Send an E-Mail!
+                    </a>
+                    <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener noreferrer" class="btn-hover px-8 py-4 rounded-full border-2 border-brand-border bg-brand-surface text-brand-heading text-xs font-bold uppercase tracking-wider text-center hover:border-brand-heading transition-colors w-full sm:w-auto flex items-center justify-center gap-2">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 shrink-0" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg> Connect on LinkedIn
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="w-full border-t border-brand-border bg-brand-surface pt-12 pb-8">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-2">
+                <span class="font-serif font-bold leading-none tracking-tight text-[22px] text-brand-heading opacity-80">TakeMy<span class="text-brand-accent">Lead</span></span>
+            </div>
+            
+            <div class="flex items-center gap-6 text-[11px] sm:text-xs font-mono uppercase tracking-wider text-brand-muted">
+                <a href="#why-content" class="hover:text-brand-accent transition-colors">Strategy</a>
+                <!-- DISABLED: News link in the footer. Kept for later - uncomment to restore.
+                <a href="#news" class="hover:text-brand-accent transition-colors">News</a>
+                -->
+                <a href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" class="hover:text-brand-accent transition-colors">LinkedIn</a>
+                <a href="#contact" class="hover:text-brand-accent transition-colors">Contact</a>
+            </div>
         </div>
-
-        <svg class="chart-svg" viewBox="0 0 700 180" role="img"
-             aria-label="Bar chart: a flat baseline of stagnant traffic, then a rising curve once a tailored SEO and GEO strategy is applied.">
-          <rect data-val="Baseline: unoptimized search"  x="25"  y="130" width="30" height="30"  rx="8"  class="svg-bar bar-base" />
-          <rect data-val="Baseline: low intent traffic"  x="68"  y="122" width="30" height="38"  rx="8"  class="svg-bar bar-base" />
-          <rect data-val="Baseline: stagnant visibility" x="111" y="134" width="30" height="26"  rx="8"  class="svg-bar bar-base" />
-          <rect data-val="Baseline: unindexed content"   x="154" y="126" width="30" height="34"  rx="8"  class="svg-bar bar-base" />
-          <rect data-val="Baseline: pre-strategy level"  x="197" y="120" width="30" height="40"  rx="8"  class="svg-bar bar-base" />
-
-          <line x1="251" y1="8" x2="251" y2="172" class="chart-rule" stroke-width="1" stroke-dasharray="4 5" />
-
-          <rect data-val="Phase 1: technical audit"             x="275" y="70" width="34" height="90"  rx="10" opacity="0.72" class="svg-bar bar-opt" />
-          <rect data-val="Phase 2: keyword clustering"          x="322" y="48" width="34" height="112" rx="10" opacity="0.8"  class="svg-bar bar-opt" />
-          <rect data-val="Phase 3: topical authority"           x="369" y="30" width="34" height="130" rx="10" opacity="0.88" class="svg-bar bar-opt" />
-          <rect data-val="Phase 4: geo &amp; ai search citation"    x="416" y="42" width="34" height="118" rx="10" opacity="0.84" class="svg-bar bar-opt" />
-          <rect data-val="Phase 5: high-intent inflow"          x="463" y="52" width="34" height="108" rx="10" opacity="0.8"  class="svg-bar bar-opt" />
-          <rect data-val="Phase 6: search engine dominance"     x="510" y="25" width="34" height="135" rx="10" opacity="0.92" class="svg-bar bar-opt" />
-          <rect data-val="Phase 7: sustained growth"            x="557" y="28" width="34" height="132" rx="10" opacity="0.96" class="svg-bar bar-opt" />
-          <rect data-val="Phase 8: compounding authority"       x="604" y="12" width="34" height="148" rx="10" class="svg-bar bar-opt" />
-          <rect data-val="Target: inbound pipeline"             x="651" y="5"  width="34" height="155" rx="10" class="svg-bar bar-top" />
-
-          <line x1="0" y1="172" x2="700" y2="172" class="chart-rule" stroke-width="1" />
-        </svg>
-
-        <div class="chart-legend">
-          <span class="is-base">before &mdash; stagnant, low intent</span>
-          <span class="is-opt">after &mdash; a steady organic pipeline</span>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 mt-8 text-center md:text-left text-[11px] font-mono text-brand-muted flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-brand-border/40 pt-6">
+            <p>&copy; <span id="footer-year">2026</span> Matthias Schulte - TakeMyLead. All rights reserved.</p>
+            <p>Specialized in Search Visibility & Generative Engine Optimization.</p>
         </div>
-      </div>
+    </footer>
 
-      <div class="grid reveal" style="margin-top: clamp(28px, 3vw, 44px);">
-        <article class="item">
-          <span class="item-no">01 / traffic</span>
-          <h3>the right visitors</h3>
-          <p>People already looking for what you sell land on your pages.</p>
-        </article>
-        <article class="item">
-          <span class="item-no">02 / intent</span>
-          <h3>real inquiries</h3>
-          <p>Readers stop browsing and start asking for a quote.</p>
-        </article>
-        <article class="item">
-          <span class="item-no">03 / ai visibility</span>
-          <h3>named in ai answers</h3>
-          <p>Recommended by Google, ChatGPT and Perplexity alike.</p>
-        </article>
-      </div>
-    </div>
-  </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
 
-  <!-- ============ WHY CONTENT ============ -->
-  <section class="band" id="content">
-    <div class="band-head">
-      <div>
-        <p class="eyebrow">why content</p>
-        <h2 class="band-title">content is what gets <em>found</em></h2>
-      </div>
-      <p class="band-note">
-        one good page out-earns a season of ads &mdash; and keeps earning after
-        the budget stops.
-      </p>
-    </div>
+            // Lucide is loaded with defer, so it is ready by this point but not
+            // at parse time - keep this call inside the handler.
+            lucide.createIcons();
 
-    <div class="band-inner">
-      <div class="grid reveal">
-        <article class="item">
-          <span class="item-no">01 / relevance</span>
-          <h3>proves you own your field</h3>
-          <p>Google and AI models see a site that covers its subject properly.</p>
-          <span class="tag">topical authority</span>
-        </article>
-        <article class="item">
-          <span class="item-no">02 / entry point</span>
-          <h3>the front door for buyers</h3>
-          <p>Where people land before they have ever heard your name.</p>
-          <span class="tag">organic entry</span>
-        </article>
-        <article class="item">
-          <span class="item-no">03 / discoverability</span>
-          <h3>findable everywhere</h3>
-          <p>Matches what people actually type into Google, ChatGPT and Perplexity.</p>
-          <span class="tag">high-intent search</span>
-        </article>
-        <article class="item">
-          <span class="item-no">04 / advocacy</span>
-          <h3>built to be quoted</h3>
-          <p>What is genuinely useful to a reader is easy for an AI to cite.</p>
-          <span class="tag">ai &amp; organic referrals</span>
-        </article>
-        <article class="item">
-          <span class="item-no">05 / long-term asset</span>
-          <h3>compounds over time</h3>
-          <p>Ads stop the day you stop paying. This keeps working for years.</p>
-          <span class="tag">sustainable roi</span>
-        </article>
-      </div>
-    </div>
-  </section>
+            // Footer year, set here rather than with document.write, which
+            // blocks the parser.
+            const yearEl = document.getElementById('footer-year');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
+            
+            // --- Toast Notification Helper ---
+            const toast = document.getElementById('toast-message');
+            const toastText = document.getElementById('toast-text');
+            function showToast(message) {
+                if (!toast || !toastText) return;
+                toastText.innerText = message;
+                toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+                toast.classList.add('opacity-100', 'translate-y-0');
+                setTimeout(() => {
+                    toast.classList.remove('opacity-100', 'translate-y-0');
+                    toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+                }, 3000);
+            }
 
-  <!-- ============ SERVICES (paper) ============ -->
-  <section class="band is-paper" id="services">
-    <div class="band-head">
-      <div>
-        <p class="eyebrow">what i actually do</p>
-        <h2 class="band-title">six ways to get <em>found</em></h2>
-      </div>
-      <p class="band-note">
-        technical health, content authority and conversion &mdash; for Google and
-        for AI answers.
-      </p>
-    </div>
+            // --- 1. Scroll Reveal Logic ---
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        revealObserver.unobserve(entry.target); 
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px' 
+            });
 
-    <div class="band-inner">
-      <div class="defs reveal">
-        <p><b>SEO</b> is getting found on Google.</p>
-        <p><b>GEO</b> is getting named inside an AI's answer.</p>
-      </div>
+            revealElements.forEach(el => revealObserver.observe(el));
 
-      <div class="grid reveal">
-        <article class="item">
-          <span class="item-no">01 / diagnosis</span>
-          <h3>seo &amp; geo audit</h3>
-          <p>Where you stand, what is broken, and what to fix first.</p>
-          <span class="tag">growth roadmap</span>
-        </article>
-        <article class="item">
-          <span class="item-no">02 / copywriting</span>
-          <h3>search &amp; ai copy</h3>
-          <p>Copy that ranks on Google and gets quoted by ChatGPT.</p>
-          <span class="tag">rank &amp; get referenced</span>
-        </article>
-        <article class="item">
-          <span class="item-no">03 / structured data</span>
-          <h3>schema &amp; meta</h3>
-          <p>JSON-LD so search engines and LLMs read your site correctly.</p>
-          <span class="tag">json-ld &amp; meta</span>
-        </article>
-        <article class="item">
-          <span class="item-no">04 / technical seo</span>
-          <h3>crawl &amp; speed fixes</h3>
-          <p>Broken links, blocked pages and heavy images - gone.</p>
-          <span class="tag">crawl &amp; index health</span>
-        </article>
-        <article class="item">
-          <span class="item-no">05 / authority</span>
-          <h3>topic clusters</h3>
-          <p>One main guide per topic, with supporting pages linking in.</p>
-          <span class="tag">main page + support pages</span>
-        </article>
-        <article class="item">
-          <span class="item-no">06 / conversion</span>
-          <h3>pages that close</h3>
-          <p>Calls to action placed where traffic turns into clients.</p>
-          <span class="tag">traffic to clients</span>
-        </article>
-      </div>
-    </div>
-  </section>
-</main>
+            // --- 2. Chart Animation & Interaction Logic ---
+            const chartSvg = document.querySelector('.chart-svg');
+            if (chartSvg) {
+                const chartObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('animate-bars');
+                            chartObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.3 });
+                
+                chartObserver.observe(chartSvg);
+                
+                // Hover interactions for chart bars
+                const bars = document.querySelectorAll('.svg-bar');
+                const indicator = document.getElementById('chart-hover-indicator');
 
-<!-- ============ OUTRO ============ -->
-<footer class="outro" id="contact">
-  <div class="outro-inner">
-    <h2 class="outro-headline">stop being <em>invisible.</em></h2>
-    <div class="outro-grid">
-      <p class="outro-meta">
-        Send me your URL. You get back where you stand, what is costing you
-        traffic, and the first three things worth fixing.
-      </p>
-      <div class="outro-actions">
-        <a class="btn" href="mailto:takemylead.de@gmail.com">send an e-mail</a>
-        <a class="btn is-ghost" href="https://www.linkedin.com/in/matthias-s-29075920a/" target="_blank" rel="noopener">connect on linkedin</a>
-      </div>
-    </div>
-  </div>
+                bars.forEach(bar => {
+                    bar.addEventListener('mouseenter', (e) => {
+                        const val = e.target.getAttribute('data-val');
+                        if (indicator && val) {
+                            indicator.textContent = val;
+                            indicator.classList.remove('opacity-0');
+                        }
+                    });
 
-  <div class="colophon">
-    <span>&copy; <span id="year">2026</span> matthias schulte &mdash; takemylead</span>
-    <nav>
-      <a href="#shift">strategy</a>
-      <a href="#content">content</a>
-      <a href="#services">services</a>
-      <a href="../">original design</a>
-    </nav>
-    <span>search visibility &amp; generative engine optimization</span>
-  </div>
-</footer>
+                    bar.addEventListener('mouseleave', () => {
+                        // The text stays put while it fades, so the pill does not
+                        // collapse mid-transition.
+                        if (indicator) indicator.classList.add('opacity-0');
+                    });
+                });
+            }
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('year').textContent = new Date().getFullYear();
+            // --- 3. Dynamic Article Filtering Logic ---
+            const filterButtons = document.querySelectorAll('.news-filter-btn');
+            const articles = document.querySelectorAll('.article-card');
 
-  // Sticky header: transparent over the orange hero, black bar once the page
-  // starts moving. A sentinel at the very top beats a scroll listener here -
-  // no work on every frame, and it reports its own state on load.
-  const header = document.getElementById('site-header');
-  const sentinel = document.getElementById('scroll-sentinel');
-  if (header && sentinel) {
-    new IntersectionObserver(([entry]) => {
-      header.classList.toggle('is-stuck', !entry.isIntersecting);
-    }).observe(sentinel);
-  }
+            function applyFilter(category) {
+                // Update filter buttons UI
+                filterButtons.forEach(btn => {
+                    if (btn.getAttribute('data-category') === category) {
+                        btn.className = "news-filter-btn px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-heading text-white transition-colors";
+                    } else {
+                        btn.className = "news-filter-btn px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-surface border border-brand-border text-brand-body hover:border-brand-accent hover:text-brand-accent transition-colors";
+                    }
+                });
 
-  // Copy the contact address out of the terminal-style block.
-  document.querySelectorAll('.copy').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(btn.dataset.copy);
-      } catch {
-        // The Clipboard API needs a secure context and permission; where it is
-        // unavailable, select the line so the visitor can copy it by hand.
-        const range = document.createRange();
-        range.selectNodeContents(btn.parentElement.querySelector('code'));
-        const sel = getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-        return;
-      }
-      btn.textContent = 'copied';
-      btn.dataset.state = 'copied';
-      setTimeout(() => { btn.textContent = 'copy'; delete btn.dataset.state; }, 1800);
-    });
-  });
+                // Filter articles
+                articles.forEach(article => {
+                    const articleCat = article.getAttribute('data-category');
+                    if (category === 'all' || articleCat === category) {
+                        article.classList.remove('hidden-article');
+                    } else {
+                        article.classList.add('hidden-article');
+                    }
+                });
+            }
 
-  // Reveal on scroll
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('is-visible');
-      revealObserver.unobserve(entry.target);
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+            // Attach click listeners to news section filter buttons
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.getAttribute('data-category');
+                    applyFilter(category);
+                });
+            });
 
-  // Chart: grow the bars once they are on screen, read one out on hover.
-  const chart = document.querySelector('.chart-svg');
-  const readout = document.getElementById('chart-readout');
-  if (chart) {
-    const bars = chart.querySelectorAll('.svg-bar');
-    // Stagger left to right so the curve reads as growth, not as a jump.
-    bars.forEach((bar, i) => { bar.style.transitionDelay = (i * 55) + 'ms'; });
+            // Attach click listeners to header navigation dropdown links
+            const navFilterLinks = document.querySelectorAll('.nav-filter-link');
+            navFilterLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const navCat = link.getAttribute('data-nav-filter');
+                    if (navCat) {
+                        applyFilter(navCat);
+                    }
+                });
+            });
 
-    new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('animate-bars');
-        obs.unobserve(entry.target);
-      });
-    }, { threshold: 0.3 }).observe(chart);
+            // --- 4. Auto-Fit Display Type ---
+            // The breaker words are meant to span their column edge to edge.
+            // Hard-coded font sizes clip on some widths, so measure the real
+            // glyph width once the webfont is ready and solve for the size.
+            const fitTargets = document.querySelectorAll('[data-fit-text]');
 
-    bars.forEach(bar => {
-      bar.addEventListener('mouseenter', () => {
-        readout.textContent = bar.getAttribute('data-val');
-        readout.classList.add('is-on');
-      });
-      // The text stays put while it fades, so the pill does not collapse.
-      bar.addEventListener('mouseleave', () => readout.classList.remove('is-on'));
-    });
-  }
-});
-</script>
+            function fitDisplayType() {
+                fitTargets.forEach(el => {
+                    const parent = el.parentElement;
+                    if (!parent) return;
+
+                    el.style.fontSize = '';
+                    const available = parent.clientWidth;
+                    if (!available) return;
+
+                    const base = parseFloat(window.getComputedStyle(el).fontSize);
+                    el.style.maxWidth = 'none';
+                    const natural = el.getBoundingClientRect().width;
+
+                    if (natural > 0 && base > 0) {
+                        // 0.995 keeps a hair of slack for the text stroke / kerning
+                        let size = base * (available / natural) * 0.995;
+                        el.style.fontSize = size.toFixed(2) + 'px';
+
+                        // One correction pass: metrics are not perfectly linear
+                        const measured = el.getBoundingClientRect().width;
+                        if (measured > available) {
+                            el.style.fontSize = (size * (available / measured) * 0.995).toFixed(2) + 'px';
+                        }
+                    }
+                    el.style.maxWidth = '';
+                });
+            }
+
+            if (fitTargets.length) {
+                fitDisplayType();
+                if (document.fonts && document.fonts.ready) {
+                    document.fonts.ready.then(fitDisplayType);
+                }
+                window.addEventListener('load', fitDisplayType);
+
+                let fitFrame = null;
+                const refit = () => {
+                    if (fitFrame) cancelAnimationFrame(fitFrame);
+                    fitFrame = requestAnimationFrame(fitDisplayType);
+                };
+                if ('ResizeObserver' in window) {
+                    const ro = new ResizeObserver(refit);
+                    fitTargets.forEach(el => el.parentElement && ro.observe(el.parentElement));
+                } else {
+                    window.addEventListener('resize', refit);
+                }
+            }
+
+            // --- 5. Scroll State: header condense + back to top ---
+            const backToTop = document.getElementById('back-to-top');
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let scrollFrame = null;
+
+            function syncScrollState() {
+                scrollFrame = null;
+                const y = window.scrollY || window.pageYOffset;
+                document.documentElement.classList.toggle('is-scrolled', y > 24);
+
+                if (backToTop) {
+                    const show = y > window.innerHeight * 0.9;
+                    backToTop.classList.toggle('opacity-0', !show);
+                    backToTop.classList.toggle('translate-y-3', !show);
+                    backToTop.classList.toggle('pointer-events-none', !show);
+                }
+            }
+
+            window.addEventListener('scroll', () => {
+                if (scrollFrame === null) scrollFrame = requestAnimationFrame(syncScrollState);
+            }, { passive: true });
+            syncScrollState();
+
+            if (backToTop) {
+                backToTop.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+                });
+            }
+
+            // --- 6. Scrollspy: mark the section currently being read ---
+            const spyPairs = [];
+            document.querySelectorAll('header a[data-spy]').forEach(link => {
+                const section = document.querySelector(link.getAttribute('data-spy'));
+                if (section) spyPairs.push([section, link]);
+            });
+
+            if (spyPairs.length && 'IntersectionObserver' in window) {
+                const spyLookup = new Map(spyPairs);
+                const spyObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const link = spyLookup.get(entry.target);
+                        if (link) link.classList.toggle('nav-active', entry.isIntersecting);
+                    });
+                }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+                spyPairs.forEach(([section]) => spyObserver.observe(section));
+            }
+
+            // --- 7. Email Copy Click Handler ---
+            const emailBtn = document.getElementById('email-cta-btn');
+            if (emailBtn) {
+                emailBtn.addEventListener('click', () => {
+                    showToast('Opening mail client to takemylead.de@gmail.com');
+                });
+            }
+
+        });
+    </script>
 </body>
 </html>
