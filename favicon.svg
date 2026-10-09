@@ -1,13 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="TakeMyLead">
-  <!-- The hero's two colours, converted from its oklch tokens:
-       #f4430c is --hero-bg, #210200 is --hero-ink. -->
+  <!-- The hero's two colours, converted from its oklch tokens: #f4430c is the
+       hero background, #210200 the hero ink. (Spelled out rather than named
+       after the CSS properties they came from: those names open with a double
+       hyphen, which XML forbids inside a comment, and an icon served as
+       image/svg+xml is parsed strictly.) -->
   <rect width="100" height="100" rx="22" fill="#f4430c"/>
-  <!-- A heavy lowercase t, matching the wordmark and the hero headline.
-       Stem and foot are one stroked path, so the bend stays even; the
-       curve leaves the stem vertically, which keeps the join seamless.
-       Geometry is identical to the PNG icons. -->
-  <g fill="none" stroke="#210200" stroke-width="15" stroke-linecap="butt">
-    <path d="M48 16 V64 C48 75 57 77.5 73 77.5"/>
+  <!-- A megaphone - the page's promise, getting found, as one object.
+       It is drawn level and pointing right, then the group turns it 45deg, so
+       it rises out of the lower-left corner with the mouth aimed at the
+       upper-right one. The lean is also what buys the proportions: the horn
+       is laid along the tile's diagonal, which is half again as long as its
+       side, so it can be a horn rather than the squat fan a level one is
+       forced into. Geometry is identical to the PNG icons. -->
+  <g transform="translate(-13.77 42.80) scale(0.9697) rotate(-45)"
+     fill="#210200" stroke="#210200" stroke-width="2.5" stroke-linejoin="round">
+    <!-- Grip, back cap and horn are three paths but one mass: nothing here is
+         a line or a gap, so the silhouette still reads at 16px, where the
+         usual stack of sound arcs collapses into a smudge. -->
+    <path d="M15 57 L28 57 L26 80 L17 80 Z"/>
+    <rect x="6" y="38" width="10" height="24" rx="3"/>
+    <path d="M10 41 L68 26 Q78 50 68 74 L10 59 Z"/>
   </g>
-  <rect x="24" y="33" width="48" height="14" fill="#210200"/>
 </svg>

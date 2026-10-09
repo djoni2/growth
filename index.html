@@ -294,7 +294,8 @@ button { font: inherit; cursor: pointer; }
   filter: grayscale(1) contrast(1.05);
   transition: filter 420ms var(--ease-out);
 }
-.hero-portrait:hover img { filter: grayscale(0); }
+.hero-portrait:hover img,
+.hero-portrait.is-live img { filter: grayscale(0); }
 .portrait-frame::after {
   content: "";
   position: absolute;
@@ -894,7 +895,9 @@ button { font: inherit; cursor: pointer; }
 }
 @media (max-width: 900px) {
   .hero-main { grid-template-columns: 1fr; gap: clamp(28px, 6vw, 48px); }
-  .hero-portrait { width: clamp(170px, 46vw, 230px); justify-self: start; }
+  /* One column means the tile no longer answers to a text cell beside it,
+     so it sits on the column's centre line rather than its left edge. */
+  .hero-portrait { width: clamp(170px, 46vw, 230px); justify-self: center; }
   .portrait-frame { transform: none; }
   .band-head { grid-template-columns: 1fr; gap: 18px; }
   .band-note { text-align: left; max-width: 52ch; }
@@ -903,6 +906,11 @@ button { font: inherit; cursor: pointer; }
   .topbar { gap: 14px; font-size: 12px; }
   .topbar nav { gap: 14px; justify-content: flex-end; }
   .hero-foot { grid-template-columns: 1fr; }
+  /* Same reasoning as the portrait: with nothing beside it, the block and its
+     two labels centre on the column. The address keeps its own left edge - it
+     is terminal output, and it scrolls when the block runs out of room. */
+  .contact-stack { justify-items: center; text-align: center; }
+  .contact-block code { text-align: left; }
   .hero-meta { text-align: left; justify-self: start; }
   .outro-grid { grid-template-columns: 1fr; }
   .outro-actions { justify-items: start; }
@@ -911,9 +919,8 @@ button { font: inherit; cursor: pointer; }
 @media (max-width: 560px) {
   .grid { grid-template-columns: minmax(0, 1fr); }
   /* The copy button would sit on top of the address on a narrow block, so it
-     moves above the line instead. */
+     gets a line of its own above it - still in the top right corner. */
   .contact-block { padding: 44px 22px 18px; }
-  .contact-block .copy { left: 10px; right: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -1481,6 +1488,26 @@ document.addEventListener('DOMContentLoaded', () => {
       // next click the room it needs on a tile that is already crowded.
       if (drip !== null) startDrip();
     });
+
+    // A phone has no pointer to hover with, so scrolling stands in for it:
+    // once the tile is properly in view it takes its colour and starts the
+    // same drip, and goes grey and quiet again when it leaves. Gated on the
+    // absence of hover so a desktop, where the tile is on screen from the
+    // first frame, still waits to be approached.
+    if (!window.matchMedia('(hover: hover)').matches && 'IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            portrait.classList.add('is-live');
+            if (drip === null) { spawnWord(); startDrip(); }
+          } else {
+            portrait.classList.remove('is-live');
+            clearInterval(drip);
+            drip = null;
+          }
+        });
+      }, { threshold: 0.5 }).observe(portrait);
+    }
   }
 });
 </script>
