@@ -546,17 +546,20 @@ button { font: inherit; cursor: pointer; }
 
 /* The oversized invisible -> recommended statement */
 .shift-statement {
-  font-size: clamp(44px, 9vw, 98px);
+  /* Named because the small word between the two big ones has to clear them,
+     and the clearance is a fraction of this, not of its own 12px. */
+  --statement-size: clamp(44px, 9vw, 98px);
+  /* An inline box set at 0.86 line-height overflows its line box by half the
+     difference between the font's content area and that line height - about
+     0.22em each way for this face. That overhang is what the knocked-out
+     background of "recommended." paints into, and at 98px it is 21px of it. */
+  --statement-bleed: calc(var(--statement-size) * 0.22);
+  font-size: var(--statement-size);
   line-height: 0.86;
   letter-spacing: -0.04em;
   font-weight: 900;
   text-transform: lowercase;
   margin: 0 0 clamp(40px, 5vw, 54px);
-}
-.shift-statement .strike {
-  color: var(--ink-soft);
-  text-decoration: line-through;
-  text-decoration-thickness: 0.055em;
 }
 .shift-statement .becomes {
   display: block;
@@ -566,13 +569,98 @@ button { font: inherit; cursor: pointer; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  margin: 0.34em 0;
+  /* One bleed clears each neighbour, so nothing paints over the word; the top
+     gets a few px of air on top of that because the strikethrough above it
+     reads as a line and wants separating. Deliberately no more than that: the
+     knocked-out box still stops level with this word's box, which is below
+     its baseline, so the caps read in full while the word stays pressed
+     between the two states instead of sitting on an airy line of its own. */
+  margin: calc(var(--statement-bleed) + 5px) 0 var(--statement-bleed);
 }
 .shift-statement .won {
   font-style: italic;
   background: var(--knock-bg);
   color: var(--knock-ink);
   padding: 0 0.06em;
+}
+
+/* "invisible." is the problem the page exists to solve, so it is the one
+   thing here that does not hold still. Every four seconds the word fails for
+   about a third of a second: it drops most of the way to the paper, the ink
+   mis-registers into a warm pass and a cold one that tear off in opposite
+   directions, and bands of it stop printing altogether. Timed in hard steps
+   rather than eased fades - nothing that breaks eases.
+   Gated on .is-visible, the class the reveal observer sets, so the failure
+   starts the moment the statement is first read rather than off screen. */
+.shift-statement .strike {
+  position: relative;
+  display: inline-block;
+  color: var(--ink-soft);
+  text-decoration-line: line-through;
+  text-decoration-thickness: 0.055em;
+  /* Under strength even at rest: this is the word nobody finds. */
+  opacity: 0.82;
+}
+.shift-statement.is-visible .strike { animation: ghost-fail 4s steps(1, end) infinite; }
+/* Two more passes of the same word, stacked on it and clipped to a band each,
+   so the failure tears the word apart instead of just doubling it. */
+.shift-statement .strike::before,
+.shift-statement .strike::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  text-decoration-line: line-through;
+  text-decoration-thickness: 0.055em;
+}
+.shift-statement.is-visible .strike::before {
+  color: var(--accent-loud);
+  animation: ghost-warm 4s steps(1, end) infinite;
+}
+.shift-statement.is-visible .strike::after {
+  color: var(--knock-bg);
+  animation: ghost-cold 4s steps(1, end) infinite;
+}
+/* Six states over a third of a second, held for 40-100ms each so the hits
+   land unevenly - a regular stutter reads as a loop, an uneven one reads as
+   something failing. Offsets, blur and the mask's bands are all in em, so the
+   tear is the same size relative to the type at every width. */
+@keyframes ghost-fail {
+  0%, 75% { opacity: 0.82; transform: none; filter: none;
+            -webkit-mask-image: none; mask-image: none; }
+  /* gone */
+  76%     { opacity: 0.1; transform: translate3d(-0.04em, 0, 0); }
+  /* back, but torn and off-register */
+  77%     { opacity: 0.88; transform: translate3d(0.022em, 0, 0); filter: blur(0.012em);
+            -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0 0.085em, transparent 0.085em 0.15em);
+                    mask-image: repeating-linear-gradient(to bottom, #000 0 0.085em, transparent 0.085em 0.15em); }
+  /* gone again, longer */
+  79%     { opacity: 0.06; transform: none; filter: none;
+            -webkit-mask-image: none; mask-image: none; }
+  /* the worst of it: coarser bands, further off-register */
+  80%     { opacity: 0.92; transform: translate3d(0.045em, 0, 0); filter: blur(0.008em);
+            -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0 0.12em, transparent 0.12em 0.17em);
+                    mask-image: repeating-linear-gradient(to bottom, #000 0 0.12em, transparent 0.12em 0.17em); }
+  /* nearly recovered, still dim */
+  82.5%   { opacity: 0.34; transform: none; filter: none;
+            -webkit-mask-image: none; mask-image: none; }
+  84%     { opacity: 0.82; }
+  100%    { opacity: 0.82; }
+}
+/* The two passes only exist for the frames the word is torn, and each takes a
+   different band of it, so the two tears never line up. The warm pass leaves
+   one band behind on the recovery frame - the ink settles last. */
+@keyframes ghost-warm {
+  0%, 75%, 76%, 79%, 84%, 100% { opacity: 0; clip-path: inset(50% 0 50% 0); transform: none; }
+  77%     { opacity: 0.95; clip-path: inset(6% 0 60% 0);  transform: translate3d(-0.1em, -0.012em, 0); }
+  80%     { opacity: 0.85; clip-path: inset(34% 0 34% 0); transform: translate3d(-0.12em, 0.01em, 0); }
+  82.5%   { opacity: 0.4;  clip-path: inset(54% 0 26% 0); transform: translate3d(0.03em, 0, 0); }
+}
+@keyframes ghost-cold {
+  0%, 75%, 76%, 79%, 82.5%, 100% { opacity: 0; clip-path: inset(50% 0 50% 0); transform: none; }
+  77%     { opacity: 0.7; clip-path: inset(44% 0 28% 0); transform: translate3d(0.1em, 0.012em, 0); }
+  80%     { opacity: 0.8; clip-path: inset(66% 0 6% 0);  transform: translate3d(0.09em, -0.01em, 0); }
 }
 
 /* Two-column prose pair */
@@ -993,7 +1081,7 @@ button { font: inherit; cursor: pointer; }
     <div class="band-inner">
       <p class="eyebrow reveal">the shift</p>
       <h2 class="shift-statement reveal">
-        <span class="strike">invisible.</span>
+        <span class="strike" data-text="invisible.">invisible.</span>
         <span class="becomes">becomes</span>
         <span class="won">recommended.</span>
       </h2>
