@@ -275,6 +275,35 @@ button { font: inherit; cursor: pointer; }
   transition: filter 420ms var(--ease-out);
 }
 .hero-portrait:hover img { filter: grayscale(0); }
+/* Keyword pills that rise out of the portrait on hover and on each click.
+   They sit under the scanline overlay (z-index 2) and never take the pointer,
+   so the tile keeps receiving hover and click events. */
+.hero-portrait { cursor: pointer; }
+.float-word {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: oklch(14% 0.015 var(--hue) / 0.88);
+  color: #fff;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: clamp(10px, 1.05vw, 13px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: float-word var(--dur, 2200ms) var(--ease-out) forwards;
+}
+@keyframes float-word {
+  0%   { opacity: 0; transform: translate(-50%, 6px) scale(0.86); }
+  16%  { opacity: 1; transform: translate(-50%, calc(var(--rise, 120px) * -0.16)) scale(1); }
+  62%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--drift, 0px)), calc(var(--rise, 120px) * -1)) scale(1); }
+}
 .hero-portrait::after {
   content: "";
   position: absolute;
@@ -1190,6 +1219,62 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       // The text stays put while it fades, so the pill does not collapse.
       bar.addEventListener('mouseleave', () => readout.classList.remove('is-on'));
+    });
+  }
+
+  // Portrait keyword pills: a steady drip while the pointer is on the tile,
+  // plus one pill per click at the spot that was clicked.
+  const portrait = document.querySelector('.hero-portrait');
+  if (portrait && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const WORDS = [
+      'SEO', 'Design', 'AI GEO', 'Ranking', 'Conversion', 'Visibility',
+      'MetaData', 'Authority', 'EEAT', 'Leads', 'Content Writing',
+      'Sitemap Debugging', 'Domain Authority', 'Core Web Vitals',
+      'UI/UX', 'Schema Markup'
+    ];
+    // Walk the list instead of picking at random, so no word repeats
+    // back-to-back and every one of them gets its turn.
+    let next = 0;
+    const MAX_ON_SCREEN = 7;
+
+    function spawnWord(x, y) {
+      if (portrait.querySelectorAll('.float-word').length >= MAX_ON_SCREEN) return;
+      const el = document.createElement('span');
+      el.className = 'float-word';
+      el.textContent = WORDS[next % WORDS.length];
+      next++;
+
+      const rect = portrait.getBoundingClientRect();
+      // Keep the pill clear of the left and right edges when no click point
+      // is given, since the tile clips anything that overflows.
+      const left = x == null ? 22 + Math.random() * 56 : (x / rect.width) * 100;
+      const top = y == null ? 62 + Math.random() * 26 : (y / rect.height) * 100;
+      const topPct = Math.min(94, Math.max(40, top));
+      el.style.left = Math.min(82, Math.max(18, left)) + '%';
+      el.style.top = topPct + '%';
+      // Travel far enough to clear most of the tile, then fade - the rise is
+      // measured from where the pill started so it always stops near the top.
+      const rise = Math.max(80, rect.height * (topPct / 100 - 0.08));
+      el.style.setProperty('--rise', rise.toFixed(0) + 'px');
+      el.style.setProperty('--drift', (Math.random() * 36 - 18).toFixed(1) + 'px');
+      el.style.setProperty('--dur', (2000 + Math.random() * 900).toFixed(0) + 'ms');
+
+      el.addEventListener('animationend', () => el.remove());
+      portrait.appendChild(el);
+    }
+
+    let drip = null;
+    portrait.addEventListener('mouseenter', () => {
+      spawnWord();
+      drip = setInterval(spawnWord, 520);
+    });
+    portrait.addEventListener('mouseleave', () => {
+      clearInterval(drip);
+      drip = null;
+    });
+    portrait.addEventListener('click', (e) => {
+      const rect = portrait.getBoundingClientRect();
+      spawnWord(e.clientX - rect.left, e.clientY - rect.top);
     });
   }
 });
