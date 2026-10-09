@@ -391,24 +391,23 @@ button { font: inherit; cursor: pointer; }
   font-family: "Geist Mono", ui-monospace, monospace;
   background: var(--hero-ink);
   color: var(--hero-tint);
-  padding: 18px 92px 18px 22px;
+  padding: 18px 14px 18px 22px;
   border-radius: var(--radius-md);
   font-size: 13px;
   line-height: 1.7;
+  /* Address and button are two cells of one row, so they sit at the same
+     height and the button needs no reserved padding to stand in. */
   display: inline-grid;
-  gap: 4px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
   margin: 0;
-  position: relative;
   max-width: 100%;
-  grid-template-columns: minmax(0, 1fr);
 }
-/* The <code> scrolls, not the <pre> - so the copy button stays on the frame. */
+/* The <code> scrolls, not the <pre> - so the button keeps its place when the
+   address is wider than the block. */
 .contact-block code { display: block; min-width: 0; overflow-x: auto; }
-.contact-block .prompt { color: oklch(72% 0.18 var(--hue)); }
 .contact-block .copy {
-  position: absolute;
-  top: 10px;
-  right: 10px;
   background: oklch(28% 0.06 var(--hue));
   color: var(--hero-tint);
   border: none;
@@ -906,11 +905,10 @@ button { font: inherit; cursor: pointer; }
   .topbar { gap: 14px; font-size: 12px; }
   .topbar nav { gap: 14px; justify-content: flex-end; }
   .hero-foot { grid-template-columns: 1fr; }
-  /* Same reasoning as the portrait: with nothing beside it, the block and its
-     two labels centre on the column. The address keeps its own left edge - it
-     is terminal output, and it scrolls when the block runs out of room. */
-  .contact-stack { justify-items: center; text-align: center; }
-  .contact-block code { text-align: left; }
+  /* With nothing beside it, the block takes the whole column rather than
+     shrinking to the address - the button then sits against the right edge of
+     the screen, where a thumb reaches it. */
+  .contact-block { width: 100%; }
   .hero-meta { text-align: left; justify-self: start; }
   .outro-grid { grid-template-columns: 1fr; }
   .outro-actions { justify-items: start; }
@@ -918,9 +916,6 @@ button { font: inherit; cursor: pointer; }
 }
 @media (max-width: 560px) {
   .grid { grid-template-columns: minmax(0, 1fr); }
-  /* The copy button would sit on top of the address on a narrow block, so it
-     gets a line of its own above it - still in the top right corner. */
-  .contact-block { padding: 44px 22px 18px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -981,7 +976,7 @@ button { font: inherit; cursor: pointer; }
   <div class="hero-foot">
     <div class="contact-stack">
       <span class="contact-label">start here</span>
-      <pre class="contact-block"><code><span class="prompt">$</span> mail takemylead.de@gmail.com</code><button class="copy" type="button" data-copy="takemylead.de@gmail.com">copy</button></pre>
+      <pre class="contact-block"><code>takemylead.de@gmail.com</code><button class="copy" type="button" data-copy="takemylead.de@gmail.com">copy</button></pre>
       <span class="contact-label">one mail. one audit. a plan you can act on.</span>
     </div>
     <p class="hero-meta">
