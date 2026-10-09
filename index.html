@@ -251,19 +251,26 @@ button { font: inherit; cursor: pointer; }
 }
 .hero-sub strong { color: var(--hero-ink); font-weight: 600; }
 
-/* Portrait tile - the brag hero's video slot, holding a face instead */
+/* Portrait tile - the brag hero's video slot, holding a face instead.
+   The figure itself is an unclipped positioning box so the keyword pills can
+   travel past the tile edge; .portrait-frame carries the look and the clip. */
 .hero-portrait {
   position: relative;
   aspect-ratio: 4 / 5;
   width: 100%;
   margin: 0;
+  justify-self: end;
+  cursor: pointer;
+}
+.portrait-frame {
+  position: absolute;
+  inset: 0;
   border-radius: var(--radius-md);
   background: var(--hero-ink);
   color: var(--hero-tint);
   transform: rotate(2.5deg);
   box-shadow: 0 30px 80px -20px oklch(20% 0.08 var(--hue) / 0.45);
   overflow: hidden;
-  justify-self: end;
 }
 .hero-portrait img {
   position: absolute;
@@ -275,36 +282,7 @@ button { font: inherit; cursor: pointer; }
   transition: filter 420ms var(--ease-out);
 }
 .hero-portrait:hover img { filter: grayscale(0); }
-/* Keyword pills that rise out of the portrait on hover and on each click.
-   They sit under the scanline overlay (z-index 2) and never take the pointer,
-   so the tile keeps receiving hover and click events. */
-.hero-portrait { cursor: pointer; }
-.float-word {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 1;
-  padding: 5px 11px;
-  border-radius: 999px;
-  background: oklch(14% 0.015 var(--hue) / 0.88);
-  color: #fff;
-  font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: clamp(10px, 1.05vw, 13px);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  will-change: transform, opacity;
-  animation: float-word var(--dur, 2200ms) var(--ease-out) forwards;
-}
-@keyframes float-word {
-  0%   { opacity: 0; transform: translate(-50%, 6px) scale(0.86); }
-  16%  { opacity: 1; transform: translate(-50%, calc(var(--rise, 120px) * -0.16)) scale(1); }
-  62%  { opacity: 1; }
-  100% { opacity: 0; transform: translate(calc(-50% + var(--drift, 0px)), calc(var(--rise, 120px) * -1)) scale(1); }
-}
-.hero-portrait::after {
+.portrait-frame::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -315,6 +293,56 @@ button { font: inherit; cursor: pointer; }
   );
   pointer-events: none;
   z-index: 2;
+}
+
+/* Keyword pills that rise out of the portrait on hover and on each click.
+   Two nested elements split the job: the outer one travels (at a constant
+   speed, so distance tracks time exactly) and the inner one handles opacity.
+   That split is what lets the fade start at the moment the pill clears the
+   tile edge - the fade is just an animation whose delay JS computes from how
+   far the pill has to climb before it gets there. */
+.float-word {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  pointer-events: none;
+  will-change: transform;
+  animation: float-rise var(--dur, 3400ms) linear forwards;
+}
+.float-word > span {
+  display: block;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: oklch(14% 0.015 var(--hue) / 0.9);
+  color: #fff;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: clamp(10px, 1.05vw, 13px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  opacity: 0;
+  will-change: opacity, filter;
+  /* float-out only fills forwards, so during its delay the fade-in's held
+     value is what shows - no need to sequence them by hand. */
+  animation:
+    float-in 420ms var(--ease-out) forwards,
+    float-out var(--fade-dur, 900ms) linear var(--fade-delay, 1200ms) forwards;
+}
+@keyframes float-rise {
+  0%   { transform: translate3d(-50%, 0, 0); }
+  25%  { transform: translate3d(calc(-50% + var(--sway, 0px)), calc(var(--rise, 240px) * -0.25), 0); }
+  50%  { transform: translate3d(-50%, calc(var(--rise, 240px) * -0.5), 0); }
+  75%  { transform: translate3d(calc(-50% - var(--sway, 0px)), calc(var(--rise, 240px) * -0.75), 0); }
+  100% { transform: translate3d(calc(-50% + var(--drift, 0px)), calc(var(--rise, 240px) * -1), 0); }
+}
+@keyframes float-in {
+  from { opacity: 0; transform: scale(0.88) translateY(5px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes float-out {
+  from { opacity: 1; filter: blur(0); }
+  to   { opacity: 0; filter: blur(4px); }
 }
 
 .hero-foot {
@@ -837,7 +865,8 @@ button { font: inherit; cursor: pointer; }
 }
 @media (max-width: 900px) {
   .hero-main { grid-template-columns: 1fr; gap: clamp(28px, 6vw, 48px); }
-  .hero-portrait { width: clamp(170px, 46vw, 230px); justify-self: start; transform: none; }
+  .hero-portrait { width: clamp(170px, 46vw, 230px); justify-self: start; }
+  .portrait-frame { transform: none; }
   .band-head { grid-template-columns: 1fr; gap: 18px; }
   .band-note { text-align: left; max-width: 52ch; }
 }
@@ -906,8 +935,10 @@ button { font: inherit; cursor: pointer; }
     </div>
 
     <figure class="hero-portrait">
-      <img src="portrait-320.webp" width="320" height="400" alt="Matthias Schulte"
-           onerror="this.onerror=null; this.src='portrait-160.png';">
+      <div class="portrait-frame">
+        <img src="portrait-320.webp" width="320" height="400" alt="Matthias Schulte"
+             onerror="this.onerror=null; this.src='portrait-160.png';">
+      </div>
     </figure>
   </div>
 
@@ -1223,7 +1254,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Portrait keyword pills: a steady drip while the pointer is on the tile,
-  // plus one pill per click at the spot that was clicked.
+  // plus one pill per click at the spot that was clicked. Each pill climbs at
+  // a constant speed, keeps full opacity while it is still over the portrait,
+  // then fades and blurs out over the stretch above it.
   const portrait = document.querySelector('.hero-portrait');
   if (portrait && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const WORDS = [
@@ -1235,38 +1268,62 @@ document.addEventListener('DOMContentLoaded', () => {
     // Walk the list instead of picking at random, so no word repeats
     // back-to-back and every one of them gets its turn.
     let next = 0;
-    const MAX_ON_SCREEN = 7;
+    const MAX_ON_SCREEN = 8;
+    const SPEED = 118;        // px per second - one pace for every pill
+    const BEYOND = 0.46;      // how far past the top edge they drift, as a
+                              // share of the tile height, before they are gone
 
     function spawnWord(x, y) {
       if (portrait.querySelectorAll('.float-word').length >= MAX_ON_SCREEN) return;
-      const el = document.createElement('span');
-      el.className = 'float-word';
-      el.textContent = WORDS[next % WORDS.length];
-      next++;
 
       const rect = portrait.getBoundingClientRect();
-      // Keep the pill clear of the left and right edges when no click point
-      // is given, since the tile clips anything that overflows.
-      const left = x == null ? 22 + Math.random() * 56 : (x / rect.width) * 100;
-      const top = y == null ? 62 + Math.random() * 26 : (y / rect.height) * 100;
-      const topPct = Math.min(94, Math.max(40, top));
-      el.style.left = Math.min(82, Math.max(18, left)) + '%';
-      el.style.top = topPct + '%';
-      // Travel far enough to clear most of the tile, then fade - the rise is
-      // measured from where the pill started so it always stops near the top.
-      const rise = Math.max(80, rect.height * (topPct / 100 - 0.08));
-      el.style.setProperty('--rise', rise.toFixed(0) + 'px');
-      el.style.setProperty('--drift', (Math.random() * 36 - 18).toFixed(1) + 'px');
-      el.style.setProperty('--dur', (2000 + Math.random() * 900).toFixed(0) + 'ms');
+      if (!rect.height) return;
 
-      el.addEventListener('animationend', () => el.remove());
+      const el = document.createElement('span');
+      el.className = 'float-word';
+      const inner = document.createElement('span');
+      inner.textContent = WORDS[next % WORDS.length];
+      el.appendChild(inner);
+      next++;
+
+      // Keep some margin from the left and right edges so a long word is not
+      // half off the tile the moment it appears.
+      const leftPct = x == null
+        ? 24 + Math.random() * 52
+        : Math.min(80, Math.max(20, (x / rect.width) * 100));
+      const topPct = y == null
+        ? 60 + Math.random() * 30
+        : Math.min(94, Math.max(38, (y / rect.height) * 100));
+      el.style.left = leftPct.toFixed(1) + '%';
+      el.style.top = topPct.toFixed(1) + '%';
+
+      // Distance to the tile's top edge, then the stretch past it.
+      const toEdge = rect.height * (topPct / 100);
+      const beyond = rect.height * BEYOND;
+      const rise = toEdge + beyond;
+      const dur = (rise / SPEED) * 1000;
+      // The travel is linear, so time and distance line up: the fade can start
+      // at exactly the fraction of the trip where the pill crosses the edge.
+      const fadeDelay = dur * (toEdge / rise);
+
+      el.style.setProperty('--rise', rise.toFixed(0) + 'px');
+      el.style.setProperty('--dur', dur.toFixed(0) + 'ms');
+      el.style.setProperty('--fade-delay', fadeDelay.toFixed(0) + 'ms');
+      el.style.setProperty('--fade-dur', (dur - fadeDelay).toFixed(0) + 'ms');
+      el.style.setProperty('--sway', (Math.random() * 14 - 7).toFixed(1) + 'px');
+      el.style.setProperty('--drift', (Math.random() * 44 - 22).toFixed(1) + 'px');
+
+      // The outer element owns the longest animation, so its end is the end.
+      el.addEventListener('animationend', (e) => {
+        if (e.target === el) el.remove();
+      });
       portrait.appendChild(el);
     }
 
     let drip = null;
     portrait.addEventListener('mouseenter', () => {
       spawnWord();
-      drip = setInterval(spawnWord, 520);
+      drip = setInterval(spawnWord, 620);
     });
     portrait.addEventListener('mouseleave', () => {
       clearInterval(drip);
