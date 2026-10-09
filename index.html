@@ -108,7 +108,7 @@
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --max-page: 1480px;
+  --max-page: 1024px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -156,7 +156,7 @@ button { font: inherit; cursor: pointer; }
   top: 0;
   z-index: 50;
   color: var(--hero-tint);
-  padding: clamp(14px, 1.5vw, 20px) clamp(20px, 3vw, 40px);
+  padding: clamp(14px, 1.5vw, 16.3px) clamp(20px, 3vw, 40px);
   transition: background-color 320ms var(--ease-out),
               box-shadow 320ms var(--ease-out);
 }
@@ -199,8 +199,8 @@ button { font: inherit; cursor: pointer; }
   color: var(--hero-ink);
   display: grid;
   grid-template-rows: 1fr auto;
-  padding: clamp(24px, 3vw, 48px) clamp(20px, 3vw, 40px) clamp(20px, 3vw, 40px);
-  gap: clamp(36px, 5vw, 72px);
+  padding: clamp(24px, 3vw, 33px) clamp(20px, 3vw, 40px) clamp(20px, 3vw, 40px);
+  gap: clamp(36px, 5vw, 54px);
   position: relative;
   overflow: hidden;
 }
@@ -213,8 +213,8 @@ button { font: inherit; cursor: pointer; }
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(200px, 20vw, 290px);
-  gap: clamp(24px, 4vw, 64px);
+  grid-template-columns: minmax(0, 1fr) clamp(200px, 20vw, 218px);
+  gap: clamp(24px, 4vw, 44px);
   align-items: center;
 }
 .hero-body { min-width: 0; }
@@ -224,10 +224,16 @@ button { font: inherit; cursor: pointer; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--hero-ink-soft);
-  margin: 0 0 clamp(18px, 2vw, 28px);
+  margin: 0 0 clamp(18px, 2vw, 21.8px);
 }
 .hero-headline {
-  font-size: clamp(50px, 10.5vw, 160px);
+  /* Both numbers come from measuring the longest line, "you built a site.",
+     against the text cell rather than from the freeze rule. The ceiling: at
+     114px that line runs 791px in a heavy system face and the cell is 762px
+     once the column is capped, so 100px keeps slack in every fallback. The
+     coefficient: 10.5vw overflowed the cell throughout 901-1024px, where the
+     hero is still two columns but the portrait has stopped shrinking. */
+  font-size: clamp(50px, 9.7vw, 100px);
   line-height: 0.86;
   letter-spacing: -0.04em;
   font-weight: 900;
@@ -241,9 +247,9 @@ button { font: inherit; cursor: pointer; }
   padding: 0 0.06em;
 }
 .hero-sub {
-  margin: clamp(26px, 3vw, 44px) 0 0;
+  margin: clamp(26px, 3vw, 33px) 0 0;
   max-width: 42ch;
-  font-size: clamp(18px, 1.9vw, 27px);
+  font-size: clamp(18px, 1.9vw, 20.7px);
   line-height: 1.2;
   letter-spacing: -0.015em;
   font-weight: 500;
@@ -379,7 +385,7 @@ button { font: inherit; cursor: pointer; }
   color: var(--hero-tint);
   padding: 18px 92px 18px 22px;
   border-radius: var(--radius-md);
-  font-size: clamp(13px, 1.15vw, 16px);
+  font-size: 13px;
   line-height: 1.7;
   display: inline-grid;
   gap: 4px;
@@ -464,7 +470,7 @@ button { font: inherit; cursor: pointer; }
 
   background: var(--bg);
   color: var(--ink);
-  padding: clamp(60px, 8vw, 120px) clamp(20px, 3vw, 40px);
+  padding: clamp(60px, 8vw, 87px) clamp(20px, 3vw, 40px);
   position: relative;
 }
 /* Paper: the bright band that breaks up the dark run. The accent darkens
@@ -497,7 +503,7 @@ button { font: inherit; cursor: pointer; }
 
 .band-head {
   max-width: var(--max-page);
-  margin: 0 auto clamp(40px, 5vw, 64px);
+  margin: 0 auto clamp(40px, 5vw, 54px);
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 32px;
@@ -512,7 +518,7 @@ button { font: inherit; cursor: pointer; }
   margin: 0 0 16px;
 }
 .band-title {
-  font-size: clamp(38px, 5.6vw, 84px);
+  font-size: clamp(38px, 5.6vw, 61px);
   line-height: 0.95;
   letter-spacing: -0.03em;
   font-weight: 700;
@@ -533,12 +539,12 @@ button { font: inherit; cursor: pointer; }
 
 /* The oversized invisible -> recommended statement */
 .shift-statement {
-  font-size: clamp(44px, 9vw, 150px);
+  font-size: clamp(44px, 9vw, 98px);
   line-height: 0.86;
   letter-spacing: -0.04em;
   font-weight: 900;
   text-transform: lowercase;
-  margin: 0 0 clamp(40px, 5vw, 72px);
+  margin: 0 0 clamp(40px, 5vw, 54px);
 }
 .shift-statement .strike {
   color: var(--ink-soft);
@@ -548,7 +554,7 @@ button { font: inherit; cursor: pointer; }
 .shift-statement .becomes {
   display: block;
   font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: clamp(12px, 1.1vw, 15px);
+  font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -566,9 +572,9 @@ button { font: inherit; cursor: pointer; }
 .pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(24px, 3vw, 48px);
+  gap: clamp(24px, 3vw, 33px);
   border-top: 1px solid var(--rule);
-  padding-top: clamp(24px, 3vw, 40px);
+  padding-top: clamp(24px, 3vw, 33px);
 }
 .pair h3 {
   font-family: "Geist Mono", ui-monospace, monospace;
@@ -581,7 +587,7 @@ button { font: inherit; cursor: pointer; }
 }
 .pair p {
   margin: 0;
-  font-size: clamp(16px, 1.35vw, 20px);
+  font-size: 16px;
   line-height: 1.45;
   color: var(--ink-soft);
   max-width: 48ch;
@@ -589,13 +595,13 @@ button { font: inherit; cursor: pointer; }
 
 /* The query a buyer actually types - brag's tilted prompt, repurposed */
 .query {
-  margin: clamp(32px, 4vw, 52px) 0 0;
+  margin: clamp(32px, 4vw, 44px) 0 0;
   display: grid;
   justify-items: start;
   gap: 12px;
 }
 .query-lead {
-  font-size: clamp(16px, 1.5vw, 21px);
+  font-size: clamp(16px, 1.5vw, 16.3px);
   font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--ink-soft);
@@ -607,7 +613,7 @@ button { font: inherit; cursor: pointer; }
   gap: 0.55em;
   max-width: 100%;
   font-family: "Geist Mono", ui-monospace, monospace;
-  font-size: clamp(16px, 1.9vw, 27px);
+  font-size: clamp(16px, 1.9vw, 20.7px);
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -632,11 +638,11 @@ button { font: inherit; cursor: pointer; }
 
 /* Chart */
 .chart-wrap {
-  margin-top: clamp(48px, 6vw, 88px);
+  margin-top: clamp(48px, 6vw, 65px);
   background: var(--elev);
   border: 1px solid var(--rule);
   border-radius: var(--radius-lg);
-  padding: clamp(20px, 2.6vw, 34px);
+  padding: clamp(20px, 2.6vw, 28px);
 }
 .chart-head {
   display: flex;
@@ -655,7 +661,7 @@ button { font: inherit; cursor: pointer; }
   color: var(--ink-soft);
 }
 .chart-title {
-  font-size: clamp(18px, 1.8vw, 24px);
+  font-size: clamp(18px, 1.8vw, 19.6px);
   font-weight: 600;
   letter-spacing: -0.02em;
   text-transform: lowercase;
@@ -716,13 +722,13 @@ button { font: inherit; cursor: pointer; }
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(16px, 1.6vw, 24px);
+  gap: clamp(16px, 1.6vw, 17.4px);
 }
 .item {
   background: var(--elev);
   border: 1px solid var(--rule);
   border-radius: var(--radius-md);
-  padding: clamp(20px, 2.2vw, 30px);
+  padding: clamp(20px, 2.2vw, 24px);
   display: grid;
   gap: 12px;
   align-content: start;
@@ -742,7 +748,7 @@ button { font: inherit; cursor: pointer; }
 }
 .item h3 {
   margin: 0;
-  font-size: clamp(19px, 1.7vw, 24px);
+  font-size: 19px;
   line-height: 1.1;
   letter-spacing: -0.025em;
   font-weight: 600;
@@ -771,8 +777,8 @@ button { font: inherit; cursor: pointer; }
 .defs {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(16px, 2vw, 28px);
-  margin-bottom: clamp(32px, 4vw, 52px);
+  gap: clamp(16px, 2vw, 21.8px);
+  margin-bottom: clamp(32px, 4vw, 44px);
   font-family: "Geist Mono", ui-monospace, monospace;
   font-size: 13px;
   line-height: 1.6;
@@ -785,19 +791,19 @@ button { font: inherit; cursor: pointer; }
 .outro {
   background: var(--hero-bg);
   color: var(--hero-ink);
-  padding: clamp(80px, 12vw, 180px) clamp(20px, 3vw, 40px) clamp(40px, 5vw, 60px);
+  padding: clamp(80px, 12vw, 131px) clamp(20px, 3vw, 40px) clamp(40px, 5vw, 54px);
   display: grid;
-  gap: clamp(40px, 5vw, 64px);
+  gap: clamp(40px, 5vw, 54px);
 }
 .outro-inner {
   max-width: var(--max-page);
   margin: 0 auto;
   width: 100%;
   display: grid;
-  gap: clamp(40px, 5vw, 64px);
+  gap: clamp(40px, 5vw, 54px);
 }
 .outro-headline {
-  font-size: clamp(48px, 11vw, 180px);
+  font-size: clamp(48px, 11vw, 120px);
   line-height: 0.86;
   letter-spacing: -0.04em;
   font-weight: 900;
@@ -814,11 +820,11 @@ button { font: inherit; cursor: pointer; }
 .outro-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, auto);
-  gap: clamp(24px, 4vw, 56px);
+  gap: clamp(24px, 4vw, 44px);
   align-items: start;
 }
 .outro-meta {
-  font-size: clamp(17px, 1.4vw, 21px);
+  font-size: 17px;
   line-height: 1.35;
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -1039,7 +1045,7 @@ button { font: inherit; cursor: pointer; }
         </div>
       </div>
 
-      <div class="grid reveal" style="margin-top: clamp(28px, 3vw, 44px);">
+      <div class="grid reveal" style="margin-top: clamp(28px, 3vw, 33px);">
         <article class="item">
           <span class="item-no">01 / traffic</span>
           <h3>the right visitors</h3>
