@@ -1,12 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="TakeMyLead">
-  <rect width="100" height="100" rx="22" fill="#B2431C"/>
-  <!-- Serif T drawn as paths so it renders identically without a web font -->
-  <g fill="#FAF8F4">
-    <rect x="19" y="21" width="62" height="11.5"/>
-    <rect x="19" y="32.5" width="7.5" height="6.5"/>
-    <rect x="73.5" y="32.5" width="7.5" height="6.5"/>
-    <rect x="44.25" y="21" width="11.5" height="54"/>
-    <path d="M36 80.5c5-.9 7-2.6 7-7.5h14c0 4.9 2 6.6 7 7.5z"/>
-    <rect x="36" y="76.5" width="28" height="4"/>
+  <!-- The hero's two colours, converted from its oklch tokens:
+       #f4430c is --hero-bg, #210200 is --hero-ink. -->
+  <rect width="100" height="100" rx="22" fill="#f4430c"/>
+  <!-- A heavy lowercase t, matching the wordmark and the hero headline.
+       Stem and foot are one stroked path, so the bend stays even; the
+       curve leaves the stem vertically, which keeps the join seamless.
+       Geometry is identical to the PNG icons. -->
+  <g fill="none" stroke="#210200" stroke-width="15" stroke-linecap="butt">
+    <path d="M48 16 V64 C48 75 57 77.5 73 77.5"/>
   </g>
+  <rect x="24" y="33" width="48" height="14" fill="#210200"/>
 </svg>
