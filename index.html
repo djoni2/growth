@@ -585,11 +585,12 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* "invisible." is the problem the page exists to solve, so it is the one
-   thing here that does not hold still. Every four seconds the word fails for
-   about a third of a second: it drops most of the way to the paper, the ink
-   mis-registers into a warm pass and a cold one that tear off in opposite
-   directions, and bands of it stop printing altogether. Timed in hard steps
-   rather than eased fades - nothing that breaks eases.
+   thing here that does not hold still. Every four seconds the word goes
+   through a full second of failing, in three acts: two warning blinks, the
+   print breaking up - the ink mis-registering into a warm pass and a cold
+   one that tear off in opposite directions while bands of it stop printing
+   altogether - and then a recovery that does not hold and goes again. Timed
+   in hard steps rather than eased fades: nothing that breaks eases.
    Gated on .is-visible, the class the reveal observer sets, so the failure
    starts the moment the statement is first read rather than off screen. */
 .shift-statement .strike {
@@ -598,6 +599,10 @@ button { font: inherit; cursor: pointer; }
   color: var(--ink-soft);
   text-decoration-line: line-through;
   text-decoration-thickness: 0.055em;
+  /* Pinned rather than left at currentColor: the animation empties the
+     letters by turning the text transparent, and the line through them has
+     to survive that. */
+  text-decoration-color: var(--ink-soft);
   /* Under strength even at rest: this is the word nobody finds. */
   opacity: 0.82;
 }
@@ -622,47 +627,72 @@ button { font: inherit; cursor: pointer; }
   color: var(--knock-bg);
   animation: ghost-cold 4s steps(1, end) infinite;
 }
-/* Six states over a third of a second, held for 40-100ms each so the hits
-   land unevenly - a regular stutter reads as a loop, an uneven one reads as
-   something failing. Offsets, blur and the mask's bands are all in em, so the
-   tear is the same size relative to the type at every width. */
+/* Roughly a second of failing, built from fifteen states held 40-160ms each.
+   The pace is the same throughout - what makes it read as broken rather than
+   as a loop is that the holds are uneven and the failure happens three times,
+   each one arriving before the word has got back to full strength. Offsets,
+   blur and the mask's bands are all in em, so the tear is the same size
+   relative to the type at every width. */
 @keyframes ghost-fail {
-  0%, 75% { opacity: 0.82; transform: none; filter: none;
+  0%      { opacity: 0.82; color: var(--ink-soft); transform: none; filter: none;
             -webkit-mask-image: none; mask-image: none; }
-  /* gone */
-  76%     { opacity: 0.1; transform: translate3d(-0.04em, 0, 0); }
-  /* back, but torn and off-register */
-  77%     { opacity: 0.88; transform: translate3d(0.022em, 0, 0); filter: blur(0.012em);
+  /* one: two warning blinks, a breath apart - the word is about to go */
+  67%     { opacity: 0.08; }
+  68%     { opacity: 0.82; }
+  70%     { opacity: 0.05; }
+  71%     { opacity: 0.82; }
+  /* two: the print breaks up - torn, gone, torn worse */
+  74%     { opacity: 0.9; transform: translate3d(0.022em, 0, 0); filter: blur(0.012em);
             -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0 0.085em, transparent 0.085em 0.15em);
                     mask-image: repeating-linear-gradient(to bottom, #000 0 0.085em, transparent 0.085em 0.15em); }
-  /* gone again, longer */
-  79%     { opacity: 0.06; transform: none; filter: none;
+  75.5%   { opacity: 0.04; transform: none; filter: none;
             -webkit-mask-image: none; mask-image: none; }
-  /* the worst of it: coarser bands, further off-register */
-  80%     { opacity: 0.92; transform: translate3d(0.045em, 0, 0); filter: blur(0.008em);
+  76.5%   { opacity: 0.94; transform: translate3d(0.045em, 0, 0); filter: blur(0.008em);
             -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0 0.12em, transparent 0.12em 0.17em);
                     mask-image: repeating-linear-gradient(to bottom, #000 0 0.12em, transparent 0.12em 0.17em); }
-  /* nearly recovered, still dim */
-  82.5%   { opacity: 0.34; transform: none; filter: none;
+  /* the beat the rest of it exists to set up, and the longest hold in the
+     sequence: the letters empty out and the line through them stays, so for
+     a sixth of a second the word is crossed out and not there at once. */
+  78%     { opacity: 1; color: transparent; transform: none; filter: none;
             -webkit-mask-image: none; mask-image: none; }
-  84%     { opacity: 0.82; }
+  /* three: it comes back wrong, tears again, and relapses before settling */
+  82%     { opacity: 0.2; color: var(--ink-soft); }
+  83.5%   { opacity: 0.86; transform: translate3d(-0.03em, 0, 0); filter: blur(0.01em);
+            -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0 0.085em, transparent 0.085em 0.15em);
+                    mask-image: repeating-linear-gradient(to bottom, #000 0 0.085em, transparent 0.085em 0.15em); }
+  85%     { opacity: 0.06; transform: none; filter: none;
+            -webkit-mask-image: none; mask-image: none; }
+  86%     { opacity: 0.5; }
+  88%     { opacity: 0.12; }
+  89%     { opacity: 0.68; }
+  91%     { opacity: 0.82; }
   100%    { opacity: 0.82; }
 }
-/* The two passes only exist for the frames the word is torn, and each takes a
-   different band of it, so the two tears never line up. The warm pass leaves
-   one band behind on the recovery frame - the ink settles last. */
+/* The two off-register passes exist only for the frames the word is torn, and
+   each takes a different band of it, so the two tears never line up. The warm
+   one leaves a band behind on the recovery - the ink settles last. */
 @keyframes ghost-warm {
-  0%, 75%, 76%, 79%, 84%, 100% { opacity: 0; clip-path: inset(50% 0 50% 0); transform: none; }
-  77%     { opacity: 0.95; clip-path: inset(6% 0 60% 0);  transform: translate3d(-0.1em, -0.012em, 0); }
-  80%     { opacity: 0.85; clip-path: inset(34% 0 34% 0); transform: translate3d(-0.12em, 0.01em, 0); }
-  82.5%   { opacity: 0.4;  clip-path: inset(54% 0 26% 0); transform: translate3d(0.03em, 0, 0); }
+  0%      { opacity: 0; clip-path: inset(50% 0 50% 0); transform: none; }
+  74%     { opacity: 0.95; clip-path: inset(6% 0 60% 0);  transform: translate3d(-0.1em, -0.012em, 0); }
+  75.5%   { opacity: 0; }
+  76.5%   { opacity: 0.85; clip-path: inset(34% 0 34% 0); transform: translate3d(-0.12em, 0.01em, 0); }
+  78%     { opacity: 0; }
+  83.5%   { opacity: 0.8; clip-path: inset(18% 0 50% 0); transform: translate3d(0.085em, -0.01em, 0); }
+  85%     { opacity: 0; }
+  86%     { opacity: 0.4; clip-path: inset(54% 0 26% 0); transform: translate3d(0.03em, 0, 0); }
+  88%     { opacity: 0; }
+  100%    { opacity: 0; }
 }
 @keyframes ghost-cold {
-  0%, 75%, 76%, 79%, 82.5%, 100% { opacity: 0; clip-path: inset(50% 0 50% 0); transform: none; }
-  77%     { opacity: 0.7; clip-path: inset(44% 0 28% 0); transform: translate3d(0.1em, 0.012em, 0); }
-  80%     { opacity: 0.8; clip-path: inset(66% 0 6% 0);  transform: translate3d(0.09em, -0.01em, 0); }
+  0%      { opacity: 0; clip-path: inset(50% 0 50% 0); transform: none; }
+  74%     { opacity: 0.7; clip-path: inset(44% 0 28% 0); transform: translate3d(0.1em, 0.012em, 0); }
+  75.5%   { opacity: 0; }
+  76.5%   { opacity: 0.8; clip-path: inset(66% 0 6% 0);  transform: translate3d(0.09em, -0.01em, 0); }
+  78%     { opacity: 0; }
+  83.5%   { opacity: 0.6; clip-path: inset(58% 0 16% 0); transform: translate3d(-0.07em, 0.012em, 0); }
+  85%     { opacity: 0; }
+  100%    { opacity: 0; }
 }
-
 /* Two-column prose pair */
 .pair {
   display: grid;
