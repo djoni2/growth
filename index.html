@@ -193,20 +193,27 @@ button { font: inherit; cursor: pointer; }
 
 /* === Hero === */
 .hero {
-  /* The header sits above in normal flow, so the hero takes the rest. */
-  min-height: calc(100svh - 56px);
+  /* Sized by its content, not by the window. This used to be
+     min-height: calc(100svh - 56px) with .hero-main centred inside a 1fr row,
+     and the content only comes to about 570px: on a 980px-tall window that
+     left roughly 180px of empty orange above the headline and 230px below it.
+     Ending the hero where its content ends closes both gaps, and letting the
+     next band show at the bottom of the window is what tells the reader there
+     is more to scroll - which a hero padded out with dead space does not.
+
+     Spacing is in svh so it breathes on a tall window and tightens on a short
+     one, and svh rather than vh so a mobile toolbar sliding away does not
+     resize the hero mid-scroll. */
   background: var(--hero-bg);
   color: var(--hero-ink);
   display: grid;
-  grid-template-rows: 1fr auto;
-  padding: clamp(24px, 3vw, 33px) clamp(20px, 3vw, 40px) clamp(20px, 3vw, 40px);
-  gap: clamp(36px, 5vw, 54px);
+  padding: clamp(28px, 4.5svh, 56px) clamp(20px, 3vw, 40px) clamp(28px, 4svh, 48px);
+  gap: clamp(40px, 7svh, 80px);
   position: relative;
   overflow: hidden;
 }
 
 .hero-main {
-  align-self: center;
   max-width: var(--max-page);
   margin: 0 auto;
   width: 100%;
@@ -1281,6 +1288,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // full opacity for as long as it is still over the image, then tumbles onto
   // its side and slides away once it is clear of it.
   const portrait = document.querySelector('.hero-portrait');
+  const hero = portrait && portrait.closest('.hero');
   if (portrait && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const WORDS = [
       'SEO', 'Design', 'AI GEO', 'Ranking', 'Conversion', 'Visibility',
@@ -1407,9 +1415,13 @@ document.addEventListener('DOMContentLoaded', () => {
       el.style.top = placed.topPct.toFixed(1) + '%';
       el.dataset.side = String(placed.side);
 
-      // Distance to the tile's top edge, then the stretch past it.
+      // Distance to the tile's top edge, then the stretch past it. The hero
+      // clips its own overflow, so the stretch is also bounded by the space
+      // actually left above the portrait - without that the pills would be
+      // cut off mid-fade rather than finishing it.
       const toEdge = rect.height * (placed.topPct / 100);
-      const beyond = rect.height * BEYOND;
+      const headroom = hero ? rect.top - hero.getBoundingClientRect().top - 6 : Infinity;
+      const beyond = Math.max(44, Math.min(rect.height * BEYOND, headroom));
       const rise = toEdge + beyond;
       const dur = (rise / SPEED) * 1000;
       // The travel is linear, so time and distance line up: the fade can start
